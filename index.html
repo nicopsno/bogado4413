@@ -1,0 +1,902 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); background: var(--color-background-tertiary); min-height: 100vh; }
+
+  #app-root { min-height: 600px; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* LOGIN */
+  #login-page {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+    background: var(--color-background-tertiary);
+  }
+  #login-page.active { display: flex; }
+
+  .login-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem 2rem;
+    width: 340px;
+  }
+  .login-logo {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .login-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+  }
+  .login-sub {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+  }
+  .field-label {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .field-group { margin-bottom: 1rem; }
+  .login-card input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    font-size: 14px;
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+  }
+  .login-btn {
+    width: 100%;
+    padding: 10px;
+    background: #1a2744;
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+  .login-btn:hover { background: #243560; }
+  .login-error {
+    font-size: 12px;
+    color: var(--color-text-danger);
+    margin-top: 0.5rem;
+    min-height: 18px;
+  }
+
+  /* MAIN LAYOUT */
+  #main-page { display: none; }
+  #main-page.active { display: flex; min-height: 600px; }
+
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+    background: #1a2744;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+  }
+  .sidebar-brand {
+    padding: 0 1.25rem 1.5rem;
+    border-bottom: 0.5px solid rgba(255,255,255,0.1);
+  }
+  .sidebar-brand-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+  }
+  .sidebar-brand-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    margin-top: 2px;
+  }
+  .sidebar-nav { padding: 1rem 0; flex: 1; }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 1.25rem;
+    cursor: pointer;
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .nav-item.active { color: #fff; border-left-color: #6fa8dc; background: rgba(255,255,255,0.1); }
+  .nav-item i { font-size: 16px; }
+  .sidebar-user {
+    padding: 1rem 1.25rem;
+    border-top: 0.5px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .user-avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500; color: #fff;
+  }
+  .user-name { font-size: 12px; color: rgba(255,255,255,0.8); }
+  .logout-btn {
+    margin-left: auto;
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.4); font-size: 14px;
+  }
+  .logout-btn:hover { color: #fff; }
+
+  /* CONTENT */
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: var(--color-background-tertiary);
+  }
+  .content-header {
+    margin-bottom: 1.5rem;
+  }
+  .content-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .content-sub {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+  }
+
+  /* TABS */
+  .tab-section { display: none; }
+  .tab-section.active { display: block; }
+
+  /* METRIC CARDS */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .metric-card {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+  }
+  .metric-label {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .metric-value {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .metric-value.green { color: var(--color-text-success); }
+  .metric-value.red { color: var(--color-text-danger); }
+  .metric-value.blue { color: var(--color-text-info); }
+  .metric-sub {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin-top: 4px;
+  }
+
+  /* SECTION CARD */
+  .section-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .section-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .section-card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  /* ACTION BUTTON */
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: #1a2744;
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .action-btn:hover { background: #243560; }
+  .action-btn.secondary {
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    border: 0.5px solid var(--color-border-secondary);
+  }
+  .action-btn.secondary:hover { background: var(--color-background-tertiary); }
+
+  /* TABLE */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  .data-table th {
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .data-table td {
+    padding: 10px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    color: var(--color-text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--color-background-secondary); }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .badge-success { background: var(--color-background-success); color: var(--color-text-success); }
+  .badge-warning { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .badge-info { background: var(--color-background-info); color: var(--color-text-info); }
+  .badge-anulado { background: var(--color-background-danger); color: var(--color-text-danger); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 100;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 60px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    width: 460px;
+    max-width: 95%;
+  }
+  .modal-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 1.25rem;
+  }
+  .form-row { margin-bottom: 1rem; }
+  .form-row label {
+    display: block;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    font-size: 13px;
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+  }
+  .form-row textarea { resize: vertical; min-height: 70px; }
+  .form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.25rem; }
+
+  /* PLANOS */
+  .planos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .plano-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .plano-thumb {
+    background: var(--color-background-secondary);
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-tertiary);
+    font-size: 32px;
+  }
+  .plano-info { padding: 10px 12px; }
+  .plano-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .plano-detail { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+
+  /* PROGRESS BAR */
+  .progress-bar-bg {
+    height: 6px;
+    background: var(--color-background-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #1a2744;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2.5rem;
+    color: var(--color-text-tertiary);
+    font-size: 13px;
+  }
+  .empty-state i { font-size: 32px; display: block; margin-bottom: 8px; }
+
+  #wrapper { position: relative; min-height: 600px; }
+</style>
+
+<div id="wrapper">
+
+<div id="login-page" class="active">
+  <div class="login-card">
+    <div class="login-logo">Obra Bogado 4413</div>
+    <div class="login-title">Portal de Seguimiento</div>
+    <div class="login-sub">Acceso exclusivo para inversores</div>
+    <div class="field-group">
+      <label class="field-label">Usuario</label>
+      <input type="text" id="login-user" placeholder="nombre de usuario" />
+    </div>
+    <div class="field-group">
+      <label class="field-label">Contraseña</label>
+      <input type="password" id="login-pass" placeholder="••••••••" />
+    </div>
+    <button class="login-btn" onclick="doLogin()">Ingresar</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<div id="main-page">
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-label">Obra</div>
+      <div class="sidebar-brand-name">Bogado 4413</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showTab('dashboard',this)" aria-label="Dashboard">
+        <i class="ti ti-layout-dashboard" aria-hidden="true"></i> Dashboard
+      </div>
+      <div class="nav-item" onclick="showTab('gastos',this)" aria-label="Gastos">
+        <i class="ti ti-receipt" aria-hidden="true"></i> Gastos
+      </div>
+      <div class="nav-item" onclick="showTab('aportes',this)" aria-label="Aportes">
+        <i class="ti ti-cash" aria-hidden="true"></i> Aportes
+      </div>
+      <div class="nav-item" onclick="showTab('facturas',this)" aria-label="Facturas">
+        <i class="ti ti-file-invoice" aria-hidden="true"></i> Facturas
+      </div>
+      <div class="nav-item" onclick="showTab('planos',this)" aria-label="Planos">
+        <i class="ti ti-ruler-2" aria-hidden="true"></i> Planos
+      </div>
+      <div class="nav-item" onclick="showTab('auditoria',this)" aria-label="Auditoría">
+        <i class="ti ti-list-check" aria-hidden="true"></i> Auditoría
+      </div>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="user-initials">--</div>
+      <div class="user-name" id="user-display">--</div>
+      <button class="logout-btn" onclick="doLogout()" aria-label="Cerrar sesión">
+        <i class="ti ti-logout" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="tab-section active">
+      <div class="content-header">
+        <div class="content-title">Dashboard</div>
+        <div class="content-sub">Resumen financiero del proyecto</div>
+      </div>
+      <div class="metrics-grid" id="metrics-grid"></div>
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">Avance de obra — porcentaje gastado</div>
+        </div>
+        <div style="font-size:13px; color:var(--color-text-secondary);">Gastado vs. Presupuesto total estimado</div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+        <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:6px;" id="progress-label"></div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">Últimos movimientos</div>
+        </div>
+        <table class="data-table">
+          <colgroup>
+            <col style="width:90px"><col style="width:55px"><col><col style="width:100px"><col style="width:70px">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Fecha</th><th>Tipo</th><th>Descripción</th><th>Monto</th><th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="recent-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GASTOS -->
+    <div id="tab-gastos" class="tab-section">
+      <div class="content-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+        <div>
+          <div class="content-title">Gastos</div>
+          <div class="content-sub">Registro de todos los egresos del proyecto</div>
+        </div>
+        <button class="action-btn" onclick="openModal('gasto')">
+          <i class="ti ti-plus" aria-hidden="true"></i> Nuevo gasto
+        </button>
+      </div>
+      <div class="section-card">
+        <table class="data-table">
+          <colgroup>
+            <col style="width:90px"><col><col style="width:90px"><col style="width:100px"><col style="width:75px">
+          </colgroup>
+          <thead>
+            <tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th>Monto</th><th>Tipo</th></tr>
+          </thead>
+          <tbody id="gastos-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- APORTES -->
+    <div id="tab-aportes" class="tab-section">
+      <div class="content-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+        <div>
+          <div class="content-title">Aportes</div>
+          <div class="content-sub">Registro de ingresos y compromisos de inversores</div>
+        </div>
+        <button class="action-btn" onclick="openModal('aporte')">
+          <i class="ti ti-plus" aria-hidden="true"></i> Nuevo aporte
+        </button>
+      </div>
+      <div class="section-card">
+        <table class="data-table">
+          <colgroup>
+            <col style="width:90px"><col><col style="width:100px"><col style="width:100px"><col style="width:75px">
+          </colgroup>
+          <thead>
+            <tr><th>Fecha</th><th>Descripción</th><th>Inversor</th><th>Monto</th><th>Estado</th></tr>
+          </thead>
+          <tbody id="aportes-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FACTURAS -->
+    <div id="tab-facturas" class="tab-section">
+      <div class="content-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+        <div>
+          <div class="content-title">Facturas</div>
+          <div class="content-sub">Documentos respaldatorios de gastos</div>
+        </div>
+        <button class="action-btn" onclick="openModal('factura')">
+          <i class="ti ti-upload" aria-hidden="true"></i> Cargar factura
+        </button>
+      </div>
+      <div class="section-card">
+        <table class="data-table">
+          <colgroup>
+            <col style="width:90px"><col><col><col style="width:100px"><col style="width:75px">
+          </colgroup>
+          <thead>
+            <tr><th>Fecha</th><th>Proveedor</th><th>Descripción</th><th>Monto</th><th>Estado</th></tr>
+          </thead>
+          <tbody id="facturas-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PLANOS -->
+    <div id="tab-planos" class="tab-section">
+      <div class="content-header">
+        <div class="content-title">Planos</div>
+        <div class="content-sub">Planta Baja — Pisos 1° a 7°</div>
+      </div>
+      <div class="planos-grid">
+        <div class="plano-card">
+          <div class="plano-thumb"><i class="ti ti-building" aria-hidden="true"></i></div>
+          <div class="plano-info">
+            <div class="plano-name">Planta Baja</div>
+            <div class="plano-detail">Local comercial</div>
+          </div>
+        </div>
+        <div class="plano-card">
+          <div class="plano-thumb"><i class="ti ti-layers-subtract" aria-hidden="true"></i></div>
+          <div class="plano-info">
+            <div class="plano-name">Planta Tipo — 1° a 5°</div>
+            <div class="plano-detail">3 unidades · 30,50 / 27,38 / 34,17 m²</div>
+          </div>
+        </div>
+        <div class="plano-card">
+          <div class="plano-thumb"><i class="ti ti-layers-subtract" aria-hidden="true"></i></div>
+          <div class="plano-info">
+            <div class="plano-name">Primer Retiro — 6°</div>
+            <div class="plano-detail">2 unidades · 61,40 / 20,42 m²</div>
+          </div>
+        </div>
+        <div class="plano-card">
+          <div class="plano-thumb"><i class="ti ti-layers-subtract" aria-hidden="true"></i></div>
+          <div class="plano-info">
+            <div class="plano-name">Segundo Retiro — 7° Op. A</div>
+            <div class="plano-detail">65,92 m² + terraza 15,61 m²</div>
+          </div>
+        </div>
+        <div class="plano-card">
+          <div class="plano-thumb"><i class="ti ti-layers-subtract" aria-hidden="true"></i></div>
+          <div class="plano-info">
+            <div class="plano-name">Segundo Retiro — 7° Op. B</div>
+            <div class="plano-detail">57,58 m² + terraza 15,61 m²</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUDITORÍA -->
+    <div id="tab-auditoria" class="tab-section">
+      <div class="content-header">
+        <div class="content-title">Auditoría</div>
+        <div class="content-sub">Historial completo de cargas — inmutable</div>
+      </div>
+      <div class="section-card">
+        <table class="data-table">
+          <colgroup>
+            <col style="width:130px"><col style="width:65px"><col style="width:70px"><col><col style="width:100px">
+          </colgroup>
+          <thead>
+            <tr><th>Fecha y hora</th><th>Usuario</th><th>Tipo</th><th>Detalle</th><th>Monto</th></tr>
+          </thead>
+          <tbody id="audit-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-title" id="modal-title">Nuevo registro</div>
+    <div id="modal-body"></div>
+    <div class="form-actions">
+      <button class="action-btn secondary" onclick="closeModal()">Cancelar</button>
+      <button class="action-btn" onclick="submitModal()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const USERS = {
+  "manu": { pass: "obra2024", display: "Manu", initials: "MA" },
+  "admin": { pass: "bogado4413", display: "Admin", initials: "AD" }
+};
+
+let currentUser = null;
+let currentModalType = null;
+
+const DB = {
+  gastos: JSON.parse(localStorage.getItem('ob_gastos') || '[]'),
+  aportes: JSON.parse(localStorage.getItem('ob_aportes') || '[]'),
+  facturas: JSON.parse(localStorage.getItem('ob_facturas') || '[]'),
+  audit: JSON.parse(localStorage.getItem('ob_audit') || '[]')
+};
+
+function save(key) { localStorage.setItem('ob_' + key, JSON.stringify(DB[key])); }
+
+function fmtMoney(n) {
+  return '$' + Number(n).toLocaleString('es-AR', {minimumFractionDigits:0, maximumFractionDigits:0});
+}
+function fmtDate(iso) {
+  return iso ? iso.substring(0,10).split('-').reverse().join('/') : '';
+}
+function now() { return new Date().toISOString(); }
+function nowDate() { return new Date().toISOString().substring(0,10); }
+
+function doLogin() {
+  const u = document.getElementById('login-user').value.trim().toLowerCase();
+  const p = document.getElementById('login-pass').value;
+  const err = document.getElementById('login-error');
+  if (USERS[u] && USERS[u].pass === p) {
+    currentUser = { id: u, ...USERS[u] };
+    document.getElementById('user-display').textContent = currentUser.display;
+    document.getElementById('user-initials').textContent = currentUser.initials;
+    document.getElementById('login-page').classList.remove('active');
+    document.getElementById('main-page').classList.add('active');
+    renderAll();
+    err.textContent = '';
+  } else {
+    err.textContent = 'Usuario o contraseña incorrectos.';
+  }
+}
+
+function doLogout() {
+  currentUser = null;
+  document.getElementById('main-page').classList.remove('active');
+  document.getElementById('login-page').classList.add('active');
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+}
+
+document.getElementById('login-pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+function showTab(name, el) {
+  document.querySelectorAll('.tab-section').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if(el) el.classList.add('active');
+  if(name==='dashboard') renderDashboard();
+}
+
+function renderAll() {
+  renderDashboard();
+  renderGastos();
+  renderAportes();
+  renderFacturas();
+  renderAudit();
+}
+
+function renderDashboard() {
+  const totalGastado = DB.gastos.filter(g=>!g.anulado).reduce((s,g)=>s+Number(g.monto),0);
+  const totalAportado = DB.aportes.filter(a=>!a.anulado).reduce((s,a)=>s+Number(a.monto),0);
+  const presupuesto = 50000000;
+  const saldo = totalAportado - totalGastado;
+  const pct = presupuesto > 0 ? Math.min(100, Math.round(totalGastado/presupuesto*100)) : 0;
+
+  document.getElementById('metrics-grid').innerHTML = `
+    <div class="metric-card"><div class="metric-label">Total aportado</div><div class="metric-value green">${fmtMoney(totalAportado)}</div><div class="metric-sub">acumulado</div></div>
+    <div class="metric-card"><div class="metric-label">Total gastado</div><div class="metric-value red">${fmtMoney(totalGastado)}</div><div class="metric-sub">acumulado</div></div>
+    <div class="metric-card"><div class="metric-label">Saldo disponible</div><div class="metric-value ${saldo>=0?'blue':'red'}">${fmtMoney(saldo)}</div><div class="metric-sub">aportado − gastado</div></div>
+    <div class="metric-card"><div class="metric-label">Registros</div><div class="metric-value">${DB.gastos.length + DB.aportes.length}</div><div class="metric-sub">total cargas</div></div>
+  `;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = pct + '% del presupuesto estimado utilizado';
+
+  const all = [
+    ...DB.gastos.map(g=>({...g, _tipo:'Gasto'})),
+    ...DB.aportes.map(a=>({...a, _tipo:'Aporte'}))
+  ].sort((a,b)=>b.ts.localeCompare(a.ts)).slice(0,8);
+
+  const tbody = document.getElementById('recent-tbody');
+  tbody.innerHTML = all.length ? all.map(r=>`
+    <tr>
+      <td>${fmtDate(r.fecha)}</td>
+      <td><span class="badge ${r._tipo==='Aporte'?'badge-success':'badge-info'}">${r._tipo}</span></td>
+      <td title="${r.descripcion}">${r.descripcion}</td>
+      <td>${fmtMoney(r.monto)}</td>
+      <td>${r.anulado?'<span class="badge badge-anulado">Anulado</span>':'<span class="badge badge-success">Activo</span>'}</td>
+    </tr>`).join('') : '<tr><td colspan="5"><div class="empty-state">Sin movimientos aún</div></td></tr>';
+}
+
+function renderGastos() {
+  const tbody = document.getElementById('gastos-tbody');
+  const sorted = [...DB.gastos].sort((a,b)=>b.ts.localeCompare(a.ts));
+  tbody.innerHTML = sorted.length ? sorted.map(g=>`
+    <tr>
+      <td>${fmtDate(g.fecha)}</td>
+      <td title="${g.descripcion}">${g.descripcion}</td>
+      <td>${g.categoria||'—'}</td>
+      <td>${fmtMoney(g.monto)}</td>
+      <td>${g.sinFactura?'<span class="badge badge-warning">Sin factura</span>':'<span class="badge badge-success">Con factura</span>'}
+      ${g.anulado?'<br><span class="badge badge-anulado">Anulado</span>':''}</td>
+    </tr>`).join('') : '<tr><td colspan="5"><div class="empty-state"><i class="ti ti-receipt" aria-hidden="true"></i>Sin gastos registrados</div></td></tr>';
+}
+
+function renderAportes() {
+  const tbody = document.getElementById('aportes-tbody');
+  const sorted = [...DB.aportes].sort((a,b)=>b.ts.localeCompare(a.ts));
+  tbody.innerHTML = sorted.length ? sorted.map(a=>`
+    <tr>
+      <td>${fmtDate(a.fecha)}</td>
+      <td title="${a.descripcion}">${a.descripcion}</td>
+      <td>${a.inversor||'—'}</td>
+      <td>${fmtMoney(a.monto)}</td>
+      <td>${a.anulado?'<span class="badge badge-anulado">Anulado</span>':'<span class="badge badge-success">Activo</span>'}</td>
+    </tr>`).join('') : '<tr><td colspan="5"><div class="empty-state"><i class="ti ti-cash" aria-hidden="true"></i>Sin aportes registrados</div></td></tr>';
+}
+
+function renderFacturas() {
+  const tbody = document.getElementById('facturas-tbody');
+  const sorted = [...DB.facturas].sort((a,b)=>b.ts.localeCompare(a.ts));
+  tbody.innerHTML = sorted.length ? sorted.map(f=>`
+    <tr>
+      <td>${fmtDate(f.fecha)}</td>
+      <td title="${f.proveedor}">${f.proveedor}</td>
+      <td title="${f.descripcion}">${f.descripcion}</td>
+      <td>${fmtMoney(f.monto)}</td>
+      <td>${f.anulado?'<span class="badge badge-anulado">Anulado</span>':'<span class="badge badge-success">Activa</span>'}</td>
+    </tr>`).join('') : '<tr><td colspan="5"><div class="empty-state"><i class="ti ti-file-invoice" aria-hidden="true"></i>Sin facturas cargadas</div></td></tr>';
+}
+
+function renderAudit() {
+  const tbody = document.getElementById('audit-tbody');
+  const sorted = [...DB.audit].sort((a,b)=>b.ts.localeCompare(a.ts));
+  tbody.innerHTML = sorted.length ? sorted.map(a=>`
+    <tr>
+      <td style="font-size:11px;white-space:nowrap;">${a.ts.replace('T',' ').substring(0,16)}</td>
+      <td>${a.usuario}</td>
+      <td><span class="badge badge-info">${a.tipo}</span></td>
+      <td title="${a.detalle}" style="font-size:12px;">${a.detalle}</td>
+      <td>${a.monto?fmtMoney(a.monto):'—'}</td>
+    </tr>`).join('') : '<tr><td colspan="5"><div class="empty-state">Sin registros en auditoría</div></td></tr>';
+}
+
+function openModal(type) {
+  currentModalType = type;
+  const overlay = document.getElementById('modal-overlay');
+  const title = document.getElementById('modal-title');
+  const body = document.getElementById('modal-body');
+
+  if(type === 'gasto') {
+    title.textContent = 'Registrar nuevo gasto';
+    body.innerHTML = `
+      <div class="form-row"><label>Fecha</label><input type="date" id="f-fecha" value="${nowDate()}"></div>
+      <div class="form-row"><label>Descripción</label><input type="text" id="f-desc" placeholder="Ej: Compra materiales — cemento"></div>
+      <div class="form-row"><label>Categoría</label>
+        <select id="f-cat">
+          <option>Materiales</option><option>Mano de obra</option><option>Equipos</option>
+          <option>Honorarios</option><option>Administrativo</option><option>Otro</option>
+        </select>
+      </div>
+      <div class="form-row"><label>Monto ($)</label><input type="number" id="f-monto" placeholder="0"></div>
+      <div class="form-row"><label>¿Es una anulación?</label>
+        <select id="f-anulacion"><option value="no">No</option><option value="si">Sí — anulación de carga anterior</option></select>
+      </div>
+      <div id="f-anulacion-ref" style="display:none;" class="form-row"><label>Referencia de anulación (ID o descripción de la carga original)</label><input type="text" id="f-anulref" placeholder="ANULACIÓN carga #..."></div>
+      <div class="form-row"><label>¿Sin factura?</label>
+        <select id="f-sinfactura"><option value="no">No, tiene factura</option><option value="si">Sí, gasto sin factura</option></select>
+      </div>
+      <div class="form-row"><label>Observaciones (opcional)</label><textarea id="f-obs" placeholder="Notas adicionales..."></textarea></div>
+    `;
+    document.getElementById('f-anulacion').addEventListener('change', function(){
+      document.getElementById('f-anulacion-ref').style.display = this.value==='si'?'block':'none';
+    });
+  } else if(type === 'aporte') {
+    title.textContent = 'Registrar nuevo aporte';
+    body.innerHTML = `
+      <div class="form-row"><label>Fecha</label><input type="date" id="f-fecha" value="${nowDate()}"></div>
+      <div class="form-row"><label>Inversor</label><input type="text" id="f-inversor" placeholder="Nombre del inversor"></div>
+      <div class="form-row"><label>Descripción</label><input type="text" id="f-desc" placeholder="Ej: Aporte cuota 3 — junio 2025"></div>
+      <div class="form-row"><label>Monto ($)</label><input type="number" id="f-monto" placeholder="0"></div>
+      <div class="form-row"><label>¿Es una anulación?</label>
+        <select id="f-anulacion"><option value="no">No</option><option value="si">Sí — anulación de carga anterior</option></select>
+      </div>
+      <div id="f-anulacion-ref" style="display:none;" class="form-row"><label>Referencia de anulación</label><input type="text" id="f-anulref" placeholder="ANULACIÓN carga #..."></div>
+      <div class="form-row"><label>Observaciones (opcional)</label><textarea id="f-obs" placeholder="Notas adicionales..."></textarea></div>
+    `;
+    document.getElementById('f-anulacion').addEventListener('change', function(){
+      document.getElementById('f-anulacion-ref').style.display = this.value==='si'?'block':'none';
+    });
+  } else if(type === 'factura') {
+    title.textContent = 'Cargar factura';
+    body.innerHTML = `
+      <div class="form-row"><label>Fecha</label><input type="date" id="f-fecha" value="${nowDate()}"></div>
+      <div class="form-row"><label>Proveedor</label><input type="text" id="f-prov" placeholder="Nombre del proveedor"></div>
+      <div class="form-row"><label>Descripción</label><input type="text" id="f-desc" placeholder="Descripción del gasto facturado"></div>
+      <div class="form-row"><label>Monto ($)</label><input type="number" id="f-monto" placeholder="0"></div>
+      <div class="form-row"><label>Número de factura (opcional)</label><input type="text" id="f-nrofac" placeholder="Ej: A-0001-00012345"></div>
+      <div class="form-row"><label>Archivo (en versión GitHub Pages se podrá subir el PDF)</label><input type="text" id="f-archivo" placeholder="Nombre del archivo — pendiente de implementación"></div>
+      <div class="form-row"><label>¿Es una anulación?</label>
+        <select id="f-anulacion"><option value="no">No</option><option value="si">Sí — anulación de carga anterior</option></select>
+      </div>
+      <div id="f-anulacion-ref" style="display:none;" class="form-row"><label>Referencia de anulación</label><input type="text" id="f-anulref" placeholder="ANULACIÓN factura #..."></div>
+    `;
+    document.getElementById('f-anulacion').addEventListener('change', function(){
+      document.getElementById('f-anulacion-ref').style.display = this.value==='si'?'block':'none';
+    });
+  }
+
+  overlay.classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  currentModalType = null;
+}
+
+function submitModal() {
+  const t = currentModalType;
+  const ts = now();
+  const id = Date.now();
+
+  if(t === 'gasto') {
+    const fecha = document.getElementById('f-fecha').value;
+    const desc = document.getElementById('f-desc').value.trim();
+    const monto = document.getElementById('f-monto').value;
+    const cat = document.getElementById('f-cat').value;
+    const esAnulacion = document.getElementById('f-anulacion').value === 'si';
+    const anulref = esAnulacion ? document.getElementById('f-anulref').value : '';
+    const sinFac = document.getElementById('f-sinfactura').value === 'si';
+    const obs = document.getElementById('f-obs').value;
+    if(!desc || !monto || !fecha) { alert('Completá fecha, descripción y monto.'); return; }
+    const detalle = esAnulacion ? `ANULACIÓN: ${desc} (ref: ${anulref})` : desc;
+    DB.gastos.push({ id, ts, fecha, descripcion: detalle, categoria: cat, monto: Number(monto), sinFactura: sinFac, anulado: esAnulacion, obs, usuario: currentUser.id });
+    DB.audit.push({ ts, usuario: currentUser.display, tipo: 'Gasto', detalle, monto: Number(monto) });
+    save('gastos'); save('audit');
+    renderGastos();
+
+  } else if(t === 'aporte') {
+    const fecha = document.getElementById('f-fecha').value;
+    const desc = document.getElementById('f-desc').value.trim();
+    const monto = document.getElementById('f-monto').value;
+    const inv = document.getElementById('f-inversor').value.trim();
+    const esAnulacion = document.getElementById('f-anulacion').value === 'si';
+    const anulref = esAnulacion ? document.getElementById('f-anulref').value : '';
+    if(!desc || !monto || !fecha) { alert('Completá fecha, descripción y monto.'); return; }
+    const detalle = esAnulacion ? `ANULACIÓN: ${desc} (ref: ${anulref})` : desc;
+    DB.aportes.push({ id, ts, fecha, descripcion: detalle, inversor: inv, monto: Number(monto), anulado: esAnulacion, usuario: currentUser.id });
+    DB.audit.push({ ts, usuario: currentUser.display, tipo: 'Aporte', detalle, monto: Number(monto) });
+    save('aportes'); save('audit');
+    renderAportes();
+
+  } else if(t === 'factura') {
+    const fecha = document.getElementById('f-fecha').value;
+    const desc = document.getElementById('f-desc').value.trim();
+    const monto = document.getElementById('f-monto').value;
+    const prov = document.getElementById('f-prov').value.trim();
+    const nro = document.getElementById('f-nrofac').value;
+    const esAnulacion = document.getElementById('f-anulacion').value === 'si';
+    const anulref = esAnulacion ? document.getElementById('f-anulref').value : '';
+    if(!desc || !monto || !prov || !fecha) { alert('Completá fecha, proveedor, descripción y monto.'); return; }
+    const detalle = esAnulacion ? `ANULACIÓN: ${desc} (ref: ${anulref})` : desc;
+    DB.facturas.push({ id, ts, fecha, proveedor: prov, descripcion: detalle, monto: Number(monto), nroFactura: nro, anulado: esAnulacion, usuario: currentUser.id });
+    DB.audit.push({ ts, usuario: currentUser.display, tipo: 'Factura', detalle, monto: Number(monto) });
+    save('facturas'); save('audit');
+    renderFacturas();
+  }
+
+  renderDashboard();
+  closeModal();
+}
+</script>
