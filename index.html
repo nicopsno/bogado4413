@@ -1,0 +1,2902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Obra — Bogado 4413</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f5f7;min-height:100vh;color:#1a1a2e}
+a{color:inherit;text-decoration:none}
+
+/* LOGIN */
+#login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f4f5f7}
+#login-page.hidden{display:none}
+.login-card{background:#fff;border:1px solid #e2e5ec;border-radius:12px;padding:2.5rem 2rem;width:360px;box-shadow:0 2px 16px rgba(0,0,0,0.07)}
+.login-logo{font-size:10px;letter-spacing:.14em;color:#8a94a6;text-transform:uppercase;margin-bottom:6px}
+.login-title{font-size:22px;font-weight:600;color:#1a2744;margin-bottom:4px}
+.login-sub{font-size:13px;color:#8a94a6;margin-bottom:2rem}
+.field-group{margin-bottom:1rem}
+.field-label{display:block;font-size:12px;color:#5a6478;margin-bottom:5px;font-weight:500}
+.login-card input{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;background:#fff;color:#1a2744;outline:none;transition:border .15s}
+.login-card input:focus{border-color:#3b5998}
+.login-btn{width:100%;padding:11px;background:#1a2744;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:.5rem;transition:background .15s}
+.login-btn:hover{background:#243560}
+.login-error{font-size:12px;color:#dc2626;margin-top:8px;min-height:18px}
+
+/* LAYOUT */
+#main-page{display:flex;min-height:100vh}
+#main-page.hidden{display:none}
+.sidebar{width:230px;min-width:230px;background:#1a2744;display:flex;flex-direction:column;padding:1.5rem 0;position:fixed;top:0;left:0;height:100vh;z-index:10}
+.sidebar-brand{padding:0 1.25rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.sidebar-brand-label{font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
+.sidebar-brand-name{font-size:16px;font-weight:600;color:#fff;margin-top:3px}
+.sidebar-nav{padding:1rem 0;flex:1;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 1.25rem;cursor:pointer;color:rgba(255,255,255,.6);font-size:13px;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-item.active{color:#fff;border-left-color:#6fa8dc;background:rgba(255,255,255,.1)}
+.nav-item i{font-size:17px}
+.sidebar-user{padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:10px}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;flex-shrink:0}
+.user-name{font-size:12px;color:rgba(255,255,255,.8);flex:1}
+.logout-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:16px;padding:4px}
+.logout-btn:hover{color:#fff}
+.content{flex:1;margin-left:230px;padding:1.75rem;min-height:100vh;background:#f4f5f7}
+.content-header{margin-bottom:1.5rem;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.content-title{font-size:22px;font-weight:600;color:#1a2744}
+.content-sub{font-size:13px;color:#8a94a6;margin-top:3px}
+
+/* TABS */
+.tab-section{display:none}
+.tab-section.active{display:block}
+
+/* METRICS */
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:1.5rem}
+.metric-card{background:#fff;border:1px solid #e2e5ec;border-radius:10px;padding:1.1rem 1.25rem}
+.metric-label{font-size:11px;color:#8a94a6;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;font-weight:500}
+.metric-value{font-size:24px;font-weight:600;color:#1a2744}
+.metric-value.green{color:#16a34a}
+.metric-value.red{color:#dc2626}
+.metric-value.blue{color:#2563eb}
+.metric-value.orange{color:#d97706}
+.metric-sub{font-size:11px;color:#b0b8c8;margin-top:4px}
+
+/* SECTION CARD */
+.section-card{background:#fff;border:1px solid #e2e5ec;border-radius:12px;padding:1.25rem;margin-bottom:1rem;overflow-x:auto}
+.section-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
+.section-card-title{font-size:14px;font-weight:600;color:#1a2744}
+
+/* BUTTONS */
+.action-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#1a2744;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s;white-space:nowrap}
+.action-btn:hover{background:#243560}
+.action-btn.secondary{background:#fff;color:#1a2744;border:1px solid #d1d5db}
+.action-btn.secondary:hover{background:#f4f5f7}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
+.data-table th{text-align:left;padding:8px 12px;font-size:11px;font-weight:600;color:#8a94a6;border-bottom:1px solid #e2e5ec;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.data-table td{padding:11px 12px;border-bottom:1px solid #f0f2f5;color:#1a2744;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tbody tr:hover td{background:#f8f9fb}
+
+/* BADGES */
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge-success{background:#dcfce7;color:#15803d}
+.badge-warning{background:#fef3c7;color:#b45309}
+.badge-info{background:#dbeafe;color:#1d4ed8}
+.badge-danger{background:#fee2e2;color:#b91c1c}
+.badge-gray{background:#f1f5f9;color:#475569}
+
+/* PROGRESS */
+.progress-wrap{margin-top:8px}
+.progress-bar-bg{height:8px;background:#e2e5ec;border-radius:4px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,#1a2744,#3b5998);border-radius:4px;transition:width .6s ease}
+.progress-label{font-size:12px;color:#8a94a6;margin-top:6px}
+
+/* MODAL GASTOS/APORTES */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:flex-start;justify-content:center;padding-top:60px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:1.75rem;width:480px;max-width:95vw;margin-bottom:40px}
+.modal-title{font-size:17px;font-weight:600;color:#1a2744;margin-bottom:1.5rem}
+.form-row{margin-bottom:1rem}
+.form-row label{display:block;font-size:12px;color:#5a6478;margin-bottom:5px;font-weight:500}
+.form-row input,.form-row select,.form-row textarea{width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;background:#fff;color:#1a2744;outline:none;transition:border .15s;font-family:inherit}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:#3b5998}
+.form-row textarea{resize:vertical;min-height:72px}
+.form-row-inline{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.5rem}
+.anulacion-ref{display:none}
+
+/* PLANOS */
+.planos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.plano-card{background:#fff;border:1px solid #e2e5ec;border-radius:12px;overflow:hidden}
+.plano-thumb{background:#f0f4f8;height:140px;display:flex;align-items:center;justify-content:center;color:#8a94a6;font-size:40px;border-bottom:1px solid #e2e5ec}
+.plano-info{padding:12px 14px}
+.plano-name{font-size:13px;font-weight:600;color:#1a2744}
+.plano-detail{font-size:11px;color:#8a94a6;margin-top:3px}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:3rem 1rem;color:#b0b8c8}
+.empty-state i{font-size:36px;display:block;margin-bottom:10px;opacity:.5}
+.empty-state p{font-size:13px}
+.audit-ts{font-size:11px;color:#8a94a6;white-space:nowrap}
+
+/* ── PRESUPUESTO ── */
+.ppto-banner{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:1.5rem}
+.ppto-metric{background:#fff;border:1px solid #e2e5ec;border-radius:10px;padding:1rem 1.25rem}
+.ppto-metric label{font-size:11px;color:#8a94a6;text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:6px;font-weight:500}
+.ppto-metric .val{font-size:22px;font-weight:600;color:#2563eb}
+.supuestos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:1.5rem}
+.sup-card{background:#fff;border:1px solid #e2e5ec;border-radius:10px;padding:1rem 1.25rem;position:relative}
+.sup-card label{font-size:11px;color:#8a94a6;text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:4px;font-weight:500}
+.sup-card .sup-val{font-size:22px;font-weight:600;color:#1a2744;line-height:1.2}
+.sup-card .sup-sub{font-size:11px;color:#b0b8c8;margin-top:3px}
+.sup-card .sup-status{font-size:10px;margin-top:4px;display:flex;align-items:center;gap:4px}
+.sup-status.loading{color:#8a94a6}
+.sup-status.ok{color:#16a34a}
+.sup-status.error{color:#dc2626}
+.sup-card .sup-edit-btn{position:absolute;top:10px;right:10px;background:none;border:1px solid #e2e5ec;border-radius:6px;padding:2px 7px;font-size:11px;cursor:pointer;color:#8a94a6}
+.sup-card .sup-edit-btn:hover{background:#f4f5f7;color:#1a2744}
+.sup-card input.sup-input{width:100%;font-size:20px;font-weight:600;color:#1a2744;border:none;border-bottom:2px solid #3b5998;outline:none;background:transparent;padding:2px 0;margin-top:2px}
+.ppto-sec{background:#fff;border:1px solid #e2e5ec;border-radius:12px;margin-bottom:.75rem;overflow:hidden}
+.ppto-sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.1rem;background:#f8f9fb;cursor:pointer;user-select:none}
+.ppto-sec-hdr-left{display:flex;align-items:center;gap:8px}
+.ppto-sec-hdr h3{font-size:13px;font-weight:600;color:#1a2744}
+.ppto-badge{font-size:11px;padding:2px 8px;border-radius:20px;background:#dbeafe;color:#1d4ed8;font-weight:600}
+.ppto-sec-total{font-size:13px;font-weight:600;color:#1a2744;margin-right:6px}
+.ppto-chev{font-size:14px;color:#8a94a6;transition:transform .2s}
+.ppto-chev.open{transform:rotate(180deg)}
+.ppto-body{display:none;border-top:1px solid #f0f2f5}
+.ppto-body.open{display:block}
+.ppto-col-hdr{display:grid;grid-template-columns:1fr 80px 130px 170px 90px;padding:.35rem 1.1rem;gap:8px;border-bottom:1px solid #f0f2f5;background:#fafafa}
+.ppto-col-hdr span{font-size:10px;color:#8a94a6;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.ppto-col-hdr span:nth-child(2){text-align:center}
+.ppto-col-hdr span:nth-child(3){text-align:right}
+.ppto-col-hdr span:nth-child(4){text-align:right}
+.ppto-col-hdr span:nth-child(5){text-align:right}
+.ppto-row{display:grid;grid-template-columns:1fr 80px 130px 170px 90px;align-items:center;padding:.5rem 1.1rem;border-bottom:1px solid #f8f8f8;gap:8px}
+.ppto-row:last-child{border-bottom:none}
+.ppto-row.alt{background:#fafafa}
+.ppto-row-label{font-size:13px;color:#1a2744}
+.ppto-row-freq{font-size:11px;color:#8a94a6;text-align:center}
+.ppto-row-action{text-align:right}
+/* Presupuesto teórico (colapsado) */
+.ppto-teorico{font-size:12px;text-align:right;line-height:1.4}
+.ppto-teorico .val{font-weight:600;color:#1a2744;display:block}
+.ppto-teorico .val.pending{color:#c0c8d8;font-style:italic;font-weight:400;font-size:11px}
+/* Presupuestos recibidos */
+.ppto-recibidos-cell{text-align:right;font-size:12px;line-height:1.4}
+.recib-count{font-size:10px;color:#8a94a6;margin-bottom:1px}
+.recib-avg{font-weight:600;color:#16a34a;margin-bottom:3px}
+.recib-avg.none{color:#c0c8d8;font-style:italic;font-weight:400;font-size:11px;margin-bottom:3px}
+.ppto-recib-btn{font-size:11px;padding:3px 7px;cursor:pointer;border-radius:6px;border:1px solid #bbf7d0;background:#f0fdf4;color:#15803d;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.ppto-recib-btn:hover{background:#dcfce7}
+/* Fila Otros */
+.ppto-row-otros{border-top:1px dashed #e2e5ec}
+/* Modal recibidos */
+.ppto-recib-list{margin-bottom:.75rem}
+.ppto-recib-item{display:flex;align-items:center;justify-content:space-between;padding:.45rem .75rem;border:1px solid #e2e5ec;border-radius:8px;margin-bottom:5px;gap:8px}
+.ppto-recib-item-info{flex:1;min-width:0}
+.ppto-recib-item-prov{font-size:13px;font-weight:600;color:#1a2744}
+.ppto-recib-item-monto{font-size:12px;color:#5a6478}
+.ppto-recib-del{background:none;border:none;color:#dc2626;cursor:pointer;font-size:16px;padding:2px 4px;opacity:.5;line-height:1}
+.ppto-recib-del:hover{opacity:1}
+.ppto-recib-avg-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:.5rem 1rem;font-size:13px;color:#15803d;font-weight:600;text-align:center;margin:.5rem 0 .75rem}
+.ppto-recib-form{border:1px dashed #d1d5db;border-radius:8px;padding:.75rem 1rem;margin-top:.5rem}
+.ppto-recib-form-title{font-size:10px;color:#8a94a6;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:.6rem}
+.ppto-drive-btn{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#fff;border:1px solid #4285f4;border-radius:8px;color:#4285f4;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;justify-content:center;margin-bottom:.75rem}
+.ppto-drive-btn:hover{background:#eff6ff}
+.ppto-edit-btn{font-size:11px;padding:3px 8px;cursor:pointer;border-radius:6px;border:1px solid #e2e5ec;background:#fff;color:#1a2744;display:inline-flex;align-items:center;gap:4px}
+.ppto-edit-btn:hover{background:#f4f5f7}
+.ppto-info-btn{background:none;border:none;cursor:pointer;color:#3b82f6;font-size:15px;vertical-align:middle;padding:0 3px;line-height:1;margin-left:2px;opacity:.8}
+.ppto-info-btn:hover{opacity:1}
+
+/* MODAL PRESUPUESTO */
+.ppto-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:2000;align-items:center;justify-content:center}
+.ppto-modal-bg.show{display:flex}
+.ppto-modal{background:#fff;border:1px solid #e2e5ec;border-radius:14px;width:460px;max-width:95vw;padding:1.75rem;max-height:88vh;overflow-y:auto}
+.ppto-modal h4{font-size:16px;font-weight:600;color:#1a2744;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.ppto-field{margin-bottom:1rem}
+.ppto-field label{font-size:12px;color:#5a6478;display:block;margin-bottom:4px;font-weight:500}
+.ppto-field input{width:100%;padding:8px 11px;font-size:14px;border-radius:8px;border:1px solid #d1d5db;color:#1a2744;outline:none}
+.ppto-field input:focus{border-color:#3b5998}
+.ppto-field .hint{font-size:11px;color:#b0b8c8;margin-top:3px}
+.ppto-calc{background:#f4f5f7;border-radius:8px;padding:.75rem 1rem;margin:1rem 0}
+.ppto-calc .line{display:flex;justify-content:space-between;font-size:12px;color:#5a6478;margin-bottom:4px}
+.ppto-calc .line.total{font-size:14px;font-weight:600;color:#1a2744;border-top:1px solid #e2e5ec;padding-top:6px;margin-top:4px}
+.ppto-modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem}
+.ppto-btn-cancel{padding:7px 15px;font-size:13px;cursor:pointer;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#1a2744}
+.ppto-btn-cancel:hover{background:#f4f5f7}
+.ppto-btn-save{padding:7px 15px;font-size:13px;cursor:pointer;border-radius:8px;background:#1a2744;color:#fff;border:none;font-weight:600}
+.ppto-btn-save:hover{background:#243560}
+
+@media(max-width:768px){
+  .sidebar{width:200px}
+  .content{margin-left:200px;padding:1.25rem}
+  .form-row-inline{grid-template-columns:1fr}
+  .ppto-col-hdr,.ppto-row{grid-template-columns:1fr 60px 100px 130px 70px}
+}
+
+.ppto-acero-header{display:grid;grid-template-columns:100px 1fr 1fr 80px;gap:8px;padding:.3rem 0 .4rem;font-size:10px;color:#8a94a6;text-transform:uppercase;letter-spacing:.05em;font-weight:600;border-bottom:1px solid #e2e5ec;margin-bottom:.5rem}
+.ppto-acero-row{display:grid;grid-template-columns:100px 1fr 1fr 80px;gap:8px;align-items:center;margin-bottom:.5rem}
+.ppto-acero-label{font-size:13px;font-weight:500;color:#1a2744}
+.ppto-acero-inp{padding:7px 10px;font-size:13px;border-radius:7px;border:1px solid #d1d5db;color:#1a2744;outline:none;width:100%}
+.ppto-acero-inp:focus{border-color:#3b5998}
+.ppto-acero-sub{font-size:12px;font-weight:600;color:#1a2744;text-align:right}
+.ppto-subgroup{margin-bottom:1rem;border:0.5px solid #e2e5ec;border-radius:10px;overflow:hidden}
+.ppto-subgroup-title{background:#f4f5f7;padding:.5rem 1rem;font-size:11px;font-weight:600;color:#5a6478;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+.ppto-subgroup-title i{font-size:13px}
+.ppto-field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:.75rem 1rem .25rem}
+.ppto-field-grid .ppto-field{padding:0 .5rem .75rem 0}
+.ppto-field-grid .ppto-field:nth-child(even){padding-right:0;padding-left:.5rem}
+@media(max-width:520px){.ppto-field-grid{grid-template-columns:1fr}}
+
+/* UNIDADES */
+.unidad-inp{width:90px;padding:4px 8px;font-size:13px;border:1px solid #e2e5ec;border-radius:6px;color:#1a2744;text-align:right;outline:none;background:#fff}
+.unidad-inp:focus{border-color:#3b5998;background:#f0f4ff}
+.unidad-total{font-size:13px;font-weight:600;color:#1a2744;text-align:right}
+.unidad-piso-hdr td{background:#f4f5f7;font-size:11px;font-weight:600;color:#5a6478;text-transform:uppercase;letter-spacing:.06em;padding:6px 12px;border-bottom:1px solid #e2e5ec}
+.etapa-sel{padding:4px 8px;font-size:12px;border:1px solid #e2e5ec;border-radius:6px;color:#1a2744;background:#fff;cursor:pointer;outline:none}
+.etapa-sel:focus{border-color:#3b5998}
+.etapa-sel.pozo{border-color:#f59e0b;background:#fffbeb;color:#b45309}
+.etapa-sel.intermedia{border-color:#6366f1;background:#eef2ff;color:#4338ca}
+.etapa-sel.final{border-color:#10b981;background:#ecfdf5;color:#065f46}
+.unidad-precio{font-size:13px;font-weight:600;color:#1a2744;text-align:right;white-space:nowrap}
+.unidad-precio .dto-tag{display:block;font-size:10px;font-weight:400;color:#6b7280}
+.venta-params-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:.5rem}
+.venta-param-item{display:flex;flex-direction:column;gap:4px}
+.venta-param-item label{font-size:11px;font-weight:600;color:#5a6478;text-transform:uppercase;letter-spacing:.05em}
+.venta-param-inp{padding:6px 10px;font-size:14px;font-weight:600;border:1px solid #e2e5ec;border-radius:8px;color:#1a2744;outline:none;background:#fff;width:100%;box-sizing:border-box}
+.venta-param-inp:focus{border-color:#3b5998;background:#f0f4ff}
+.venta-ingresos-resumen{margin-top:1rem;padding:.75rem 1rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;display:flex;gap:2rem;flex-wrap:wrap}
+.venta-resumen-item{display:flex;flex-direction:column;gap:2px}
+.venta-resumen-item .lbl{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.04em}
+.venta-resumen-item .val{font-size:16px;font-weight:700;color:#15803d}
+
+/* TIMELINE */
+.tl-sup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:1rem}
+.tl-sup-card{background:#fff;border:1px solid #e2e5ec;border-radius:10px;padding:.75rem 1rem;position:relative}
+.tl-sup-card label{font-size:11px;color:#8a94a6;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px;font-weight:500}
+.tl-sup-card .tl-val{font-size:15px;font-weight:600;color:#1a2744}
+.tl-sup-card .tl-edit{position:absolute;top:8px;right:8px;background:none;border:1px solid #e2e5ec;border-radius:6px;padding:2px 6px;font-size:11px;cursor:pointer;color:#8a94a6}
+.tl-sup-card .tl-edit:hover{background:#f4f5f7;color:#1a2744}
+.tl-sup-card input.tl-inp{width:100%;font-size:15px;font-weight:600;color:#1a2744;border:none;border-bottom:2px solid #3b5998;outline:none;background:transparent}
+.gantt-wrap{min-width:700px}
+.gantt-row{display:flex;align-items:center;margin-bottom:4px;gap:8px}
+.gantt-label{width:200px;min-width:200px;font-size:11px;color:#5a6478;text-align:right;padding-right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gantt-track{flex:1;height:22px;background:#f0f2f5;border-radius:4px;position:relative;overflow:hidden}
+.gantt-bar{height:100%;border-radius:4px;position:absolute;top:0;display:flex;align-items:center;padding-left:6px;font-size:10px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden}
+.gantt-months{display:flex;margin-left:208px;gap:0;margin-bottom:6px}
+.gantt-month{flex:1;font-size:9px;color:#8a94a6;text-align:center;border-left:1px solid #e2e5ec;padding:2px 0}
+.tl-cash-table{width:100%;border-collapse:collapse;font-size:12px;min-width:600px}
+.tl-cash-table th{padding:6px 10px;font-size:10px;color:#8a94a6;border-bottom:1px solid #e2e5ec;text-align:right;white-space:nowrap}
+.tl-cash-table th:first-child{text-align:left;width:180px}
+.tl-cash-table td{padding:6px 10px;border-bottom:1px solid #f0f2f5;text-align:right;white-space:nowrap}
+.tl-cash-table td:first-child{text-align:left;font-size:11px;color:#5a6478}
+.tl-cash-table tr.total-row td{font-weight:600;color:#1a2744;border-top:1px solid #e2e5ec;background:#f8f9fb}
+.tl-cash-table tr.acum-row td{font-weight:600;color:#2563eb;background:#eff6ff}
+.tl-cash-table td.zero{color:#d1d5db}
+/* Settings modal */
+.tl-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:3000;align-items:center;justify-content:center}
+.tl-modal-bg.show{display:flex}
+.tl-modal{background:#fff;border-radius:14px;width:500px;max-width:95vw;padding:1.75rem;max-height:88vh;overflow-y:auto}
+.tl-modal h3{font-size:15px;font-weight:600;color:#1a2744;margin-bottom:1.25rem}
+.tl-field{margin-bottom:.85rem}
+.tl-field label{font-size:12px;color:#5a6478;display:block;margin-bottom:3px;font-weight:500}
+.tl-field input{width:100%;padding:7px 10px;font-size:13px;border-radius:7px;border:1px solid #d1d5db;color:#1a2744;outline:none}
+.tl-field input:focus{border-color:#3b5998}
+.tl-field .hint{font-size:11px;color:#b0b8c8;margin-top:2px}
+.tl-field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tl-section-title{font-size:11px;font-weight:600;color:#8a94a6;text-transform:uppercase;letter-spacing:.06em;margin:1rem 0 .5rem;padding-bottom:.3rem;border-bottom:1px solid #e2e5ec}
+
+/* PERMISOS E IMPUESTOS */
+.permisos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-bottom:1.25rem}
+.permiso-block{background:#fff;border:1px solid #e2e5ec;border-radius:12px;padding:1.25rem}
+.permiso-block-title{font-size:13px;font-weight:700;color:#1a2744;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.permiso-block-sub{font-size:11px;color:#8a94a6;margin-bottom:1rem}
+.permiso-item{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f0f2f5;gap:8px}
+.permiso-item:last-child{border-bottom:none;padding-bottom:0}
+.permiso-item-label{font-size:12px;color:#374151;flex:1}
+.permiso-item-value{font-size:12px;font-weight:600;color:#1a2744;white-space:nowrap}
+.permiso-item-note{font-size:11px;color:#8a94a6;margin-top:2px}
+.permiso-tip{background:#fef9ec;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e;margin-top:12px;display:flex;gap:8px;align-items:flex-start}
+.permiso-tip i{font-size:15px;flex-shrink:0;margin-top:1px}
+.permiso-tip-green{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.perm-timeline{position:relative;padding-left:28px;margin-top:4px}
+.perm-timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:#e2e5ec;border-radius:2px}
+.ptl-item{position:relative;margin-bottom:22px}
+.ptl-item:last-child{margin-bottom:0}
+.ptl-dot{position:absolute;left:-24px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid #fff}
+.ptl-dot.blue{background:#3b82f6;box-shadow:0 0 0 2px #3b82f6}
+.ptl-dot.orange{background:#d97706;box-shadow:0 0 0 2px #d97706}
+.ptl-dot.green{background:#16a34a;box-shadow:0 0 0 2px #16a34a}
+.ptl-dot.gray{background:#9ca3af;box-shadow:0 0 0 2px #9ca3af}
+.ptl-title{font-size:13px;font-weight:600;color:#1a2744;margin-bottom:3px}
+.ptl-detail{font-size:12px;color:#6b7280;line-height:1.5}
+.ptl-chip{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;background:#f1f5f9;color:#475569}
+.cotiz-search-bar{display:flex;gap:10px;margin-bottom:1.25rem;flex-wrap:wrap}
+.cotiz-search-bar input{flex:1;min-width:220px;padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;color:#1a2744;outline:none;font-family:inherit}
+.cotiz-search-bar input:focus{border-color:#3b5998}
+.cotiz-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+.cotiz-chip{padding:5px 13px;border-radius:20px;background:#f1f5f9;color:#475569;font-size:12px;font-weight:500;cursor:pointer;border:1px solid #e2e5ec;transition:all .15s}
+.cotiz-chip:hover{background:#dbeafe;color:#1d4ed8;border-color:#bfdbfe}
+.cotiz-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:1.25rem}
+.cotiz-card{background:#fff;border:1px solid #e2e5ec;border-radius:12px;padding:1.25rem;position:relative}
+.cotiz-card-source{font-size:10px;font-weight:600;color:#8a94a6;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.cotiz-card-name{font-size:14px;font-weight:600;color:#1a2744;margin-bottom:4px;line-height:1.4}
+.cotiz-card-desc{font-size:12px;color:#6b7280;margin-bottom:10px;line-height:1.5}
+.cotiz-card-price{font-size:22px;font-weight:700;color:#1a2744;margin-bottom:2px}
+.cotiz-card-price-ars{font-size:12px;color:#8a94a6;margin-bottom:10px}
+.cotiz-card-link{font-size:11px;color:#3b82f6;word-break:break-all;display:inline-flex;align-items:center;gap:4px;margin-bottom:12px}
+.cotiz-card-link:hover{text-decoration:underline}
+.cotiz-use-btn{width:100%;padding:7px 0;background:#1a2744;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s}
+.cotiz-use-btn:hover{background:#243560}
+.cotiz-use-btn.used{background:#16a34a}
+.cotiz-avg-card{background:#fff;border:2px solid #1a2744;border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.cotiz-avg-label{font-size:12px;color:#8a94a6;font-weight:500;text-transform:uppercase;letter-spacing:.07em}
+.cotiz-avg-val{font-size:28px;font-weight:700;color:#1a2744}
+.cotiz-avg-sub{font-size:12px;color:#8a94a6;margin-top:2px}
+.cotiz-use-avg-btn{padding:10px 20px;background:#1a2744;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.cotiz-use-avg-btn:hover{background:#243560}
+.cotiz-use-avg-btn.used{background:#16a34a}
+.cotiz-history-item{background:#fff;border:1px solid #e2e5ec;border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;transition:background .15s}
+.cotiz-history-item:hover{background:#f8f9fb}
+.cotiz-history-q{font-size:13px;font-weight:600;color:#1a2744}
+.cotiz-history-meta{font-size:11px;color:#8a94a6;margin-top:2px}
+.cotiz-history-avg{font-size:13px;font-weight:600;color:#2563eb;white-space:nowrap}
+.cotiz-loading{text-align:center;padding:3rem 1rem}
+.cotiz-loading i{font-size:32px;color:#3b82f6;display:block;margin-bottom:10px;animation:spin .8s linear infinite}
+.cotiz-loading p{font-size:13px;color:#8a94a6}
+.cotiz-empty{text-align:center;padding:3rem 1rem;color:#b0b8c8}
+.cotiz-empty i{font-size:36px;display:block;margin-bottom:10px;opacity:.5}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cotiz-target-sel{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 16px;background:#f8f9fb;border-radius:10px;border:1px solid #e2e5ec;margin-bottom:1.25rem}
+.cotiz-target-sel label{font-size:12px;color:#5a6478;font-weight:500}
+.cotiz-target-sel select{padding:6px 10px;border:1px solid #d1d5db;border-radius:7px;font-size:13px;color:#1a2744;background:#fff;outline:none}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-page">
+  <div class="login-card">
+    <div class="login-logo">Obra · Seguimiento de Inversión</div>
+    <div class="login-title">Bogado 4413</div>
+    <div class="login-sub">Ingresá con tu usuario y contraseña</div>
+    <div class="field-group">
+      <label class="field-label">Usuario</label>
+      <input type="text" id="login-user" placeholder="nombre de usuario" autocomplete="username">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Contraseña</label>
+      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Ingresar</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main-page" class="hidden">
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-label">Portal de Obra</div>
+      <div class="sidebar-brand-name">Bogado 4413</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showTab('dashboard',this)">
+        <i class="ti ti-layout-dashboard"></i> Dashboard
+      </div>
+      <div class="nav-item" onclick="showTab('presupuesto',this)">
+        <i class="ti ti-calculator"></i> Presupuesto
+      </div>
+      <div class="nav-item" onclick="showTab('ingresos',this)">
+        <i class="ti ti-trending-up"></i> Ingresos
+      </div>
+      <div class="nav-item" onclick="showTab('cotizaciones',this)">
+        <i class="ti ti-search"></i> Cotizaciones
+      </div>
+      <div class="nav-item" onclick="showTab('gastos',this)">
+        <i class="ti ti-receipt"></i> Gastos
+      </div>
+      <div class="nav-item" onclick="showTab('aportes',this)">
+        <i class="ti ti-cash"></i> Aportes
+      </div>
+      <div class="nav-item" onclick="showTab('facturas',this)">
+        <i class="ti ti-file-invoice"></i> Facturas
+      </div>
+      <div class="nav-item" onclick="showTab('planos',this)">
+        <i class="ti ti-ruler-2"></i> Planos
+      </div>
+      <div class="nav-item" onclick="showTab('timeline',this)">
+        <i class="ti ti-chart-gantt"></i> Línea de tiempo
+      </div>
+      <div class="nav-item" onclick="showTab('permisos',this)">
+        <i class="ti ti-license"></i> Permisos
+      </div>
+      <div class="nav-item" onclick="showTab('auditoria',this)">
+        <i class="ti ti-list-check"></i> Auditoría
+      </div>
+    </nav>
+    <div class="sidebar-user">
+      <div class="user-avatar" id="user-initials">--</div>
+      <div class="user-name" id="user-display">--</div>
+      <button class="logout-btn" onclick="doLogout()" title="Cerrar sesión">
+        <i class="ti ti-logout"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="tab-section active">
+      <div class="content-header">
+        <div>
+          <div class="content-title">Dashboard</div>
+          <div class="content-sub">Resumen financiero del proyecto</div>
+        </div>
+      </div>
+      <div class="metrics-grid" id="metrics-grid"></div>
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="section-card-title">Avance financiero — gastado vs. presupuesto</div>
+          <span id="progress-pct-badge" class="badge badge-info">0%</span>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+          <div class="progress-label" id="progress-label">Cargá el primer movimiento para ver el avance</div>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-card-header"><div class="section-card-title">Últimos movimientos</div></div>
+        <table class="data-table">
+          <thead><tr><th style="width:95px">Fecha</th><th style="width:70px">Tipo</th><th>Descripción</th><th style="width:110px">Monto</th><th style="width:80px">Estado</th></tr></thead>
+          <tbody id="recent-tbody"><tr><td colspan="5"><div class="empty-state"><i class="ti ti-inbox"></i><p>Sin movimientos aún</p></div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRESUPUESTO -->
+    <div id="tab-presupuesto" class="tab-section">
+      <div class="content-header">
+        <div>
+          <div class="content-title">Presupuesto</div>
+        </div>
+        <button class="action-btn secondary" id="ppto-currency-btn" onclick="togglePptoCurrency()">
+          <i class="ti ti-currency-dollar"></i> Ver en ARS
+        </button>
+      </div>
+      <div class="supuestos-grid" id="supuestos-grid"></div>
+      <div class="ppto-banner" id="ppto-banner"></div>
+      <div id="ppto-sections"></div>
+    </div>
+
+    <!-- COTIZACIONES -->
+    <div id="tab-cotizaciones" class="tab-section">
+      <div class="content-header">
+        <div>
+          <div class="content-title">Cotizaciones</div>
+          <div class="content-sub">Buscá precios en la web y usarlos en el presupuesto</div>
+        </div>
+      </div>
+
+      <!-- SEARCH BAR -->
+      <div class="section-card" style="margin-bottom:1rem">
+        <div class="cotiz-search-bar">
+          <input type="text" id="cotiz-input" placeholder="Ej: porcelanatos símil madera 20x120 precio Argentina..." onkeydown="if(event.key==='Enter')cotizSearch()">
+          <button class="action-btn" onclick="cotizSearch()"><i class="ti ti-search"></i> Buscar precios</button>
+        </div>
+        <div class="cotiz-chips" id="cotiz-chips">
+          <span class="cotiz-chip" onclick="cotizQuick('porcelanatos símil madera 20x120 precio m2 Argentina 2026')">Porcelanatos 20x120</span>
+          <span class="cotiz-chip" onclick="cotizQuick('ladrillos comunes precio millar Argentina 2026')">Ladrillos</span>
+          <span class="cotiz-chip" onclick="cotizQuick('hierro en varilla phi 8 precio kg Argentina 2026')">Hierro Φ8</span>
+          <span class="cotiz-chip" onclick="cotizQuick('hormigón H30 precio m3 Argentina 2026')">Hormigón H30</span>
+          <span class="cotiz-chip" onclick="cotizQuick('ascensor unifamiliar precio Argentina 2026')">Ascensor</span>
+          <span class="cotiz-chip" onclick="cotizQuick('puerta blindada seguridad F60 precio Argentina 2026')">Puerta F-60</span>
+          <span class="cotiz-chip" onclick="cotizQuick('arena gruesa precio m3 Argentina 2026')">Arena</span>
+          <span class="cotiz-chip" onclick="cotizQuick('pintura exterior látex precio litro Argentina 2026')">Pintura exterior</span>
+        </div>
+      </div>
+
+      <!-- RESULTS AREA -->
+      <div id="cotiz-results-area"></div>
+
+      <!-- HISTORIAL -->
+      <div class="section-card" id="cotiz-history-card" style="display:none">
+        <div class="section-card-header">
+          <div class="section-card-title"><i class="ti ti-history" style="margin-right:6px"></i>Búsquedas guardadas</div>
+          <button class="action-btn secondary" onclick="cotizClearHistory()" style="font-size:11px;padding:5px 10px">Limpiar</button>
+        </div>
+        <div id="cotiz-history-list"></div>
+      </div>
+    </div>
+
+    <!-- GASTOS -->
+    <div id="tab-gastos" class="tab-section">
+      <div class="content-header">
+        <div><div class="content-title">Gastos</div><div class="content-sub">Todos los egresos del proyecto</div></div>
+        <button class="action-btn" onclick="openModal('gasto')"><i class="ti ti-plus"></i> Nuevo gasto</button>
+      </div>
+      <div class="section-card">
+        <table class="data-table">
+          <thead><tr><th style="width:95px">Fecha</th><th>Descripción</th><th style="width:110px">Categoría</th><th style="width:110px">Monto</th><th style="width:80px">Factura</th><th style="width:80px">Estado</th></tr></thead>
+          <tbody id="gastos-tbody"><tr><td colspan="6"><div class="empty-state"><i class="ti ti-receipt"></i><p>Sin gastos registrados</p></div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- APORTES -->
+    <div id="tab-aportes" class="tab-section">
+      <div class="content-header">
+        <div><div class="content-title">Aportes</div><div class="content-sub">Ingresos y compromisos de inversores</div></div>
+        <button class="action-btn" onclick="openModal('aporte')"><i class="ti ti-plus"></i> Nuevo aporte</button>
+      </div>
+      <div class="section-card">
+        <table class="data-table">
+          <thead><tr><th style="width:95px">Fecha</th><th>Descripción</th><th style="width:110px">Inversor</th><th style="width:110px">Monto</th><th style="width:80px">Estado</th></tr></thead>
+          <tbody id="aportes-tbody"><tr><td colspan="5"><div class="empty-state"><i class="ti ti-cash"></i><p>Sin aportes registrados</p></div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FACTURAS -->
+    <div id="tab-facturas" class="tab-section">
+      <div class="content-header">
+        <div><div class="content-title">Facturas</div><div class="content-sub">Documentos respaldatorios</div></div>
+        <button class="action-btn" onclick="openModal('factura')"><i class="ti ti-upload"></i> Cargar factura</button>
+      </div>
+      <div class="section-card">
+        <table class="data-table">
+          <thead><tr><th style="width:95px">Fecha</th><th style="width:130px">Proveedor</th><th>Descripción</th><th style="width:110px">Monto</th><th style="width:110px">N° Factura</th><th style="width:80px">Estado</th></tr></thead>
+          <tbody id="facturas-tbody"><tr><td colspan="6"><div class="empty-state"><i class="ti ti-file-invoice"></i><p>Sin facturas cargadas</p></div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PLANOS -->
+    <div id="tab-planos" class="tab-section">
+      <div class="content-header">
+        <div><div class="content-title">Planos</div><div class="content-sub">Anteproyecto — Bogado 4413 · 29/07/2026</div></div>
+        <a href="https://drive.google.com/file/d/1S_b6HolcJU1I8UIlzpuYWSKh6MeeDUKA/view" target="_blank" class="action-btn secondary" style="text-decoration:none"><i class="ti ti-external-link"></i> Abrir en Drive</a>
+      </div>
+      <div class="section-card" style="padding:0;overflow:hidden;border-radius:12px;background:#fff">
+        <iframe src="https://drive.google.com/file/d/1S_b6HolcJU1I8UIlzpuYWSKh6MeeDUKA/preview" width="100%" height="640" style="display:block;border:none" allow="autoplay"></iframe>
+      </div>
+    </div>
+
+    <!-- INGRESOS -->
+    <div id="tab-ingresos" class="tab-section">
+      <div class="content-header">
+        <div><div class="content-title">Ingresos</div><div class="content-sub">Proyección de ventas — Bogado 4413</div></div>
+      </div>
+
+      <!-- Plano embebido -->
+      <div class="section-card" style="padding:0;overflow:hidden;border-radius:12px;background:#fff;margin-bottom:1.25rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.1rem;background:#f8f9fb;border-bottom:1px solid #f0f2f5">
+          <span style="font-size:13px;font-weight:600;color:#1a2744">Anteproyecto — planta</span>
+          <a href="https://drive.google.com/file/d/1S_b6HolcJU1I8UIlzpuYWSKh6MeeDUKA/view" target="_blank" class="action-btn secondary" style="text-decoration:none;padding:5px 12px;font-size:12px"><i class="ti ti-external-link"></i> Abrir en Drive</a>
+        </div>
+        <iframe src="https://drive.google.com/file/d/1S_b6HolcJU1I8UIlzpuYWSKh6MeeDUKA/preview" width="100%" height="560" style="display:block;border:none" allow="autoplay"></iframe>
+      </div>
+
+      <!-- Parámetros de venta -->
+      <div class="section-card" style="margin-bottom:1.25rem">
+        <div class="section-card-header">
+          <span class="section-card-title">Precios y descuentos por etapa</span>
+        </div>
+        <div class="venta-params-grid">
+          <div class="venta-param-item">
+            <label>Precio m² Cubierto (USD)</label>
+            <input class="venta-param-inp" id="vp-precio-cub" type="number" min="0" step="1" placeholder="—">
+          </div>
+          <div class="venta-param-item">
+            <label>Precio m² Descubierto (USD)</label>
+            <input class="venta-param-inp" id="vp-precio-desc" type="number" min="0" step="1" placeholder="—">
+          </div>
+          <div class="venta-param-item">
+            <label>Descuento Etapa Pozo (%)</label>
+            <input class="venta-param-inp" id="vp-dto-pozo" type="number" min="0" max="100" step="0.5" placeholder="ej. 20">
+          </div>
+          <div class="venta-param-item">
+            <label>Descuento Etapa Intermedia (%)</label>
+            <input class="venta-param-inp" id="vp-dto-inter" type="number" min="0" max="100" step="0.5" placeholder="ej. 10">
+          </div>
+          <div class="venta-param-item">
+            <label>Etapa Final</label>
+            <input class="venta-param-inp" value="Sin descuento — precio completo" disabled style="color:#6b7280;font-size:12px;font-weight:400">
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de unidades -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <span class="section-card-title">Unidades</span>
+          <span style="font-size:12px;color:#8a94a6" id="unidades-total-m2"></span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table" id="unidades-table">
+            <thead>
+              <tr>
+                <th>Unidad</th>
+                <th style="text-align:right">m² Cubiertos</th>
+                <th style="text-align:right">m² Descubiertos</th>
+                <th style="text-align:right">m² Totales</th>
+                <th style="text-align:center">Etapa</th>
+                <th style="text-align:right">Precio USD</th>
+              </tr>
+            </thead>
+            <tbody id="unidades-tbody"></tbody>
+          </table>
+        </div>
+        <div class="venta-ingresos-resumen" id="venta-resumen" style="display:none">
+          <div class="venta-resumen-item"><span class="lbl">Ingresos proyectados</span><span class="val" id="vr-total">—</span></div>
+          <div class="venta-resumen-item"><span class="lbl">Unidades vendidas</span><span class="val" id="vr-vendidas">—</span></div>
+          <div class="venta-resumen-item"><span class="lbl">Precio promedio/u</span><span class="val" id="vr-prom">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUDITORÍA -->
+    <!-- PERMISOS E IMPUESTOS -->
+    <div id="tab-permisos" class="tab-section">
+      <div class="content-header">
+        <div>
+          <div class="content-title">Permisos e Impuestos</div>
+          <div class="content-sub">Etapas municipales y cargas impositivas — Bogado 4413</div>
+        </div>
+      </div>
+
+      <!-- TIMELINE DE TRAMITES -->
+      <div class="section-card" style="margin-bottom:1rem">
+        <div class="section-card-header">
+          <div class="section-card-title">Secuencia de trámites</div>
+        </div>
+        <div class="perm-timeline">
+          <div class="ptl-item">
+            <div class="ptl-dot blue"></div>
+            <div class="ptl-title">1 · Aprobación del plano</div>
+            <div class="ptl-detail">Pago del 20% de derechos de obra + encomiendas. Habilita la aprobación municipal del proyecto.</div>
+            <span class="ptl-chip">⏱ ~180 días corridos</span>
+          </div>
+          <div class="ptl-item">
+            <div class="ptl-dot orange"></div>
+            <div class="ptl-title">2 · Permiso de ejecución de obra</div>
+            <div class="ptl-detail">Pago del 80% restante de derechos de obra + mínimo 20% de Plusvalía. Habilita el inicio físico de la construcción.</div>
+            <span class="ptl-chip">⏱ ~30 días corridos</span>
+          </div>
+          <div class="ptl-item">
+            <div class="ptl-dot green"></div>
+            <div class="ptl-title">3 · Plusvalía restante</div>
+            <div class="ptl-detail">El saldo puede abonarse en cualquier momento antes del AVO 3 (final de obra). Pagando el 100% al momento del permiso de ejecución: <strong>30% de descuento</strong>.</div>
+            <span class="ptl-chip">Fecha límite: AVO 3</span>
+          </div>
+          <div class="ptl-item">
+            <div class="ptl-dot gray"></div>
+            <div class="ptl-title">4 · AVO 1 / AVO 2 / AVO 3</div>
+            <div class="ptl-detail">Avances de obra verificados por el municipio — detalle pendiente de carga.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOQUES DE COSTOS -->
+      <div class="permisos-grid">
+
+        <div class="permiso-block">
+          <div class="permiso-block-title"><span class="badge badge-info">Etapa 1</span> Aprobación del plano</div>
+          <div class="permiso-block-sub">Pagos obligatorios para la aprobación municipal del proyecto</div>
+          <div class="permiso-item">
+            <div>
+              <div class="permiso-item-label">Derechos de obra — 20%</div>
+              <div class="permiso-item-note">20% del total, abonado en esta etapa</div>
+            </div>
+            <div class="permiso-item-value">— (a calcular)</div>
+          </div>
+          <div class="permiso-item">
+            <div><div class="permiso-item-label">Encomienda proyecto + dirección de obra</div></div>
+            <div class="permiso-item-value">$325.000</div>
+          </div>
+          <div class="permiso-item">
+            <div><div class="permiso-item-label">Encomienda proyecto instalaciones</div></div>
+            <div class="permiso-item-value">$111.000</div>
+          </div>
+          <div class="permiso-tip">
+            <i class="ti ti-clock"></i>
+            Tiempo estimado de gestión: <strong>&nbsp;~180 días corridos</strong>
+          </div>
+        </div>
+
+        <div class="permiso-block">
+          <div class="permiso-block-title"><span class="badge badge-warning">Etapa 2</span> Permiso de ejecución</div>
+          <div class="permiso-block-sub">Pagos que habilitan el inicio físico de la construcción</div>
+          <div class="permiso-item">
+            <div>
+              <div class="permiso-item-label">Derechos de obra — 80% restante</div>
+              <div class="permiso-item-note">Saldo de los derechos de obra</div>
+            </div>
+            <div class="permiso-item-value">— (a calcular)</div>
+          </div>
+          <div class="permiso-item">
+            <div>
+              <div class="permiso-item-label">Plusvalía — mínimo 20%</div>
+              <div class="permiso-item-note">Piso obligatorio para obtener el permiso</div>
+            </div>
+            <div class="permiso-item-value">— (a calcular)</div>
+          </div>
+          <div class="permiso-tip">
+            <i class="ti ti-clock"></i>
+            Tiempo estimado de gestión: <strong>&nbsp;~30 días corridos</strong>
+          </div>
+        </div>
+
+        <div class="permiso-block">
+          <div class="permiso-block-title"><span class="badge badge-success">Plusvalía</span> Pago anticipado</div>
+          <div class="permiso-block-sub">Opción: pagar el 100% al momento del permiso de ejecución</div>
+          <div class="permiso-item">
+            <div>
+              <div class="permiso-item-label">Plusvalía completa (100%)</div>
+              <div class="permiso-item-note">Si se paga todo en la Etapa 2</div>
+            </div>
+            <div class="permiso-item-value">— (a calcular)</div>
+          </div>
+          <div class="permiso-item">
+            <div><div class="permiso-item-label">Descuento por pago anticipado</div></div>
+            <div class="permiso-item-value" style="color:#16a34a">−30%</div>
+          </div>
+          <div class="permiso-item">
+            <div>
+              <div class="permiso-item-label">Plusvalía con descuento aplicado</div>
+              <div class="permiso-item-note">Valor final pagando en Etapa 2</div>
+            </div>
+            <div class="permiso-item-value">— (a calcular)</div>
+          </div>
+          <div class="permiso-tip permiso-tip-green">
+            <i class="ti ti-discount-2"></i>
+            Pagando el 100% en el permiso de ejecución se ahorra el 30% del valor total de la Plusvalía.
+          </div>
+          <div class="permiso-tip" style="margin-top:8px">
+            <i class="ti ti-alert-triangle"></i>
+            Si no se anticipa, el saldo debe abonarse <strong>&nbsp;antes del AVO 3</strong>.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="tab-auditoria" class="tab-section">
+      <div class="content-header">
+        <div><div class="content-title">Auditoría</div><div class="content-sub">Historial completo e inmutable de todas las cargas</div></div>
+      </div>
+      <div class="section-card">
+        <table class="data-table">
+          <thead><tr><th style="width:145px">Fecha y hora</th><th style="width:80px">Usuario</th><th style="width:80px">Tipo</th><th>Detalle</th><th style="width:110px">Monto</th></tr></thead>
+          <tbody id="audit-tbody"><tr><td colspan="5"><div class="empty-state"><i class="ti ti-list-check"></i><p>Sin registros en auditoría</p></div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LÍNEA DE TIEMPO -->
+    <div id="tab-timeline" class="tab-section">
+      <div class="content-header">
+        <div><div class="content-title">Línea de tiempo</div><div class="content-sub">Flujo de gastos proyectado mes a mes</div></div>
+        <button class="action-btn" onclick="tlOpenSettings()"><i class="ti ti-settings"></i> Supuestos</button>
+      </div>
+      <div id="tl-supuestos-banner" style="margin-bottom:1rem"></div>
+      <div class="section-card" style="overflow-x:auto">
+        <div id="tl-gantt"></div>
+      </div>
+      <div class="section-card" style="margin-top:.75rem">
+        <div class="section-card-header"><div class="section-card-title">Flujo de caja mensual (USD)</div></div>
+        <div id="tl-table" style="overflow-x:auto"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL GASTOS/APORTES/FACTURAS -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-title" id="modal-title">Nuevo registro</div>
+    <div id="modal-body"></div>
+    <div class="form-actions">
+      <button class="action-btn secondary" onclick="closeModal()">Cancelar</button>
+      <button class="action-btn" onclick="submitModal()"><i class="ti ti-check"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PRESUPUESTO -->
+<div class="ppto-modal-bg" id="ppto-modal-bg">
+  <div class="ppto-modal" id="ppto-modal-content"></div>
+</div>
+
+<script>
+// ─── USUARIOS ──────────────────────────────────────────────
+const USERS = {
+  "manu":  { pass: "obra2024",    display: "Manu",  initials: "MA" },
+  "nico":  { pass: "bogado4413",  display: "Nico",  initials: "NI" }
+};
+const PRESUPUESTO_TOTAL = 50000000;
+
+// ─── ESTADO ────────────────────────────────────────────────
+let currentUser = null;
+let currentModalType = null;
+
+const DB = { gastos:[], aportes:[], facturas:[], audit:[] };
+
+function loadDB() {
+  ['gastos','aportes','facturas','audit'].forEach(k => {
+    try { DB[k] = JSON.parse(localStorage.getItem('ob4413_' + k) || '[]'); } catch(e) { DB[k] = []; }
+  });
+}
+function saveDB(key) {
+  try { localStorage.setItem('ob4413_' + key, JSON.stringify(DB[key])); } catch(e) {}
+}
+
+// ─── UTILS ─────────────────────────────────────────────────
+function fmtMoney(n) { return '$\u00a0' + Number(n).toLocaleString('es-AR', {minimumFractionDigits:0,maximumFractionDigits:0}); }
+function fmtDate(iso) { if(!iso) return '—'; const [y,m,d]=iso.split('-'); return d+'/'+m+'/'+y; }
+function fmtDatetime(iso) { if(!iso) return '—'; return iso.replace('T',' ').substring(0,16); }
+function nowISO() { return new Date().toISOString(); }
+function todayISO() { return new Date().toISOString().substring(0,10); }
+function genId() { return Date.now()+'_'+Math.random().toString(36).substr(2,5); }
+const FMTP = n => n==null ? '–' : '$ '+Math.round(n).toLocaleString('es-AR');
+const TCKP = n => n==null ? '–' : 'USD '+Math.round(n).toLocaleString('es-AR');
+
+// ─── AUTH ──────────────────────────────────────────────────
+loadDB();
+
+function doLogin() {
+  const u = document.getElementById('login-user').value.trim().toLowerCase();
+  const p = document.getElementById('login-pass').value;
+  const err = document.getElementById('login-error');
+  if (USERS[u] && USERS[u].pass === p) {
+    currentUser = { id: u, ...USERS[u] };
+    document.getElementById('user-display').textContent = currentUser.display;
+    document.getElementById('user-initials').textContent = currentUser.initials;
+    document.getElementById('login-page').classList.add('hidden');
+    document.getElementById('main-page').classList.remove('hidden');
+    renderAll();
+    pptoLoad();
+    pptoRenderAll();
+    fetchSupuestos();
+  } else {
+    err.textContent = 'Usuario o contraseña incorrectos.';
+  }
+}
+function doLogout() {
+  currentUser = null;
+  document.getElementById('main-page').classList.add('hidden');
+  document.getElementById('login-page').classList.remove('hidden');
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-error').textContent = '';
+}
+document.getElementById('login-pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+document.getElementById('login-user').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('login-pass').focus(); });
+
+// ─── NAVEGACIÓN ────────────────────────────────────────────
+function showTab(name, el) {
+  document.querySelectorAll('.tab-section').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(el) el.classList.add('active');
+  if(name==='dashboard') renderDashboard();
+  if(name==='presupuesto') { renderSupuestos(); pptoRenderAll(); }
+  if(name==='timeline') { tlRender(); }
+  if(name==='ingresos') { unidadesLoad(); ventaParamsRender(); renderUnidades(); }
+}
+
+// ─── RENDER PORTAL ─────────────────────────────────────────
+function renderAll() { renderDashboard(); renderGastos(); renderAportes(); renderFacturas(); renderAudit(); }
+
+function renderDashboard() {
+  const gastosActivos = DB.gastos.filter(g=>!g.anulado);
+  const aportesActivos = DB.aportes.filter(a=>!a.anulado);
+  const totalGastado = gastosActivos.reduce((s,g)=>s+Number(g.monto),0);
+  const totalAportado = aportesActivos.reduce((s,a)=>s+Number(a.monto),0);
+  const saldo = totalAportado - totalGastado;
+  const pendiente = PRESUPUESTO_TOTAL - totalGastado;
+  const pct = PRESUPUESTO_TOTAL>0 ? Math.min(100,Math.round(totalGastado/PRESUPUESTO_TOTAL*100)) : 0;
+  document.getElementById('metrics-grid').innerHTML = `
+    <div class="metric-card"><div class="metric-label">Total aportado</div><div class="metric-value green">${fmtMoney(totalAportado)}</div><div class="metric-sub">${aportesActivos.length} aportes activos</div></div>
+    <div class="metric-card"><div class="metric-label">Total gastado</div><div class="metric-value red">${fmtMoney(totalGastado)}</div><div class="metric-sub">${gastosActivos.length} gastos activos</div></div>
+    <div class="metric-card"><div class="metric-label">Saldo disponible</div><div class="metric-value ${saldo>=0?'blue':'red'}">${fmtMoney(saldo)}</div><div class="metric-sub">aportado − gastado</div></div>
+    <div class="metric-card"><div class="metric-label">Saldo presupuesto</div><div class="metric-value ${pendiente>=0?'orange':'red'}">${fmtMoney(pendiente)}</div><div class="metric-sub">de $${(PRESUPUESTO_TOTAL/1000000).toFixed(1)}M estimados</div></div>`;
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-pct-badge').textContent = pct+'%';
+  document.getElementById('progress-label').textContent = pct>0 ? fmtMoney(totalGastado)+' gastados de '+fmtMoney(PRESUPUESTO_TOTAL)+' presupuestados' : 'Cargá el primer movimiento para ver el avance';
+  const all = [...DB.gastos.map(g=>({...g,_tipo:'Gasto'})),...DB.aportes.map(a=>({...a,_tipo:'Aporte'}))].sort((a,b)=>b.ts.localeCompare(a.ts)).slice(0,10);
+  const tbody = document.getElementById('recent-tbody');
+  if(!all.length){tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-inbox"></i><p>Sin movimientos aún</p></div></td></tr>';return;}
+  tbody.innerHTML=all.map(r=>`<tr><td>${fmtDate(r.fecha)}</td><td><span class="badge ${r._tipo==='Aporte'?'badge-success':'badge-info'}">${r._tipo}</span></td><td title="${r.descripcion}">${r.descripcion}</td><td>${fmtMoney(r.monto)}</td><td>${r.anulado?'<span class="badge badge-danger">Anulado</span>':'<span class="badge badge-success">Activo</span>'}</td></tr>`).join('');
+}
+function renderGastos() {
+  const tbody=document.getElementById('gastos-tbody');
+  const sorted=[...DB.gastos].sort((a,b)=>b.ts.localeCompare(a.ts));
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="ti ti-receipt"></i><p>Sin gastos registrados</p></div></td></tr>';return;}
+  tbody.innerHTML=sorted.map(g=>`<tr><td>${fmtDate(g.fecha)}</td><td title="${g.descripcion}">${g.descripcion}</td><td>${g.categoria||'—'}</td><td>${fmtMoney(g.monto)}</td><td>${g.sinFactura?'<span class="badge badge-warning">Sin factura</span>':'<span class="badge badge-gray">Con factura</span>'}</td><td>${g.anulado?'<span class="badge badge-danger">Anulado</span>':'<span class="badge badge-success">Activo</span>'}</td></tr>`).join('');
+}
+function renderAportes() {
+  const tbody=document.getElementById('aportes-tbody');
+  const sorted=[...DB.aportes].sort((a,b)=>b.ts.localeCompare(a.ts));
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-cash"></i><p>Sin aportes registrados</p></div></td></tr>';return;}
+  tbody.innerHTML=sorted.map(a=>`<tr><td>${fmtDate(a.fecha)}</td><td title="${a.descripcion}">${a.descripcion}</td><td>${a.inversor||'—'}</td><td>${fmtMoney(a.monto)}</td><td>${a.anulado?'<span class="badge badge-danger">Anulado</span>':'<span class="badge badge-success">Activo</span>'}</td></tr>`).join('');
+}
+function renderFacturas() {
+  const tbody=document.getElementById('facturas-tbody');
+  const sorted=[...DB.facturas].sort((a,b)=>b.ts.localeCompare(a.ts));
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="ti ti-file-invoice"></i><p>Sin facturas cargadas</p></div></td></tr>';return;}
+  tbody.innerHTML=sorted.map(f=>`<tr><td>${fmtDate(f.fecha)}</td><td title="${f.proveedor}">${f.proveedor}</td><td title="${f.descripcion}">${f.descripcion}</td><td>${fmtMoney(f.monto)}</td><td>${f.nroFactura||'—'}</td><td>${f.anulado?'<span class="badge badge-danger">Anulada</span>':'<span class="badge badge-success">Activa</span>'}</td></tr>`).join('');
+}
+function renderAudit() {
+  const tbody=document.getElementById('audit-tbody');
+  const sorted=[...DB.audit].sort((a,b)=>b.ts.localeCompare(a.ts));
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-list-check"></i><p>Sin registros en auditoría</p></div></td></tr>';return;}
+  tbody.innerHTML=sorted.map(a=>`<tr><td class="audit-ts">${fmtDatetime(a.ts)}</td><td>${a.usuario}</td><td><span class="badge badge-info">${a.tipo}</span></td><td title="${a.detalle}" style="font-size:12px">${a.detalle}</td><td>${a.monto?fmtMoney(a.monto):'—'}</td></tr>`).join('');
+}
+
+// ─── MODAL GASTOS/APORTES ──────────────────────────────────
+function handleOverlayClick(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+function openModal(type){
+  currentModalType=type;
+  const title=document.getElementById('modal-title');
+  const body=document.getElementById('modal-body');
+  const CATS=['Materiales','Mano de obra','Equipos','Honorarios','Administrativo','Servicios','Otro'];
+  if(type==='gasto'){
+    title.textContent='Registrar nuevo gasto';
+    body.innerHTML=`<div class="form-row-inline"><div class="form-row"><label>Fecha *</label><input type="date" id="f-fecha" value="${todayISO()}"></div><div class="form-row"><label>Monto ($) *</label><input type="number" id="f-monto" placeholder="0" min="0"></div></div><div class="form-row"><label>Descripción *</label><input type="text" id="f-desc" placeholder="Ej: Compra de hierro — 500 kg"></div><div class="form-row-inline"><div class="form-row"><label>Categoría</label><select id="f-cat">${CATS.map(c=>`<option>${c}</option>`).join('')}</select></div><div class="form-row"><label>¿Sin factura?</label><select id="f-sinfactura"><option value="no">No — tiene factura</option><option value="si">Sí — gasto sin factura</option></select></div></div><div class="form-row"><label>¿Es una anulación de carga anterior?</label><select id="f-anulacion" onchange="toggleAnulRef(this)"><option value="no">No</option><option value="si">Sí</option></select></div><div class="form-row anulacion-ref" id="anul-ref-row"><label>Referencia de la carga anulada *</label><input type="text" id="f-anulref" placeholder="Ej: ANULACIÓN carga 2024-001"></div><div class="form-row"><label>Observaciones</label><textarea id="f-obs" placeholder="Notas adicionales..."></textarea></div>`;
+  } else if(type==='aporte'){
+    title.textContent='Registrar nuevo aporte';
+    body.innerHTML=`<div class="form-row-inline"><div class="form-row"><label>Fecha *</label><input type="date" id="f-fecha" value="${todayISO()}"></div><div class="form-row"><label>Monto ($) *</label><input type="number" id="f-monto" placeholder="0" min="0"></div></div><div class="form-row"><label>Inversor *</label><input type="text" id="f-inversor" placeholder="Nombre del inversor o entidad"></div><div class="form-row"><label>Descripción *</label><input type="text" id="f-desc" placeholder="Ej: Cuota 3 — junio 2025"></div><div class="form-row"><label>¿Es una anulación de carga anterior?</label><select id="f-anulacion" onchange="toggleAnulRef(this)"><option value="no">No</option><option value="si">Sí</option></select></div><div class="form-row anulacion-ref" id="anul-ref-row"><label>Referencia de la carga anulada *</label><input type="text" id="f-anulref" placeholder="Ej: ANULACIÓN aporte 2024-003"></div><div class="form-row"><label>Observaciones</label><textarea id="f-obs" placeholder="Notas adicionales..."></textarea></div>`;
+  } else if(type==='factura'){
+    title.textContent='Cargar factura';
+    body.innerHTML=`<div class="form-row-inline"><div class="form-row"><label>Fecha *</label><input type="date" id="f-fecha" value="${todayISO()}"></div><div class="form-row"><label>Monto ($) *</label><input type="number" id="f-monto" placeholder="0" min="0"></div></div><div class="form-row-inline"><div class="form-row"><label>Proveedor *</label><input type="text" id="f-prov" placeholder="Nombre del proveedor"></div><div class="form-row"><label>N° Factura</label><input type="text" id="f-nrofac" placeholder="Ej: A-0001-00012345"></div></div><div class="form-row"><label>Descripción *</label><input type="text" id="f-desc" placeholder="Ej: Materiales de construcción — lote 3"></div><div class="form-row"><label>¿Es una anulación de carga anterior?</label><select id="f-anulacion" onchange="toggleAnulRef(this)"><option value="no">No</option><option value="si">Sí</option></select></div><div class="form-row anulacion-ref" id="anul-ref-row"><label>Referencia de la factura anulada *</label><input type="text" id="f-anulref" placeholder="Ej: ANULACIÓN factura A-0001-00012345"></div><div class="form-row"><label>Observaciones</label><textarea id="f-obs" placeholder="Notas adicionales..."></textarea></div>`;
+  }
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(()=>{const el=document.getElementById('f-desc')||document.getElementById('f-inversor');if(el)el.focus();},100);
+}
+function toggleAnulRef(sel){const row=document.getElementById('anul-ref-row');if(row)row.style.display=sel.value==='si'?'block':'none';}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');currentModalType=null;}
+function submitModal(){
+  const t=currentModalType,ts=nowISO();
+  const fecha=document.getElementById('f-fecha')?.value;
+  const monto=document.getElementById('f-monto')?.value;
+  const desc=document.getElementById('f-desc')?.value.trim();
+  const esAnulacion=document.getElementById('f-anulacion')?.value==='si';
+  const anulref=esAnulacion?(document.getElementById('f-anulref')?.value.trim()||''):'';
+  const obs=document.getElementById('f-obs')?.value.trim()||'';
+  if(!fecha){alert('Completá la fecha.');return;}
+  if(!monto||Number(monto)<=0){alert('Ingresá un monto válido.');return;}
+  if(!desc){alert('Completá la descripción.');return;}
+  if(esAnulacion&&!anulref){alert('Indicá la referencia de la carga que estás anulando.');return;}
+  const detalle=esAnulacion?`ANULACIÓN: ${desc} (ref: ${anulref})`:desc;
+  const id=genId();
+  if(t==='gasto'){const cat=document.getElementById('f-cat')?.value;const sinFac=document.getElementById('f-sinfactura')?.value==='si';DB.gastos.push({id,ts,fecha,descripcion:detalle,categoria:cat,monto:Number(monto),sinFactura:sinFac,anulado:esAnulacion,obs,usuario:currentUser.id});saveDB('gastos');renderGastos();}
+  else if(t==='aporte'){const inv=document.getElementById('f-inversor')?.value.trim()||'';if(!inv){alert('Completá el nombre del inversor.');return;}DB.aportes.push({id,ts,fecha,descripcion:detalle,inversor:inv,monto:Number(monto),anulado:esAnulacion,obs,usuario:currentUser.id});saveDB('aportes');renderAportes();}
+  else if(t==='factura'){const prov=document.getElementById('f-prov')?.value.trim()||'';const nro=document.getElementById('f-nrofac')?.value.trim()||'';if(!prov){alert('Completá el nombre del proveedor.');return;}DB.facturas.push({id,ts,fecha,proveedor:prov,descripcion:detalle,monto:Number(monto),nroFactura:nro,anulado:esAnulacion,obs,usuario:currentUser.id});saveDB('facturas');renderFacturas();}
+  DB.audit.push({ts,usuario:currentUser.display,tipo:t.charAt(0).toUpperCase()+t.slice(1),detalle,monto:Number(monto)});
+  saveDB('audit');renderDashboard();renderAudit();closeModal();
+}
+
+// ══════════════════════════════════════════════════════════
+// ─── MÓDULO PRESUPUESTO ───────────────────────────────────
+// ══════════════════════════════════════════════════════════
+
+const pptoState = {
+  dolar: 1400,
+  mdo: { obreros:8, jornal:80000, dias:13, hs_pct:100, css:0.30, iva_pct:0.5, ganancia:0.20 },
+  mdo_elec: { trabajadores:2, jornal:200000, dias:1, hs_pct:100, css:0.30, iva_pct:0.5, ganancia:0.20 },
+  acero: { val:null, phi6:{usd_kg:null,kg:null}, phi8:{usd_kg:null,kg:null}, phi10:{usd_kg:null,kg:null}, phi12:{usd_kg:null,kg:null}, phi16:{usd_kg:null,kg:null} },
+  hormigon: { m3:40, precio_m3:109.64 },
+  maderas: { val:1420 },
+  loza: { tripodes:null },
+  permisos: {
+    plusvalia_total:31311,      // valor total de la plusvalía (100%)
+    plusvalia_adelantada:false, // si true, aplica 30% descuento
+    plusvalia_desc:0.30,        // descuento por pago anticipado
+    derechos_total:Math.round(3433280/1400), // USD 2452 — total derechos de obra
+    derechos_dem:Math.round(488800/1400),    // USD 349 — derechos de demolición
+    encomienda_dir:Math.round(325000/1400),  // USD 232 — encomienda proyecto + dir obra
+    encomienda_inst:Math.round(111000/1400), // USD 79  — encomienda instalaciones
+    abl:null,
+  },
+  honorarios: { arquitecto_mes:2857, contador_mes:286, meses:24, estructural:6000, suelos:2000 },
+  mamposteria: { mdo:null, mdo_ob:4, mdo_jornal:80000, mdo_hs_pct:100, mdo_css:0.30, mdo_iva_pct:0.5, mdo_ganancia:0.20, ladrillos:null, ladrillos_qty:null, arena:null, arena_qty:null, cal:null, cal_qty:null },
+  escribano: { estatuto:null, escritura_lote:null, reglamento:null, escritura_dpt:null },
+  demolicion: { costo:null },
+  servicios: { aysa:null, edesur:null },
+  ascensor: { costo:null },
+  elec: { materiales:null },
+  puertas: { seguridad:null, seguridad_qty:null, interiores:null, interiores_qty:null, vidrios:null },
+  porcelanatos: { mdo:null, material:null, m2:null },
+  pintura: { mdo:null, material:null },
+  pintura_int: { tarquini:null },
+  terminaciones: { yeso_mdo:null, yeso_mat:null },
+  sanitarias: { mdo:null, artefactos:null, griferias:null, muebles_bano:null },
+  cocina: { mdo:null, granito:null },
+  gastos_varios: { escrituracion:null, materiales_varios:null },
+  otros: {},
+};
+
+let pptoRecibidos = {};
+const DRIVE_ROOT = 'https://drive.google.com/drive/folders/1jCwQ2p5OMAmfU-tRrvax-QEpJpM-AC0K';
+
+function pptoCalcMDO() {
+  const m=pptoState.mdo;
+  const dias = supuestos.dias.val || m.dias;
+  const sub1=m.obreros*m.jornal*dias;
+  const css=(m.hs_pct/100)*m.jornal*m.css*m.obreros*dias;
+  const sub2=sub1+css;
+  const iva=sub1*(m.iva_pct/100*0.105);
+  const sub3=sub2+iva;
+  const ganancia=sub3*m.ganancia;
+  const sub4=sub3+ganancia;
+  const dolar = supuestos.dolar.val || pptoState.dolar;
+  return {sub1,css,sub2,iva,sub3,ganancia,sub4,usd:sub4/dolar};
+}
+function pptoCalcElecFull() {
+  const m=pptoState.mdo_elec;
+  const dias = supuestos.dias.val || m.dias;
+  const sub1=m.trabajadores*m.jornal*dias;
+  const css=(m.hs_pct/100)*m.jornal*m.css*m.trabajadores*dias;
+  const sub2=sub1+css;
+  const iva=sub1*(m.iva_pct/100*0.105);
+  const sub3=sub2+iva;
+  const ganancia=sub3*m.ganancia;
+  const sub4=sub3+ganancia;
+  const dolar = supuestos.dolar.val || pptoState.dolar;
+  return {sub1,css,sub2,iva,sub3,ganancia,sub4,usd:sub4/dolar};
+}
+function pptoCalcElec() {
+  return pptoCalcElecFull().usd;
+}
+
+const PPTO_SECTIONS = [
+  // 0
+  {
+    id:'honorarios',title:'0. Honorarios profesionales',badge:'Mensual',
+    rows:()=>[
+      {label:'Arquitecto – Dirección de obra',freq:'Mensual',usd:pptoState.honorarios.arquitecto_mes,action:'arq'},
+      {label:'Contador',freq:'Mensual',usd:pptoState.honorarios.contador_mes,action:'cont'},
+      {label:'Cálculo y proyecto estructural',freq:'Única vez',usd:pptoState.honorarios.estructural,action:'estructural'},
+      {label:'Estudio de suelos',freq:'Única vez',usd:pptoState.honorarios.suelos,action:'suelos'},
+    ],
+    total:()=>{const h=pptoState.honorarios;return (h.arquitecto_mes+h.contador_mes)*h.meses+(h.estructural||0)+(h.suelos||0);},
+  },
+  // 1
+  {
+    id:'permisos',title:'1. Impuestos y permisos',badge:'Gastos únicos',
+    rows:()=>{
+      const p=pptoState.permisos;
+      const pv=p.plusvalia_total;
+      const pvFinal=pv!=null?(p.plusvalia_adelantada?Math.round(pv*(1-p.plusvalia_desc)):pv):null;
+      const der=p.derechos_total;
+      return [
+        {label:'Plusvalía',freq:'Única vez',usd:pvFinal,action:'plusvalia_total',badge:p.plusvalia_adelantada?'−30% adelantada':null},
+        {label:'Derechos de obra',freq:'Única vez',usd:der,action:'derechos_total',info:'derechos_obra'},
+        {label:'Derechos de demolición',freq:'Única vez',usd:p.derechos_dem,action:'derechos_dem'},
+        {label:'Encomienda proyecto y dir. de obra',freq:'Única vez',usd:p.encomienda_dir,action:'encomienda_dir'},
+        {label:'Encomienda proyecto instalaciones',freq:'Única vez',usd:p.encomienda_inst,action:'encomienda_inst'},
+      ];
+    },
+    total:()=>{
+      const p=pptoState.permisos;
+      const pv=p.plusvalia_total||0;
+      const pvFinal=p.plusvalia_adelantada?Math.round(pv*(1-p.plusvalia_desc)):pv;
+      return pvFinal+(p.derechos_total||0)+(p.derechos_dem||0)+(p.encomienda_dir||0)+(p.encomienda_inst||0);
+    },
+  },
+  // 2
+  {
+    id:'demolicion_sec',title:'2. Demolición',badge:'Gastos únicos',
+    rows:()=>[
+      {label:'Costo demolición',freq:'Única vez',usd:pptoState.demolicion.costo,action:'dem'},
+      {label:'Derechos de demolición',freq:'Única vez',usd:pptoState.permisos.derechos_dem,action:'derechos_dem'},
+      {label:'AYSA',freq:'Mensual',usd:pptoState.servicios.aysa,action:'aysa'},
+      {label:'Edesur',freq:'Mensual',usd:pptoState.servicios.edesur,action:'edesur'},
+    ],
+    total:()=>{const s=(pptoState.demolicion.costo||0)+(pptoState.permisos.derechos_dem||0)+(pptoState.servicios.aysa||0)+(pptoState.servicios.edesur||0);return s>0?s:null;},
+  },
+  // 3
+  {
+    id:'loza',title:'3. Estructuras',badge:'Por loza',
+    rows:()=>{
+      const mdo=pptoCalcMDO();
+      return [
+        {label:'Contratista Hormigón',freq:'Por loza',usd:mdo.usd,action:'mdo'},
+        {label:'Acero / hierro',freq:'Por loza',usd:calcAceroTotal(),action:'acero'},
+        {label:'Hormigón H30',freq:'Por loza',usd:pptoState.hormigon.m3*pptoState.hormigon.precio_m3,action:'hormigon'},
+        {label:'Maderas para encofrado',freq:'Por loza',usd:pptoState.maderas.val,action:'maderas'},
+        {label:'Trípodes y adicionales',freq:'Por loza',usd:pptoState.loza.tripodes,action:'tripodes'},
+      ];
+    },
+    total:()=>{const l=pptoState.loza;return pptoCalcMDO().usd+(calcAceroTotal()||0)+pptoState.hormigon.m3*pptoState.hormigon.precio_m3+pptoState.maderas.val+(l.tripodes||0);},
+  },
+  // 4
+  {
+    id:'mamposteria',title:'4. Mampostería',badge:'Por piso',
+    rows:()=>[
+      {label:'Contratista Mampostería',freq:'Por piso',usd:calcMampMDO().usd,action:'mamp_mdo'},
+      {label:'Ladrillos',freq:'Por piso',usd:pptoState.mamposteria.ladrillos,action:'ladrillos'},
+      {label:'Arena',freq:'Por piso',usd:pptoState.mamposteria.arena,action:'arena'},
+      {label:'Cal',freq:'Por piso',usd:pptoState.mamposteria.cal,action:'cal'},
+    ],
+    total:()=>{const m=pptoState.mamposteria;const s=calcMampMDO().usd+(m.ladrillos||0)+(m.arena||0)+(m.cal||0);return s>0?s:null;},
+  },
+  // 5
+  {
+    id:'elec_sec',title:'5. Instalaciones Eléctricas',badge:'Por loza',
+    rows:()=>[
+      {label:'Mano de obra electricidad',freq:'Por loza',usd:pptoCalcElec(),action:'mdoelec'},
+      {label:'Materiales de electricidad',freq:'Global',usd:pptoState.elec.materiales,action:'elec_mat'},
+    ],
+    total:()=>{const s=pptoCalcElec()+(pptoState.elec.materiales||0);return s>0?s:null;},
+  },
+  // 6
+  {
+    id:'sanitarias_sec',title:'6. Instalaciones Sanitarias',badge:'Gastos únicos',
+    rows:()=>[
+      {label:'Mano de obra instalaciones',freq:'Global',usd:pptoState.sanitarias.mdo,action:'san_mdo'},
+      {label:'Artefactos sanitarios (inodoros, bidets, bachas)',freq:'Global',usd:pptoState.sanitarias.artefactos,action:'san_art'},
+      {label:'Griferías',freq:'Global',usd:pptoState.sanitarias.griferias,action:'san_grif'},
+      {label:'Muebles de baño',freq:'Global',usd:pptoState.sanitarias.muebles_bano,action:'san_muebles'},
+    ],
+    total:()=>{const s=pptoState.sanitarias;const t=(s.mdo||0)+(s.artefactos||0)+(s.griferias||0)+(s.muebles_bano||0);return t>0?t:null;},
+  },
+  // 7
+  {
+    id:'cocina_sec2',title:'7. Muebles de cocina',badge:'Gastos únicos',
+    rows:()=>[
+      {label:'Armado y colocación de muebles de cocina',freq:'Global',usd:pptoState.cocina.mdo,action:'coc_mdo'},
+      {label:'Granito con corte y colocación',freq:'Global',usd:pptoState.cocina.granito,action:'coc_granito'},
+    ],
+    total:()=>{const s=pptoState.cocina;const t=(s.mdo||0)+(s.granito||0);return t>0?t:null;},
+  },
+  // 8
+  {
+    id:'pintura_sec',title:'8. Pintura interior y exterior',badge:'Gastos únicos',
+    rows:()=>[
+      {label:'Mano de obra pintura interior y exterior',freq:'Global',usd:pptoState.pintura.mdo,action:'pin_mdo'},
+      {label:'Materiales (pinturas)',freq:'Global',usd:pptoState.pintura.material,action:'pin_mat'},
+      {label:'Tarquini / revestimiento exterior',freq:'Global',usd:pptoState.pintura_int.tarquini,action:'pin_tarquini'},
+    ],
+    total:()=>{const s=(pptoState.pintura.mdo||0)+(pptoState.pintura.material||0)+(pptoState.pintura_int.tarquini||0);return s>0?s:null;},
+  },
+  // 9
+  {
+    id:'porcelanatos_sec',title:'9. Terminaciones',badge:'Post mampostería',
+    rows:()=>[
+      {label:'Mano de obra yeso (techo)',freq:'Global',usd:pptoState.terminaciones.yeso_mdo,action:'term_yeso_mdo'},
+      {label:'Materiales yeso (techo)',freq:'Global',usd:pptoState.terminaciones.yeso_mat,action:'term_yeso_mat'},
+      {label:'Mano de obra colocación porcelanatos',freq:'Global',usd:pptoState.porcelanatos.mdo,action:'porc_mdo'},
+      {label:'Porcelanatos (material)',freq:'Global',usd:pptoState.porcelanatos.material,action:'porc_mat'},
+    ],
+    total:()=>{const s=(pptoState.terminaciones.yeso_mdo||0)+(pptoState.terminaciones.yeso_mat||0)+(pptoState.porcelanatos.mdo||0)+(pptoState.porcelanatos.material||0);return s>0?s:null;},
+  },
+  // 10
+  {
+    id:'puertas_sec',title:'10. Cerramientos',badge:'Gastos únicos',
+    rows:()=>[
+      {label:'Mano de obra colocación',freq:'Global',usd:null,action:null},
+      {label:'Puertas de seguridad F-60',freq:'Única vez',usd:pptoState.puertas.seguridad,action:'pta_seg'},
+      {label:'Puertas interiores',freq:'Única vez',usd:pptoState.puertas.interiores,action:'pta_int'},
+      {label:'Ventanas / vidrios / carpintería',freq:'Única vez',usd:pptoState.puertas.vidrios,action:'vid'},
+    ],
+    total:()=>{const s=(pptoState.puertas.seguridad||0)+(pptoState.puertas.interiores||0)+(pptoState.puertas.vidrios||0);return s>0?s:null;},
+  },
+  // 11
+  {
+    id:'ascensor_sec',title:'11. Ascensor',badge:'Gastos únicos',
+    rows:()=>[
+      {label:'Ascensor completo con instalación',freq:'Única vez',usd:pptoState.ascensor.costo,action:'asc'},
+    ],
+    total:()=>pptoState.ascensor.costo||null,
+  },
+  // 12
+  {
+    id:'escribano',title:'12. Honorarios Escribano',badge:'Gastos únicos',
+    rows:()=>[
+      {label:'Creación del estatuto',freq:'Única vez',usd:pptoState.escribano.estatuto,action:'est'},
+      {label:'Escritura del lote a nombre de la empresa',freq:'Única vez',usd:pptoState.escribano.escritura_lote,action:'elote'},
+      {label:'Reglamento de copropiedad',freq:'Única vez',usd:pptoState.escribano.reglamento,action:'reg'},
+      {label:'Escritura de los departamentos',freq:'Única vez',usd:pptoState.escribano.escritura_dpt,action:'edpt'},
+    ],
+    total:()=>{const s=Object.values(pptoState.escribano).reduce((a,v)=>a+(v||0),0);return s>0?s:null;},
+  },
+  // 13
+  {
+    id:'gastos_varios_sec',title:'13. Gastos Varios',badge:'Gastos únicos',
+    rows:()=>[
+      {label:'Honorarios contador',freq:'Ver "0. Honorarios profesionales"',usd:null,action:null},
+      {label:'Gastos de escrituración / venta',freq:'Global',usd:pptoState.gastos_varios.escrituracion,action:'gv_escrituracion'},
+      {label:'Materiales no especificados',freq:'Global',usd:pptoState.gastos_varios.materiales_varios,action:'gv_mat'},
+    ],
+    total:()=>{const s=pptoState.gastos_varios;const t=(s.escrituracion||0)+(s.materiales_varios||0);return t>0?t:null;},
+  },
+];
+
+let pptoOpenSecs = new Set(['honorarios','permisos']);
+
+// ─── PERSISTENCIA PRESUPUESTO ──────────────────────────────
+function pptoSave() {
+  try { localStorage.setItem('ob4413_ppto', JSON.stringify(pptoState)); } catch(e) {}
+  try { localStorage.setItem('ob4413_recibidos', JSON.stringify(pptoRecibidos)); } catch(e) {}
+}
+function pptoLoad() {
+  try {
+    const d = JSON.parse(localStorage.getItem('ob4413_ppto') || 'null');
+    if(d) {
+      // deep merge to preserve new keys added after save
+      Object.keys(pptoState).forEach(k => {
+        if(d[k] !== undefined) Object.assign(pptoState[k], d[k]);
+      });
+    }
+  } catch(e) {}
+  try {
+    const r = JSON.parse(localStorage.getItem('ob4413_recibidos') || 'null');
+    if(r && typeof r === 'object') pptoRecibidos = r;
+  } catch(e) {}
+}
+
+// ─── MONEDA DISPLAY ───────────────────────────────────────
+let pptoCurrency = 'USD'; // 'USD' | 'ARS'
+function togglePptoCurrency() {
+  pptoCurrency = pptoCurrency === 'USD' ? 'ARS' : 'USD';
+  const btn = document.getElementById('ppto-currency-btn');
+  if(btn) btn.innerHTML = pptoCurrency === 'USD'
+    ? '<i class="ti ti-currency-dollar"></i> Ver en ARS'
+    : '<i class="ti ti-currency-dollar"></i> Ver en USD';
+  pptoRenderAll();
+  pptoRenderBanner();
+}
+function fmtPpto(usd) {
+  if(usd == null) return null;
+  if(pptoCurrency === 'ARS') {
+    const ars = Math.round(usd * (supuestos.dolar.val || 1400));
+    return '$ ' + ars.toLocaleString('es-AR');
+  }
+  return 'USD ' + Math.round(usd).toLocaleString('es-AR');
+}
+
+// ─── SUPUESTOS ─────────────────────────────────────────────
+const supuestos = {
+  dolar: { val: 1400, status: 'loading', label: 'Dólar Blue', icon: 'ti-currency-dollar', sub: 'venta · dolarapi.com', editable: false },
+  uva:   { val: 1966.21, status: 'loading', label: 'Valor UVA', icon: 'ti-chart-line', sub: 'BCRA · argentinadatos.com', editable: false },
+  dias:  { val: 13, status: 'ok', label: 'Días hábiles / loza', icon: 'ti-calendar', sub: 'editable', editable: true },
+  lozas: { val: 6, status: 'ok', label: 'Cantidad de lozas', icon: 'ti-layers', sub: 'editable', editable: true },
+};
+
+async function fetchSupuestos() {
+  // Dólar Blue
+  try {
+    const r = await fetch('https://dolarapi.com/v1/dolares/blue');
+    const d = await r.json();
+    supuestos.dolar.val = d.venta;
+    supuestos.dolar.status = 'ok';
+    supuestos.dolar.sub = `venta · ${new Date(d.fechaActualizacion||Date.now()).toLocaleDateString('es-AR')}`;
+    pptoState.dolar = d.venta;
+  } catch(e) {
+    supuestos.dolar.status = 'error';
+    supuestos.dolar.sub = 'sin conexión – usando $' + pptoState.dolar;
+  }
+  // UVA — fuente: ArgentinaDatos (BCRA)
+  try {
+    const r2 = await fetch('https://api.argentinadatos.com/v1/finanzas/indices/uva/ultimo');
+    if(!r2.ok) throw new Error('status '+r2.status);
+    const d2 = await r2.json();
+    // responde { fecha: "YYYY-MM-DD", valor: 1966.21 }
+    const uvaVal = parseFloat(d2.valor);
+    if(uvaVal > 0) {
+      supuestos.uva.val = uvaVal;
+      supuestos.uva.status = 'ok';
+      const fecha = d2.fecha ? d2.fecha.split('-').reverse().join('/') : 'hoy';
+      supuestos.uva.sub = `BCRA · ${fecha}`;
+    } else { throw new Error('valor inválido'); }
+  } catch(e) {
+    // fallback: lista completa, tomar último elemento
+    try {
+      const r3 = await fetch('https://api.argentinadatos.com/v1/finanzas/indices/uva');
+      const d3 = await r3.json();
+      const last = Array.isArray(d3) ? d3[d3.length-1] : null;
+      if(last && last.valor) {
+        supuestos.uva.val = parseFloat(last.valor);
+        supuestos.uva.status = 'ok';
+        const fecha = last.fecha ? last.fecha.split('-').reverse().join('/') : 'hoy';
+        supuestos.uva.sub = `BCRA · ${fecha}`;
+      } else { throw new Error('sin datos'); }
+    } catch(e2) {
+      supuestos.uva.status = 'error';
+      supuestos.uva.sub = 'sin conexión – usando $' + supuestos.uva.val.toFixed(2);
+    }
+  }
+  renderSupuestos();
+  pptoRenderAll();
+}
+
+function renderSupuestos() {
+  const el = document.getElementById('supuestos-grid');
+  if(!el) return;
+  el.innerHTML = '';
+  Object.entries(supuestos).forEach(([key, s]) => {
+    const div = document.createElement('div');
+    div.className = 'sup-card';
+    const valFmt = key==='dolar' ? '$ '+Math.round(s.val).toLocaleString('es-AR')
+                 : key==='uva'   ? '$ '+parseFloat(s.val).toLocaleString('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2})
+                 : s.val;
+    const statusIcon = s.status==='loading' ? '⏳' : s.status==='ok' ? '●' : '⚠';
+    const statusClass = 'sup-status ' + s.status;
+    div.innerHTML = `
+      <label><i class="ti ${s.icon}" style="font-size:12px;margin-right:3px"></i>${s.label}</label>
+      <div class="sup-val" id="sup-val-${key}">${valFmt}</div>
+      <div class="sup-sub">${s.sub}</div>
+      <div class="${statusClass}" id="sup-st-${key}"><span>${statusIcon}</span><span>${s.status==='loading'?'Actualizando...':s.status==='ok'?'Actualizado':'Error al conectar'}</span></div>
+      ${s.editable ? `<button class="sup-edit-btn" onclick="supEdit('${key}')"><i class="ti ti-edit"></i></button>` : ''}
+    `;
+    el.appendChild(div);
+  });
+  // sync dias to mdo
+  pptoState.mdo.dias = supuestos.dias.val;
+
+  // Plusvalía adelantada toggle card
+  const pv = pptoState.permisos;
+  const pvCard = document.createElement('div');
+  pvCard.className = 'sup-card';
+  const isAd = pv.plusvalia_adelantada;
+  pvCard.innerHTML = `
+    <label><i class="ti ti-discount-2" style="font-size:12px;margin-right:3px"></i>Plusvalía anticipada</label>
+    <div style="margin-top:6px;display:flex;align-items:center;gap:10px">
+      <button id="pv-toggle-btn" onclick="togglePlusvalia()" style="
+        padding:5px 14px;border-radius:20px;border:none;cursor:pointer;font-size:12px;font-weight:600;
+        background:${isAd?'#16a34a':'#e2e5ec'};color:${isAd?'#fff':'#5a6478'};transition:all .2s">
+        ${isAd?'✓ Activada':'Desactivada'}
+      </button>
+    </div>
+    <div class="sup-sub" style="margin-top:6px">${isAd?'Se aplica 30% de descuento':'Sin descuento — pago en cuotas'}</div>
+    <div class="sup-status ok" style="margin-top:4px"><span>●</span><span>${isAd?'Ahorro: USD '+Math.round((pv.plusvalia_total||0)*pv.plusvalia_desc).toLocaleString('es-AR'):'–'}</span></div>
+  `;
+  el.appendChild(pvCard);
+}
+
+function supEdit(key) {
+  const s = supuestos[key];
+  const valEl = document.getElementById('sup-val-'+key);
+  valEl.innerHTML = `<input class="sup-input" id="sup-inp-${key}" type="number" value="${s.val}" step="1" autofocus>`;
+  const inp = document.getElementById('sup-inp-'+key);
+  inp.focus(); inp.select();
+  function commit() {
+    const v = parseFloat(inp.value);
+    if(!isNaN(v) && v > 0) {
+      supuestos[key].val = v;
+      if(key==='dias') pptoState.mdo.dias = v;
+    }
+    renderSupuestos();
+    pptoRenderAll();
+  }
+  inp.addEventListener('blur', commit);
+  inp.addEventListener('keydown', e => { if(e.key==='Enter') inp.blur(); if(e.key==='Escape'){renderSupuestos();} });
+}
+
+function togglePlusvalia() {
+  pptoState.permisos.plusvalia_adelantada = !pptoState.permisos.plusvalia_adelantada;
+  pptoSave();
+  renderSupuestos();
+  pptoRenderAll();
+}
+
+function pptoShowInfo(key) {
+  const bg=document.getElementById('ppto-modal-bg');
+  const mc=document.getElementById('ppto-modal-content');
+  bg.classList.add('show');
+  if(key==='derechos_obra') {
+    const der=pptoState.permisos.derechos_total||0;
+    const d20=Math.round(der*0.20);
+    const d80=Math.round(der*0.80);
+    mc.innerHTML=`
+      <h4><i class="ti ti-info-circle" style="color:#3b82f6"></i> Derechos de obra — cronograma de pago</h4>
+      <div class="ppto-calc">
+        <div class="line"><span>Total derechos de obra</span><span><strong>${TCKP(der)}</strong></span></div>
+      </div>
+      <div style="margin:1rem 0">
+        <div style="background:#dbeafe;border-radius:8px;padding:12px 14px;margin-bottom:10px">
+          <div style="font-size:12px;font-weight:700;color:#1d4ed8;margin-bottom:4px">📋 Al registrar el plano (Etapa 1)</div>
+          <div style="font-size:13px;color:#1e40af">Se abona el <strong>20%</strong> de los derechos de obra como parte del trámite de aprobación del plano ante el municipio.</div>
+          <div style="font-size:15px;font-weight:700;color:#1d4ed8;margin-top:6px">${TCKP(d20)}</div>
+        </div>
+        <div style="background:#fef3c7;border-radius:8px;padding:12px 14px">
+          <div style="font-size:12px;font-weight:700;color:#b45309;margin-bottom:4px">🏗️ Al pedir permiso de ejecución (Etapa 2)</div>
+          <div style="font-size:13px;color:#92400e">Se abona el <strong>80% restante</strong> al solicitar el permiso de ejecución de obra, una vez que el plano ya fue registrado y aprobado.</div>
+          <div style="font-size:15px;font-weight:700;color:#b45309;margin-top:6px">${TCKP(d80)}</div>
+        </div>
+      </div>
+      <div class="ppto-modal-actions">
+        <button class="ppto-btn-save" id="pp-cancel">Entendido</button>
+      </div>`;
+    document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+  }
+}
+
+function pptoRenderBanner() {
+  const secById = id => PPTO_SECTIONS.find(s => s.id === id);
+  const lozaUnitTot = secById('loza').total();
+  const nLozas = supuestos.lozas.val || 1;
+  const lozaTot = lozaUnitTot * nLozas;
+  const perTot = secById('permisos').total();
+  const honTot = secById('honorarios').total();
+  const total = perTot + honTot + lozaTot;
+  document.getElementById('ppto-banner').innerHTML = `
+    <div class="ppto-metric"><label>3. Estructuras × ${nLozas} lozas</label><div class="val">${fmtPpto(lozaTot)}</div><div style="font-size:11px;color:#b0b8c8;margin-top:3px">${fmtPpto(lozaUnitTot)} / loza</div></div>
+    <div class="ppto-metric"><label>1. Permisos e impuestos</label><div class="val">${fmtPpto(perTot)}</div></div>
+    <div class="ppto-metric"><label>0. Honorarios (${pptoState.honorarios.meses} meses)</label><div class="val">${fmtPpto(honTot)}</div></div>
+    <div class="ppto-metric"><label>Total parcial conocido</label><div class="val">${fmtPpto(total)}</div></div>`;
+}
+
+// ─── PRESUPUESTOS RECIBIDOS ────────────────────────────────
+function pptoItemTotalUsd(item) {
+  const total = item.total != null ? item.total : (item.monto || 0);
+  const dolar = item.dolar || supuestos.dolar.val || 1400;
+  return item.moneda === 'ARS' ? total / dolar : total;
+}
+
+function pptoGetRecibidos(secId, rowKey) {
+  if (!rowKey) return [];
+  return (pptoRecibidos[secId + '__' + rowKey] || []).filter(x => x && (x.total > 0 || x.monto > 0));
+}
+function pptoAvgUsd(secId, rowKey) {
+  const list = pptoGetRecibidos(secId, rowKey);
+  if (!list.length) return null;
+  const vals = list.map(pptoItemTotalUsd);
+  return vals.reduce((a,b) => a+b, 0) / vals.length;
+}
+function pptoEffectiveUSD(secId, rowKey, theoreticalUsd) {
+  const avg = pptoAvgUsd(secId, rowKey);
+  return avg !== null ? avg : theoreticalUsd;
+}
+
+function pptoRenderSections() {
+  const el = document.getElementById('ppto-sections');
+  el.innerHTML = '';
+  PPTO_SECTIONS.forEach(sec => {
+    const isOpen = pptoOpenSecs.has(sec.id);
+    const rows = sec.rows();
+
+    // Effective total: use avg of received budgets when available, else theoretical
+    let totEff = 0;
+    rows.forEach(r => { totEff += pptoEffectiveUSD(sec.id, r.action, r.usd) || 0; });
+    const otrosTeor = (pptoState.otros && pptoState.otros[sec.id]) ? Number(pptoState.otros[sec.id]) : 0;
+    totEff += pptoEffectiveUSD(sec.id, 'otros', otrosTeor) || 0;
+    const totDisplay = totEff > 0 ? totEff : sec.total();
+
+    // Build row HTML
+    const rowsHTML = rows.map((r,i) => {
+      const list = pptoGetRecibidos(sec.id, r.action);
+      const avgUsd = pptoAvgUsd(sec.id, r.action);
+      const teoricoHTML = r.usd != null
+        ? `<span class="val">${fmtPpto(r.usd)}</span>`
+        : `<span class="val pending">pendiente</span>`;
+      const recibHTML = r.action ? `
+        ${list.length > 0
+          ? `<div class="recib-count">${list.length} presupuesto${list.length>1?'s':''}</div><div class="recib-avg">${fmtPpto(avgUsd)}</div>`
+          : `<div class="recib-avg none">sin cargar</div>`}
+        <button class="ppto-recib-btn" data-sec="${sec.id}" data-row="${r.action}" data-label="${(r.label||'').replace(/"/g,'&quot;')}"><i class="ti ti-upload"></i> Cargar</button>
+      ` : `<span style="color:#d1d5db;font-size:11px">–</span>`;
+      return `
+      <div class="ppto-row ${i%2===1?'alt':''}">
+        <span class="ppto-row-label">${r.label}${r.badge?` <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;background:#dcfce7;color:#15803d;margin-left:6px">${r.badge}</span>`:''}${r.info?`<button class="ppto-info-btn" data-info="${r.info}" title="Ver detalle" onclick="pptoShowInfo('${r.info}');event.stopPropagation()"><i class="ti ti-info-circle"></i></button>`:''}</span>
+        <span class="ppto-row-freq">${r.freq}</span>
+        <span class="ppto-teorico">${teoricoHTML}</span>
+        <span class="ppto-recibidos-cell">${recibHTML}</span>
+        <span class="ppto-row-action">${r.action?`<button class="ppto-edit-btn" data-action="${r.action}"><i class="ti ti-edit"></i> editar</button>`:''}</span>
+      </div>`;
+    }).join('');
+
+    // Otros row
+    const otrosList = pptoGetRecibidos(sec.id, 'otros');
+    const otrosAvg = pptoAvgUsd(sec.id, 'otros');
+    const otrosLabelVal = (pptoState.otros && pptoState.otros[sec.id+'_label']) || '';
+    const otrosTeoricoVal = (pptoState.otros && pptoState.otros[sec.id]) || '';
+    const otrosRecibHTML = `
+      ${otrosList.length > 0
+        ? `<div class="recib-count">${otrosList.length} presupuesto${otrosList.length>1?'s':''}</div><div class="recib-avg">${fmtPpto(otrosAvg)}</div>`
+        : `<div class="recib-avg none">sin cargar</div>`}
+      <button class="ppto-recib-btn" data-sec="${sec.id}" data-row="otros" data-label="Otros"><i class="ti ti-upload"></i> Cargar</button>
+    `;
+
+    const div = document.createElement('div');
+    div.className = 'ppto-sec';
+    div.innerHTML = `
+      <div class="ppto-sec-hdr" data-id="${sec.id}">
+        <div class="ppto-sec-hdr-left">
+          <i class="ti ti-chevron-down ppto-chev ${isOpen?'open':''}"></i>
+          <h3>${sec.title}</h3>
+          <span class="ppto-badge">${sec.badge}</span>
+        </div>
+        <div style="display:flex;align-items:center">
+          <span class="ppto-sec-total">${totDisplay!=null&&totDisplay>0?fmtPpto(totDisplay):'–'}</span>
+        </div>
+      </div>
+      <div class="ppto-body ${isOpen?'open':''}">
+        <div class="ppto-col-hdr"><span>Concepto</span><span>Frecuencia</span><span>Presup. Teórico</span><span>Presup. Recibidos</span><span></span></div>
+        ${rowsHTML}
+        <div class="ppto-row ppto-row-otros" style="background:#fafff7">
+          <span class="ppto-row-label"><input type="text" class="ppto-otros-label" data-sec="${sec.id}" placeholder="Otros..." value="${otrosLabelVal}" style="border:none;background:none;color:#5a6478;font-size:13px;font-style:italic;outline:none;width:180px;cursor:text" /></span>
+          <span class="ppto-row-freq" style="color:#d1d5db">–</span>
+          <span class="ppto-teorico"><input type="number" class="ppto-otros-val" data-sec="${sec.id}" placeholder="USD" value="${otrosTeoricoVal}" style="border:none;border-bottom:1px solid #e2e5ec;background:none;color:#1a2744;font-size:12px;font-weight:600;outline:none;width:80px;text-align:right;cursor:text" /></span>
+          <span class="ppto-recibidos-cell">${otrosRecibHTML}</span>
+          <span></span>
+        </div>
+      </div>`;
+    el.appendChild(div);
+  });
+
+  el.querySelectorAll('.ppto-sec-hdr').forEach(h=>{
+    h.addEventListener('click',()=>{
+      const id=h.dataset.id;
+      if(pptoOpenSecs.has(id)) pptoOpenSecs.delete(id); else pptoOpenSecs.add(id);
+      pptoRenderSections();
+    });
+  });
+  el.querySelectorAll('.ppto-edit-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{e.stopPropagation();pptoOpenModal(btn.dataset.action);});
+  });
+  el.querySelectorAll('.ppto-recib-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      pptoOpenRecibidosModal(btn.dataset.sec, btn.dataset.row, btn.dataset.label);
+    });
+  });
+  el.querySelectorAll('.ppto-otros-val').forEach(inp=>{
+    inp.addEventListener('change',()=>{
+      if(!pptoState.otros) pptoState.otros={};
+      pptoState.otros[inp.dataset.sec] = parseFloat(inp.value)||null;
+      pptoSave(); pptoRenderSections();
+    });
+    inp.addEventListener('click',e=>e.stopPropagation());
+  });
+  el.querySelectorAll('.ppto-otros-label').forEach(inp=>{
+    inp.addEventListener('change',()=>{
+      if(!pptoState.otros) pptoState.otros={};
+      pptoState.otros[inp.dataset.sec+'_label'] = inp.value||'';
+      pptoSave();
+    });
+    inp.addEventListener('click',e=>e.stopPropagation());
+  });
+}
+
+function pptoRenderAll() { pptoRenderBanner(); pptoRenderSections(); }
+
+// ─── MODAL PRESUPUESTOS RECIBIDOS ─────────────────────────
+function pptoOpenRecibidosModal(secId, rowKey, rowLabel) {
+  const bg = document.getElementById('ppto-modal-bg');
+  const mc = document.getElementById('ppto-modal-content');
+  const storKey = secId + '__' + rowKey;
+  if (!pptoRecibidos[storKey]) pptoRecibidos[storKey] = [];
+  const dolarHoy = supuestos.dolar.val || 1400;
+
+  function calcTotal() {
+    const neto = parseFloat(document.getElementById('recib-neto').value) || 0;
+    const iva  = parseFloat(document.getElementById('recib-iva').value)  || 0;
+    const otros= parseFloat(document.getElementById('recib-otros-imp').value) || 0;
+    const tot  = neto + iva + otros;
+    const el   = document.getElementById('recib-total-display');
+    if(el) el.textContent = tot > 0 ? tot.toLocaleString('es-AR', {maximumFractionDigits:2}) : '—';
+    return tot;
+  }
+
+  function toggleDolarField() {
+    const moneda = document.getElementById('recib-moneda').value;
+    const row = document.getElementById('recib-dolar-row');
+    if(row) row.style.display = moneda === 'ARS' ? 'block' : 'none';
+  }
+
+  function renderModal() {
+    const list = (pptoRecibidos[storKey] || []).filter(x => x && (x.total > 0 || x.monto > 0));
+    const usdVals = list.map(pptoItemTotalUsd);
+    const avg = usdVals.length ? usdVals.reduce((a,b)=>a+b,0)/usdVals.length : null;
+
+    mc.innerHTML = `
+      <h4><i class="ti ti-file-invoice"></i>${rowLabel}</h4>
+      <a href="${DRIVE_ROOT}" target="_blank" class="ppto-drive-btn">
+        <i class="ti ti-brand-google-drive"></i> Abrir carpeta compartida en Drive
+      </a>
+      ${list.length > 0 ? `
+        <div class="ppto-recib-list">
+          ${list.map((item,idx) => {
+            const total = item.total != null ? item.total : (item.monto || 0);
+            const mon = item.moneda || 'ARS';
+            const netoFmt  = item.neto  != null ? mon+' '+Number(item.neto).toLocaleString('es-AR')  : null;
+            const ivaFmt   = item.iva   != null ? 'IVA '+mon+' '+Number(item.iva).toLocaleString('es-AR')   : null;
+            const otrosFmt = item.otros_imp > 0  ? 'Otros '+mon+' '+Number(item.otros_imp).toLocaleString('es-AR') : null;
+            const parts = [netoFmt, ivaFmt, otrosFmt].filter(Boolean).join(' · ');
+            const usdEq  = pptoItemTotalUsd(item);
+            return `
+            <div class="ppto-recib-item">
+              <div class="ppto-recib-item-info">
+                <div class="ppto-recib-item-prov">${item.proveedor||'Sin nombre'}${item.nota?' <span style="font-size:11px;color:#8a94a6;font-weight:400">· '+item.nota+'</span>':''}</div>
+                <div class="ppto-recib-item-monto">
+                  <strong>${mon} ${Number(total).toLocaleString('es-AR')}</strong>
+                  ${parts ? '<br><span style="font-size:11px;color:#8a94a6">'+parts+'</span>' : ''}
+                  <span style="font-size:11px;color:#5a6478;margin-left:6px">≈ ${TCKP(usdEq)}</span>
+                </div>
+              </div>
+              <button class="ppto-recib-del" data-idx="${idx}" title="Eliminar"><i class="ti ti-trash"></i></button>
+            </div>`;
+          }).join('')}
+        </div>
+        <div class="ppto-recib-avg-box">Promedio: ${fmtPpto(avg)}</div>
+      ` : `<p style="color:#8a94a6;font-size:13px;margin-bottom:.75rem">Sin presupuestos cargados para este ítem.</p>`}
+      <div class="ppto-recib-form">
+        <div class="ppto-recib-form-title">Agregar presupuesto</div>
+        <div style="display:grid;grid-template-columns:1fr 90px;gap:8px">
+          <div class="ppto-field"><label>Proveedor / empresa</label><input type="text" id="recib-prov" placeholder="Ej: Empresa XYZ" /></div>
+          <div class="ppto-field"><label>Moneda</label>
+            <select id="recib-moneda" style="width:100%;padding:8px 11px;font-size:14px;border-radius:8px;border:1px solid #d1d5db;color:#1a2744;outline:none;background:#fff">
+              <option value="ARS" selected>ARS</option><option value="USD">USD</option>
+            </select>
+          </div>
+        </div>
+        <div id="recib-dolar-row" class="ppto-field">
+          <label>Valor dólar blue al día de hoy</label>
+          <input type="number" id="recib-dolar" value="${dolarHoy}" min="1" step="1" />
+          <div class="hint">Tomado automáticamente de los supuestos — podés ajustarlo si cambia.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="ppto-field"><label>Neto gravado</label><input type="number" id="recib-neto" placeholder="0" min="0" step="1" /></div>
+          <div class="ppto-field"><label>IVA</label><input type="number" id="recib-iva" placeholder="0" min="0" step="1" /></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="ppto-field"><label>Otros impuestos</label><input type="number" id="recib-otros-imp" placeholder="0" min="0" step="1" /></div>
+          <div class="ppto-field"><label>Total</label>
+            <div style="padding:8px 11px;font-size:14px;font-weight:700;color:#1a2744;border-radius:8px;border:1px solid #e2e5ec;background:#f8f9fb;min-height:38px">
+              <span id="recib-total-display" style="color:#1a2744">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="ppto-field"><label>Nota (opcional)</label><input type="text" id="recib-nota" placeholder="Ej: precio con entrega incluida" /></div>
+      </div>
+      <div class="ppto-modal-actions">
+        <button class="ppto-btn-cancel" id="recib-cancel">Cerrar</button>
+        <button class="ppto-btn-save" id="recib-add"><i class="ti ti-plus"></i> Agregar</button>
+      </div>`;
+
+    // Eventos
+    ['recib-neto','recib-iva','recib-otros-imp'].forEach(id=>{
+      document.getElementById(id).addEventListener('input', calcTotal);
+    });
+    document.getElementById('recib-moneda').addEventListener('change', toggleDolarField);
+
+    mc.querySelectorAll('.ppto-recib-del').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        pptoRecibidos[storKey].splice(parseInt(btn.dataset.idx),1);
+        pptoSave(); pptoRenderSections(); renderModal();
+      });
+    });
+    document.getElementById('recib-cancel').addEventListener('click', pptoCloseModal);
+    document.getElementById('recib-add').addEventListener('click',()=>{
+      const prov    = document.getElementById('recib-prov').value.trim();
+      const moneda  = document.getElementById('recib-moneda').value;
+      const dolar   = parseFloat(document.getElementById('recib-dolar')?.value) || dolarHoy;
+      const neto    = parseFloat(document.getElementById('recib-neto').value) || 0;
+      const iva     = parseFloat(document.getElementById('recib-iva').value) || 0;
+      const otros_imp = parseFloat(document.getElementById('recib-otros-imp').value) || 0;
+      const total   = neto + iva + otros_imp;
+      const nota    = document.getElementById('recib-nota').value.trim();
+      if(!total){ document.getElementById('recib-neto').focus(); return; }
+      if(!pptoRecibidos[storKey]) pptoRecibidos[storKey]=[];
+      pptoRecibidos[storKey].push({proveedor:prov, moneda, dolar, neto, iva, otros_imp, total, nota});
+      pptoSave(); pptoRenderSections(); renderModal();
+    });
+  }
+
+  bg.classList.add('show');
+  renderModal();
+}
+
+// ─── MODALES PRESUPUESTO ───────────────────────────────────
+function pptoOpenModal(action) {
+  const bg=document.getElementById('ppto-modal-bg');
+  const mc=document.getElementById('ppto-modal-content');
+  bg.classList.add('show');
+  if(action==='mdo'){mc.innerHTML=pptoBuildMDO();pptoAttachMDO();}
+  else if(action==='mdoelec'){mc.innerHTML=pptoBuildElec();pptoAttachElec();}
+  else if(action==='hormigon'){mc.innerHTML=pptoBuildHorm();pptoAttachHorm();}
+  else if(action==='acero'){mc.innerHTML=buildAceroModal();attachAceroModal();}
+  else if(action==='maderas'){mc.innerHTML=pptoBuildSimple('Maderas para encofrado','ti-trees','Costo total en USD',pptoState.maderas.val,'madv');pptoAttachSimple('madv',v=>{pptoState.maderas.val=v;});}
+  else if(action==='porc_mat'){mc.innerHTML=buildQtyModal('Porcelanatos – material','ti-grid-pattern','USD por m²','m² a colocar','m²',pptoState.porcelanatos,'material',pptoState.porcelanatos,'m2');attachQtyModal(pptoState.porcelanatos,'material',pptoState.porcelanatos,'m2','m²');}
+  else if(action==='pta_seg'){mc.innerHTML=buildQtyModal('Puertas de seguridad F-60','ti-door','USD por unidad','Cantidad','u',pptoState.puertas,'seguridad',pptoState.puertas,'seguridad_qty');attachQtyModal(pptoState.puertas,'seguridad',pptoState.puertas,'seguridad_qty','u');}
+  else if(action==='pta_int'){mc.innerHTML=buildQtyModal('Puertas interiores','ti-door','USD por unidad','Cantidad','u',pptoState.puertas,'interiores',pptoState.puertas,'interiores_qty');attachQtyModal(pptoState.puertas,'interiores',pptoState.puertas,'interiores_qty','u');}
+  else if(action==='ladrillos'){mc.innerHTML=buildQtyModal('Ladrillos','ti-stack','USD por millar','Cantidad','millares',pptoState.mamposteria,'ladrillos',pptoState.mamposteria,'ladrillos_qty');attachQtyModal(pptoState.mamposteria,'ladrillos',pptoState.mamposteria,'ladrillos_qty','millares');}
+  else if(action==='arena'){mc.innerHTML=buildQtyModal('Arena','ti-mountain','USD por m³','Cantidad','m³',pptoState.mamposteria,'arena',pptoState.mamposteria,'arena_qty');attachQtyModal(pptoState.mamposteria,'arena',pptoState.mamposteria,'arena_qty','m³');}
+  else if(action==='cal'){mc.innerHTML=buildQtyModal('Cal','ti-square','USD por bolsa','Cantidad','bolsas',pptoState.mamposteria,'cal',pptoState.mamposteria,'cal_qty');attachQtyModal(pptoState.mamposteria,'cal',pptoState.mamposteria,'cal_qty','bolsas');}
+  else if(action==='mamp_mdo'){mc.innerHTML=buildMampMDOModal();attachMampMDOModal();}
+  else if(action==='arq'||action==='cont'){
+    const isArq = action==='arq';
+    const title = isArq ? 'Arquitecto – Dirección de obra' : 'Contador';
+    const icon  = isArq ? 'ti-pencil' : 'ti-calculator';
+    const fid   = isArq ? 'arqv' : 'contv';
+    const curVal = isArq ? pptoState.honorarios.arquitecto_mes : pptoState.honorarios.contador_mes;
+    const dolar = supuestos.dolar.val || 1400;
+    const arsVal = curVal!=null ? Math.round(curVal*dolar) : '';
+    const meses = pptoState.honorarios.meses || 24;
+    mc.innerHTML = `
+      <h4><i class="ti ${icon}"></i>${title}</h4>
+      <div class="ppto-field">
+        <label>Honorario mensual — en USD</label>
+        <input type="number" id="${fid}_usd" value="${curVal!=null?Math.round(curVal):''}" placeholder="Monto en USD..." step="1" min="0">
+      </div>
+      <div style="text-align:center;color:#8a94a6;font-size:12px;margin:-4px 0 8px">— ó —</div>
+      <div class="ppto-field">
+        <label>En pesos argentinos (ARS)</label>
+        <input type="number" id="${fid}_ars" value="${arsVal}" placeholder="Monto en pesos..." step="100" min="0">
+        <div class="hint">Se convierte automáticamente a USD usando dólar blue ($${dolar.toLocaleString('es-AR')})</div>
+      </div>
+      <div style="border-top:1px solid #f0f2f5;margin:.75rem 0"></div>
+      <div class="ppto-field">
+        <label>Cantidad de meses <span style="font-size:11px;color:#8a94a6;font-weight:400">(aplica a todos los honorarios mensuales)</span></label>
+        <input type="number" id="hon_meses" value="${meses}" placeholder="Ej: 24" step="1" min="1">
+        <div class="hint">Total ${isArq?'arquitecto':'contador'}: <strong id="${fid}_total_preview">USD ${Math.round((curVal||0)*meses).toLocaleString('es-AR')}</strong></div>
+      </div>
+      <div class="ppto-modal-actions">
+        <button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button>
+        <button class="ppto-btn-save" id="pp-save">Guardar</button>
+      </div>`;
+    const usdInp  = document.getElementById(fid+'_usd');
+    const arsInp  = document.getElementById(fid+'_ars');
+    const mesInp  = document.getElementById('hon_meses');
+    const preview = document.getElementById(fid+'_total_preview');
+    function updPreview(){
+      const v = parseFloat(usdInp.value)||0;
+      const m = parseInt(mesInp.value)||0;
+      if(preview) preview.textContent = 'USD '+Math.round(v*m).toLocaleString('es-AR');
+    }
+    usdInp.addEventListener('input',()=>{
+      const v=parseFloat(usdInp.value);
+      arsInp.value=!isNaN(v)&&v>0?Math.round(v*dolar):'';
+      updPreview();
+    });
+    arsInp.addEventListener('input',()=>{
+      const v=parseFloat(arsInp.value);
+      usdInp.value=!isNaN(v)&&v>0?(v/dolar).toFixed(2):'';
+      updPreview();
+    });
+    mesInp.addEventListener('input', updPreview);
+    document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+    document.getElementById('pp-save').addEventListener('click',()=>{
+      const v=parseFloat(usdInp.value);
+      const m=parseInt(mesInp.value)||meses;
+      if(isArq) pptoState.honorarios.arquitecto_mes=isNaN(v)||v<=0?null:parseFloat(v.toFixed(2));
+      else pptoState.honorarios.contador_mes=isNaN(v)||v<=0?null:parseFloat(v.toFixed(2));
+      pptoState.honorarios.meses=m;
+      pptoSave();pptoRenderAll();renderSupuestos();pptoCloseModal();
+    });
+  }
+  else if(action==='plusvalia_total'){
+    const p=pptoState.permisos;
+    const cur=p.plusvalia_total;
+    const calcPreview=(v)=>{
+      if(!v) return '<p style="color:#8a94a6;font-size:12px">Ingresá el valor total para ver el desglose.</p>';
+      const d=p.plusvalia_desc;
+      return `
+        <div class="line"><span>20% mínimo — al permiso de ejecución</span><span>USD ${Math.round(v*0.20).toLocaleString('es-AR')}</span></div>
+        <div class="line"><span>80% restante — antes de AVO 3</span><span>USD ${Math.round(v*0.80).toLocaleString('es-AR')}</span></div>
+        <div class="line total"><span>Opción: pago anticipado total (−30%)</span><span><strong>USD ${Math.round(v*(1-d)).toLocaleString('es-AR')}</strong></span></div>`;
+    };
+    mc.innerHTML=`
+      <h4><i class="ti ti-tax"></i>Plusvalía — valor total</h4>
+      <div class="ppto-field">
+        <label>Valor total de la Plusvalía (USD)</label>
+        <input type="number" id="pv_total_inp" value="${cur||''}" min="0" step="1" placeholder="Ej: 31311">
+        <div class="hint">El sistema calcula los parciales según etapa de pago.</div>
+      </div>
+      <div class="ppto-calc" id="pv-calc">${calcPreview(cur)}</div>
+      <div class="ppto-modal-actions">
+        <button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button>
+        <button class="ppto-btn-save" id="pp-save">Guardar</button>
+      </div>`;
+    document.getElementById('pv_total_inp').addEventListener('input',()=>{
+      const v=parseFloat(document.getElementById('pv_total_inp').value)||null;
+      document.getElementById('pv-calc').innerHTML=calcPreview(v);
+    });
+    document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+    document.getElementById('pp-save').addEventListener('click',()=>{
+      const v=parseFloat(document.getElementById('pv_total_inp').value)||null;
+      p.plusvalia_total=v;
+      pptoSave();pptoRenderAll();renderSupuestos();pptoCloseModal();
+    });
+  }
+  else {
+    const labels={
+      plusvalia_total:'Plusvalía — valor total (100%)',
+      derechos_total:'Derechos de obra (total)',derechos_dem:'Derechos de demolición',
+      encomienda_dir:'Encomienda proyecto + dir. de obra',encomienda_inst:'Encomienda proyecto instalaciones',
+      abl:'ABL / Vigente (mensual)',
+      estructural:'Cálculo y proyecto estructural',suelos:'Estudio de suelos',
+      tripodes:'Trípodes y adicionales (por loza)',
+      mamp_mdo:'Contratista Mampostería',ladrillos:'Ladrillos (por piso)',arena:'Arena (por piso)',cal:'Cal (por piso)',
+      est:'Escribano – estatuto',elote:'Escribano – escritura lote',reg:'Escribano – reglamento',edpt:'Escribano – escritura depts',
+      asc:'Ascensor completo',dem:'Demolición',pta_seg:'Puertas F-60',pta_int:'Puertas interiores',vid:'Vidrios / carpintería',
+      porc_mdo:'Porcelanatos – mano de obra',porc_mat:'Porcelanatos – material',pin_mdo:'Pintura – mano de obra',pin_mat:'Pintura – materiales',
+      aysa:'AYSA (mensual)',edesur:'Edesur (mensual)',
+      pin_tarquini:'Tarquini / revestimiento exterior',
+      elec_mat:'Materiales de electricidad',
+      term_yeso_mdo:'Mano de obra yeso (techo)',term_yeso_mat:'Materiales yeso (techo)',
+      san_mdo:'Mano de obra instalaciones sanitarias',san_art:'Artefactos sanitarios',san_grif:'Griferías',san_muebles:'Muebles de baño',
+      coc_mdo:'Armado y colocación de muebles de cocina',coc_granito:'Granito con corte y colocación',
+      gv_escrituracion:'Gastos de escrituración / venta',gv_mat:'Materiales no especificados'
+    };
+    const sm={
+      plusvalia_total:[pptoState.permisos,'plusvalia_total'],
+      derechos_total:[pptoState.permisos,'derechos_total'],derechos_dem:[pptoState.permisos,'derechos_dem'],
+      encomienda_dir:[pptoState.permisos,'encomienda_dir'],encomienda_inst:[pptoState.permisos,'encomienda_inst'],
+      abl:[pptoState.permisos,'abl'],
+      estructural:[pptoState.honorarios,'estructural'],suelos:[pptoState.honorarios,'suelos'],
+      tripodes:[pptoState.loza,'tripodes'],
+      ladrillos:[pptoState.mamposteria,'ladrillos'],arena:[pptoState.mamposteria,'arena'],cal:[pptoState.mamposteria,'cal'],
+      est:[pptoState.escribano,'estatuto'],elote:[pptoState.escribano,'escritura_lote'],reg:[pptoState.escribano,'reglamento'],edpt:[pptoState.escribano,'escritura_dpt'],
+      asc:[pptoState.ascensor,'costo'],dem:[pptoState.demolicion,'costo'],pta_seg:[pptoState.puertas,'seguridad'],pta_int:[pptoState.puertas,'interiores'],vid:[pptoState.puertas,'vidrios'],
+      porc_mdo:[pptoState.porcelanatos,'mdo'],porc_mat:[pptoState.porcelanatos,'material'],pin_mdo:[pptoState.pintura,'mdo'],pin_mat:[pptoState.pintura,'material'],
+      aysa:[pptoState.servicios,'aysa'],edesur:[pptoState.servicios,'edesur'],
+      pin_tarquini:[pptoState.pintura_int,'tarquini'],
+      elec_mat:[pptoState.elec,'materiales'],
+      term_yeso_mdo:[pptoState.terminaciones,'yeso_mdo'],term_yeso_mat:[pptoState.terminaciones,'yeso_mat'],
+      san_mdo:[pptoState.sanitarias,'mdo'],san_art:[pptoState.sanitarias,'artefactos'],san_grif:[pptoState.sanitarias,'griferias'],san_muebles:[pptoState.sanitarias,'muebles_bano'],
+      coc_mdo:[pptoState.cocina,'mdo'],coc_granito:[pptoState.cocina,'granito'],
+      gv_escrituracion:[pptoState.gastos_varios,'escrituracion'],gv_mat:[pptoState.gastos_varios,'materiales_varios']
+    };
+    const [obj,key]=sm[action]||[null,null];
+    if(!obj){pptoCloseModal();return;}
+    mc.innerHTML=pptoBuildSimple(labels[action]||action,'ti-pencil','Monto en USD',obj[key],'genv');
+    pptoAttachSimple('genv',v=>{obj[key]=v;pptoSave();});
+  }
+}
+
+function mdoFieldsHTML(prefix, m, calcFn, calcId) {
+  const dias = supuestos.dias.val || m.dias;
+  return `
+    <div class="ppto-subgroup">
+      <div class="ppto-subgroup-title"><i class="ti ti-building-community"></i>Datos del personal</div>
+      <div class="ppto-field-grid">
+        <div class="ppto-field"><label>Cantidad de trabajadores</label><input type="number" id="${prefix}_ob" value="${m.obreros||m.trabajadores}" min="1" step="1"><div class="hint">Obreros o electricistas según aplique</div></div>
+        <div class="ppto-field"><label>Jornal diario ($)</label><input type="number" id="${prefix}_jor" value="${m.jornal}" step="1000"><div class="hint">Salario diario en pesos por trabajador</div></div>
+        <div class="ppto-field"><label>Días hábiles por loza</label><input type="number" id="${prefix}_dias" value="${dias}" min="1" step="1"><div class="hint">Tomado de supuestos (${dias} días)</div></div>
+      </div>
+    </div>
+    <div class="ppto-subgroup">
+      <div class="ppto-subgroup-title"><i class="ti ti-file-invoice"></i>Costos adicionales y márgenes</div>
+      <div class="ppto-field-grid">
+        <div class="ppto-field"><label>Aportes a la SS (%)</label><input type="number" id="${prefix}_css" value="${(m.css*100).toFixed(0)}" step="1" min="0" max="100"><div class="hint">Cargas sociales sobre el bruto</div></div>
+        <div class="ppto-field"><label>% horas declaradas por día</label><input type="number" id="${prefix}_hs" value="${m.hs_pct!=null?m.hs_pct:100}" step="1" min="0" max="100"><div class="hint">% del jornal diario sobre el que se aplican los aportes</div></div>
+        <div class="ppto-field"><label>% de facturación</label><input type="number" id="${prefix}_iva" value="${(m.iva_pct*100).toFixed(0)}" step="1" min="0" max="100"><div class="hint">IVA 10,5% sobre este % del jornal bruto</div></div>
+        <div class="ppto-field"><label>Ganancia del contratista (%)</label><input type="number" id="${prefix}_gan" value="${(m.ganancia*100).toFixed(0)}" step="1" min="0" max="100"><div class="hint">Margen de ganancia sobre el subtotal</div></div>
+      </div>
+    </div>
+    <div class="ppto-calc" id="${calcId}"></div>`;
+}
+
+function pptoBuildMDO() {
+  const m=pptoState.mdo;
+  return `<h4><i class="ti ti-users"></i>Contratista Hormigón</h4>
+    ${mdoFieldsHTML('p',m,pptoMDOCalcHTML,'p-mdo-calc')}
+    <div class="ppto-modal-actions"><button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button><button class="ppto-btn-save" id="pp-save">Guardar</button></div>`;
+}
+function pptoMDOCalcHTML() {
+  const c=pptoCalcMDO(),d=supuestos.dolar.val||pptoState.dolar,m=pptoState.mdo;
+  const dias=supuestos.dias.val||m.dias;
+  return `<div class="line"><span>Jornales (${m.obreros} trab × $${m.jornal.toLocaleString('es-AR')} × ${dias} días)</span><span>${FMTP(c.sub1)}</span></div>
+    <div class="line"><span>Aportes SS (${m.hs_pct!=null?m.hs_pct:100}% hs × $${m.jornal.toLocaleString('es-AR')} × ${(m.css*100).toFixed(0)}%)</span><span>+ ${FMTP(c.css)}</span></div>
+    <div class="line"><span>IVA 10,5% s/ ${(m.iva_pct*100).toFixed(0)}% de facturación</span><span>+ ${FMTP(c.iva)}</span></div>
+    <div class="line"><span>Ganancia contratista (${(m.ganancia*100).toFixed(0)}%)</span><span>+ ${FMTP(c.ganancia)}</span></div>
+    <div class="line total"><span>Total $ → USD (a $${d.toLocaleString('es-AR')})</span><span>${FMTP(c.sub4)} → <strong>${TCKP(c.usd)}</strong></span></div>`;
+}
+function pptoAttachMDO() {
+  const ids=['p_ob','p_jor','p_dias','p_hs','p_css','p_iva','p_gan'];
+  ids.forEach(id=>{
+    document.getElementById(id).addEventListener('input',()=>{
+      pptoState.mdo.obreros=+document.getElementById('p_ob').value||0;
+      pptoState.mdo.jornal=+document.getElementById('p_jor').value||0;
+      pptoState.mdo.dias=+document.getElementById('p_dias').value||0;
+      pptoState.mdo.hs_pct=+document.getElementById('p_hs').value||100;
+      pptoState.mdo.css=(+document.getElementById('p_css').value||0)/100;
+      pptoState.mdo.iva_pct=(+document.getElementById('p_iva').value||0)/100;
+      pptoState.mdo.ganancia=(+document.getElementById('p_gan').value||0)/100;
+      supuestos.dias.val=pptoState.mdo.dias;
+      document.getElementById('p-mdo-calc').innerHTML=pptoMDOCalcHTML();
+    });
+  });
+  document.getElementById('p-mdo-calc').innerHTML=pptoMDOCalcHTML();
+  document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+  document.getElementById('pp-save').addEventListener('click',()=>{pptoCloseModal();pptoRenderAll();});
+}
+
+function pptoBuildElec() {
+  const m=pptoState.mdo_elec;
+  return `<h4><i class="ti ti-bolt"></i>Mano de obra – electricidad</h4>
+    ${mdoFieldsHTML('e',{...m,obreros:m.trabajadores},(()=>pptoElecCalcHTML()),'p-elec-calc')}
+    <div class="ppto-modal-actions"><button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button><button class="ppto-btn-save" id="pp-save">Guardar</button></div>`;
+}
+function pptoElecCalcHTML() {
+  const c=pptoCalcElecFull(),d=supuestos.dolar.val||pptoState.dolar,m=pptoState.mdo_elec;
+  const dias=supuestos.dias.val||m.dias;
+  return `<div class="line"><span>Jornales (${m.trabajadores} trab × $${m.jornal.toLocaleString('es-AR')} × ${dias} días)</span><span>${FMTP(c.sub1)}</span></div>
+    <div class="line"><span>Aportes SS (${m.hs_pct!=null?m.hs_pct:100}% hs × $${m.jornal.toLocaleString('es-AR')} × ${(m.css*100).toFixed(0)}%)</span><span>+ ${FMTP(c.css)}</span></div>
+    <div class="line"><span>IVA 10,5% s/ ${(m.iva_pct*100).toFixed(0)}% de facturación</span><span>+ ${FMTP(c.iva)}</span></div>
+    <div class="line"><span>Ganancia contratista (${(m.ganancia*100).toFixed(0)}%)</span><span>+ ${FMTP(c.ganancia)}</span></div>
+    <div class="line total"><span>Total $ → USD (a $${d.toLocaleString('es-AR')})</span><span>${FMTP(c.sub4)} → <strong>${TCKP(c.usd)}</strong></span></div>`;
+}
+function pptoAttachElec() {
+  const ids=['e_ob','e_jor','e_dias','e_hs','e_css','e_iva','e_gan'];
+  ids.forEach(id=>{
+    document.getElementById(id).addEventListener('input',()=>{
+      pptoState.mdo_elec.trabajadores=+document.getElementById('e_ob').value||0;
+      pptoState.mdo_elec.jornal=+document.getElementById('e_jor').value||0;
+      pptoState.mdo_elec.dias=+document.getElementById('e_dias').value||0;
+      pptoState.mdo_elec.hs_pct=+document.getElementById('e_hs').value||100;
+      pptoState.mdo_elec.css=(+document.getElementById('e_css').value||0)/100;
+      pptoState.mdo_elec.iva_pct=(+document.getElementById('e_iva').value||0)/100;
+      pptoState.mdo_elec.ganancia=(+document.getElementById('e_gan').value||0)/100;
+      document.getElementById('p-elec-calc').innerHTML=pptoElecCalcHTML();
+    });
+  });
+  document.getElementById('p-elec-calc').innerHTML=pptoElecCalcHTML();
+  document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+  document.getElementById('pp-save').addEventListener('click',()=>{pptoCloseModal();pptoRenderAll();});
+}
+
+function pptoBuildHorm() {
+  const h=pptoState.hormigon;
+  return `<h4><i class="ti ti-bucket"></i>Hormigón H30</h4>
+    <div class="ppto-field"><label>m³ por loza</label><input type="number" id="h_m3" value="${h.m3}" step="1"></div>
+    <div class="ppto-field"><label>Precio promedio (USD/m³)</label><input type="number" id="h_pr" value="${h.precio_m3}" step="0.5"><div class="hint">Cem. Avellaneda: USD 112,86 · Horcrisa: USD 106,43</div></div>
+    <div class="ppto-calc" id="p-horm-calc">${pptoHormCalcHTML()}</div>
+    <div class="ppto-modal-actions"><button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button><button class="ppto-btn-save" id="pp-save">Guardar</button></div>`;
+}
+function pptoHormCalcHTML() {
+  const usd=pptoState.hormigon.m3*pptoState.hormigon.precio_m3;
+  return `<div class="line total"><span>${pptoState.hormigon.m3} m³ × USD ${pptoState.hormigon.precio_m3}/m³</span><span><strong>${TCKP(usd)}</strong></span></div>`;
+}
+function pptoAttachHorm() {
+  ['h_m3','h_pr'].forEach(id=>{
+    document.getElementById(id).addEventListener('input',()=>{
+      pptoState.hormigon.m3=+document.getElementById('h_m3').value||0;
+      pptoState.hormigon.precio_m3=+document.getElementById('h_pr').value||0;
+      document.getElementById('p-horm-calc').innerHTML=pptoHormCalcHTML();
+    });
+  });
+  document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+  document.getElementById('pp-save').addEventListener('click',()=>{pptoCloseModal();pptoRenderAll();});
+}
+
+function pptoBuildSimple(title,icon,label,current,fid) {
+  const dolar = supuestos.dolar.val || 1400;
+  const arsVal = current!=null ? Math.round(current*dolar) : '';
+  return `<h4><i class="ti ${icon}"></i>${title}</h4>
+    <div class="ppto-field">
+      <label>${label} — en USD</label>
+      <input type="number" id="${fid}_usd" value="${current!=null?Math.round(current):''}" placeholder="Monto en USD..." step="1" min="0">
+    </div>
+    <div style="text-align:center;color:#8a94a6;font-size:12px;margin:-4px 0 8px">— ó —</div>
+    <div class="ppto-field">
+      <label>En pesos argentinos (ARS)</label>
+      <input type="number" id="${fid}_ars" value="${arsVal}" placeholder="Monto en pesos..." step="100" min="0">
+      <div class="hint">Se convierte automáticamente a USD usando dólar blue ($${dolar.toLocaleString('es-AR')})</div>
+    </div>
+    <div class="ppto-modal-actions"><button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button><button class="ppto-btn-save" id="pp-save">Guardar</button></div>`;
+}
+function pptoAttachSimple(fid,onSave) {
+  const dolar = supuestos.dolar.val || 1400;
+  const usdInp = document.getElementById(fid+'_usd');
+  const arsInp = document.getElementById(fid+'_ars');
+  // sync: USD → ARS
+  usdInp.addEventListener('input',()=>{
+    const v=parseFloat(usdInp.value);
+    arsInp.value = !isNaN(v)&&v>0 ? Math.round(v*dolar) : '';
+  });
+  // sync: ARS → USD
+  arsInp.addEventListener('input',()=>{
+    const v=parseFloat(arsInp.value);
+    usdInp.value = !isNaN(v)&&v>0 ? (v/dolar).toFixed(2) : '';
+  });
+  document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+  document.getElementById('pp-save').addEventListener('click',()=>{
+    const v=parseFloat(usdInp.value);
+    onSave(isNaN(v)||v<=0?null:parseFloat(v.toFixed(2)));
+    pptoSave();
+    pptoCloseModal();pptoRenderAll();
+  });
+}
+
+function calcAceroTotal() {
+  const a=pptoState.acero;
+  const phis=['phi6','phi8','phi10','phi12','phi16'];
+  const sum=phis.reduce((t,p)=>t+(a[p].usd_kg&&a[p].kg?a[p].usd_kg*a[p].kg:0),0);
+  return sum>0?sum:(a.val||null);
+}
+
+function buildAceroModal() {
+  const a=pptoState.acero;
+  const phis=[['phi6','Φ 6 mm'],['phi8','Φ 8 mm'],['phi10','Φ 10 mm'],['phi12','Φ 12 mm'],['phi16','Φ 16 mm']];
+  const rows=phis.map(([key,label])=>`
+    <div class="ppto-acero-row">
+      <span class="ppto-acero-label">${label}</span>
+      <input type="number" class="ppto-acero-inp" id="ac_kg_${key}" placeholder="kg" value="${a[key].kg!=null?a[key].kg:''}" step="1" min="0">
+      <input type="number" class="ppto-acero-inp" id="ac_usd_${key}" placeholder="USD/kg" value="${a[key].usd_kg!=null?a[key].usd_kg:''}" step="0.01" min="0">
+      <span class="ppto-acero-sub" id="ac_sub_${key}">${a[key].kg&&a[key].usd_kg?'USD '+Math.round(a[key].kg*a[key].usd_kg).toLocaleString('es-AR'):'–'}</span>
+    </div>`).join('');
+  return `<h4><i class="ti ti-triangle"></i>Acero / Hierro por diámetro</h4>
+    <div class="ppto-acero-header">
+      <span></span><span>kg por loza</span><span>USD / kg</span><span>Subtotal</span>
+    </div>
+    ${rows}
+    <div class="ppto-calc" id="ac-total-calc">${aceroTotalHTML()}</div>
+    <div class="ppto-modal-actions"><button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button><button class="ppto-btn-save" id="pp-save">Guardar</button></div>`;
+}
+function aceroTotalHTML() {
+  const t=calcAceroTotal();
+  const a=pptoState.acero;
+  const phis=['phi6','phi8','phi10','phi12','phi16'];
+  const lines=phis.filter(p=>a[p].kg&&a[p].usd_kg).map(p=>{
+    const labels={phi6:'Φ6',phi8:'Φ8',phi10:'Φ10',phi12:'Φ12',phi16:'Φ16'};
+    return `<div class="line"><span>${labels[p]}: ${a[p].kg}kg × USD${a[p].usd_kg}</span><span>${TCKP(a[p].kg*a[p].usd_kg)}</span></div>`;
+  }).join('');
+  return lines+(t?`<div class="line total"><span>Total acero por loza</span><span><strong>${TCKP(t)}</strong></span></div>`:'<div class="line" style="color:#8a94a6">Completá kg y USD/kg para cada diámetro</div>');
+}
+function attachAceroModal() {
+  const phis=['phi6','phi8','phi10','phi12','phi16'];
+  phis.forEach(key=>{
+    ['ac_kg_'+key,'ac_usd_'+key].forEach(id=>{
+      document.getElementById(id).addEventListener('input',()=>{
+        const kg=+document.getElementById('ac_kg_'+key).value||null;
+        const usd=+document.getElementById('ac_usd_'+key).value||null;
+        pptoState.acero[key]={kg,usd_kg:usd};
+        const sub=document.getElementById('ac_sub_'+key);
+        sub.textContent=(kg&&usd)?'USD '+Math.round(kg*usd).toLocaleString('es-AR'):'–';
+        document.getElementById('ac-total-calc').innerHTML=aceroTotalHTML();
+      });
+    });
+  });
+  document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+  document.getElementById('pp-save').addEventListener('click',()=>{pptoCloseModal();pptoRenderAll();});
+}
+
+function buildQtyModal(title, icon, labelUsd, labelQty, unitQty, objUsd, keyUsd, objQty, keyQty) {
+  return `<h4><i class="ti ${icon}"></i>${title}</h4>
+    <div class="ppto-field-grid" style="grid-template-columns:1fr 1fr;gap:12px;padding:0 0 .5rem">
+      <div class="ppto-field"><label>${labelQty} (${unitQty})</label><input type="number" id="qq_qty" value="${objQty[keyQty]!=null?objQty[keyQty]:''}" placeholder="Cantidad..." step="1" min="0"></div>
+      <div class="ppto-field"><label>${labelUsd}</label><input type="number" id="qq_usd" value="${objUsd[keyUsd]!=null?objUsd[keyUsd]:''}" placeholder="USD..." step="1" min="0"></div>
+    </div>
+    <div class="ppto-calc" id="qq-calc">${qtyCalcHTML(objUsd[keyUsd],objQty[keyQty],unitQty)}</div>
+    <div class="ppto-modal-actions"><button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button><button class="ppto-btn-save" id="pp-save">Guardar</button></div>`;
+}
+function qtyCalcHTML(usd,qty,unit) {
+  if(usd&&qty) return `<div class="line total"><span>${qty} ${unit} × USD ${usd} c/u</span><span><strong>${TCKP(usd*qty)}</strong></span></div>`;
+  if(usd) return `<div class="line"><span>USD por unidad cargado. Falta cantidad.</span></div>`;
+  return `<div class="line" style="color:#8a94a6">Completá cantidad y precio unitario</div>`;
+}
+function attachQtyModal(objUsd,keyUsd,objQty,keyQty,unitQty) {
+  function recalc(){
+    const usd=+document.getElementById('qq_usd').value||null;
+    const qty=+document.getElementById('qq_qty').value||null;
+    objUsd[keyUsd]=usd; objQty[keyQty]=qty;
+    if(usd&&qty) objUsd[keyUsd]=usd*qty;
+    document.getElementById('qq-calc').innerHTML=qtyCalcHTML(usd,qty,unitQty);
+  }
+  document.getElementById('qq_usd').addEventListener('input',recalc);
+  document.getElementById('qq_qty').addEventListener('input',recalc);
+  document.getElementById('pp-cancel').addEventListener('click',pptoCloseModal);
+  document.getElementById('pp-save').addEventListener('click',()=>{
+    const usd=+document.getElementById('qq_usd').value||null;
+    const qty=+document.getElementById('qq_qty').value||null;
+    objQty[keyQty]=qty;
+    objUsd[keyUsd]=(usd&&qty)?usd*qty:usd;
+    pptoCloseModal();pptoRenderAll();
+  });
+}
+
+function calcMampMDO() {
+  const m = pptoState.mamposteria;
+  const meses = tlState.meses_mamposteria || 6;
+  const dias_mes = tlState.dias_habiles_mes || 22;
+  const dias = meses * dias_mes;
+  const dolar = supuestos.dolar.val || pptoState.dolar;
+  const sub1 = m.mdo_ob * m.mdo_jornal * dias;
+  const css = (m.mdo_hs_pct/100) * m.mdo_jornal * m.mdo_css * m.mdo_ob * dias;
+  const sub2 = sub1 + css;
+  const iva = sub1 * (m.mdo_iva_pct/100) * 0.105;
+  const sub3 = sub2 + iva;
+  const ganancia = sub3 * m.mdo_ganancia;
+  const sub4 = sub3 + ganancia;
+  return { sub1, css, sub2, iva, sub3, ganancia, sub4, usd: sub4/dolar };
+}
+function buildMampMDOModal() {
+  const m = pptoState.mamposteria;
+  const meses = tlState.meses_mamposteria || 6;
+  const diasMes = tlState.dias_habiles_mes || 22;
+  return `<h4><i class="ti ti-users"></i>Contratista Mampostería</h4>
+    <div class="ppto-subgroup">
+      <div class="ppto-subgroup-title"><i class="ti ti-building-community"></i>Datos del personal</div>
+      <div class="ppto-field-grid">
+        <div class="ppto-field"><label>Cantidad de trabajadores</label><input type="number" id="mm_ob" value="${m.mdo_ob||4}" min="1" step="1"></div>
+        <div class="ppto-field"><label>Jornal diario ($)</label><input type="number" id="mm_jor" value="${m.mdo_jornal||80000}" step="1000"></div>
+        <div class="ppto-field"><label>Duración mampostería (meses)</label><input type="number" id="mm_meses" value="${meses}" step="0.5" min="1"><div class="hint">Sync con línea de tiempo (${meses} meses × ${diasMes} días/mes)</div></div>
+      </div>
+    </div>
+    <div class="ppto-subgroup">
+      <div class="ppto-subgroup-title"><i class="ti ti-file-invoice"></i>Costos adicionales y márgenes</div>
+      <div class="ppto-field-grid">
+        <div class="ppto-field"><label>Aportes a la SS (%)</label><input type="number" id="mm_css" value="${(m.mdo_css*100).toFixed(0)}" step="1" min="0" max="100"></div>
+        <div class="ppto-field"><label>% horas declaradas por día</label><input type="number" id="mm_hs" value="${m.mdo_hs_pct!=null?m.mdo_hs_pct:100}" step="1" min="0" max="100"><div class="hint">% del jornal sobre el que se aplican los aportes</div></div>
+        <div class="ppto-field"><label>% de facturación</label><input type="number" id="mm_iva" value="${(m.mdo_iva_pct*100).toFixed(0)}" step="1" min="0" max="100"><div class="hint">IVA 10,5% sobre este % del jornal bruto</div></div>
+        <div class="ppto-field"><label>Ganancia del contratista (%)</label><input type="number" id="mm_gan" value="${(m.mdo_ganancia*100).toFixed(0)}" step="1" min="0" max="100"></div>
+      </div>
+    </div>
+    <div class="ppto-calc" id="mm-calc">${mampMDOCalcHTML()}</div>
+    <div class="ppto-modal-actions"><button class="ppto-btn-cancel" id="pp-cancel">Cancelar</button><button class="ppto-btn-save" id="pp-save">Guardar</button></div>`;
+}
+function mampMDOCalcHTML() {
+  const c = calcMampMDO();
+  const m = pptoState.mamposteria;
+  const dolar = supuestos.dolar.val || pptoState.dolar;
+  const meses = tlState.meses_mamposteria || 6;
+  const diasMes = tlState.dias_habiles_mes || 22;
+  const dias = Math.round(meses * diasMes);
+  return `<div class="line"><span>Jornales (${m.mdo_ob} trab × $${m.mdo_jornal.toLocaleString('es-AR')} × ${dias} días)</span><span>${FMTP(c.sub1)}</span></div>
+    <div class="line"><span>Aportes SS (${m.mdo_hs_pct}% hs × $${m.mdo_jornal.toLocaleString('es-AR')} × ${(m.mdo_css*100).toFixed(0)}%)</span><span>+ ${FMTP(c.css)}</span></div>
+    <div class="line"><span>IVA 10,5% s/ ${(m.mdo_iva_pct*100).toFixed(0)}% de facturación</span><span>+ ${FMTP(c.iva)}</span></div>
+    <div class="line"><span>Ganancia contratista (${(m.mdo_ganancia*100).toFixed(0)}%)</span><span>+ ${FMTP(c.ganancia)}</span></div>
+    <div class="line total"><span>Total $ → USD (a $${dolar.toLocaleString('es-AR')})</span><span>${FMTP(c.sub4)} → <strong>${TCKP(c.usd)}</strong></span></div>`;
+}
+function attachMampMDOModal() {
+  const ids = ['mm_ob','mm_jor','mm_meses','mm_css','mm_hs','mm_iva','mm_gan'];
+  ids.forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      const m = pptoState.mamposteria;
+      m.mdo_ob      = +document.getElementById('mm_ob').value||0;
+      m.mdo_jornal  = +document.getElementById('mm_jor').value||0;
+      m.mdo_hs_pct  = +document.getElementById('mm_hs').value||100;
+      m.mdo_css     = (+document.getElementById('mm_css').value||0)/100;
+      m.mdo_iva_pct = (+document.getElementById('mm_iva').value||0)/100;
+      m.mdo_ganancia= (+document.getElementById('mm_gan').value||0)/100;
+      tlState.meses_mamposteria = +document.getElementById('mm_meses').value||6;
+      document.getElementById('mm-calc').innerHTML = mampMDOCalcHTML();
+    });
+  });
+  document.getElementById('mm-calc').innerHTML = mampMDOCalcHTML();
+  document.getElementById('pp-cancel').addEventListener('click', pptoCloseModal);
+  document.getElementById('pp-save').addEventListener('click', () => {
+    const c = calcMampMDO();
+    pptoState.mamposteria.mdo = c.usd;
+    pptoCloseModal(); pptoRenderAll();
+  });
+}
+
+function pptoCloseModal(){document.getElementById('ppto-modal-bg').classList.remove('show');}
+document.getElementById('ppto-modal-bg').addEventListener('click',e=>{if(e.target===document.getElementById('ppto-modal-bg'))pptoCloseModal();});
+
+
+// ══════════════════════════════════════════════════════════
+// ─── MÓDULO LÍNEA DE TIEMPO ───────────────────────────────
+// ══════════════════════════════════════════════════════════
+
+const tlState = {
+  inicio: '2026-06-02',         // lunes que viene
+  meses_aprobacion: 6,          // tiempo aprobación planos
+  lozas: 7,
+  dias_habiles_loza: 13,
+  dias_habiles_mes: 22,
+  meses_mamposteria: 6,
+  meses_ventanas: 1.5,
+  meses_ascensor_anticipado: 1, // ascensor arranca X meses antes de fin mampostería
+  meses_porcelanatos: 2,
+  meses_pintura: 1,
+};
+
+function tlSave() { try { localStorage.setItem('ob4413_tl', JSON.stringify(tlState)); } catch(e){} }
+function tlLoad() { try { const d=JSON.parse(localStorage.getItem('ob4413_tl')||'{}'); Object.assign(tlState,d); } catch(e){} }
+tlLoad();
+
+function tlAddMonths(dateStr, months) {
+  const d = new Date(dateStr + 'T00:00:00');
+  const frac = months % 1;
+  d.setMonth(d.getMonth() + Math.floor(months));
+  if(frac) d.setDate(d.getDate() + Math.round(frac * 30));
+  return d.toISOString().substring(0,7);
+}
+function tlMonthsBetween(a, b) {
+  const da=new Date(a+'-01'), db=new Date(b+'-01');
+  return (db.getFullYear()-da.getFullYear())*12+(db.getMonth()-da.getMonth());
+}
+function tlFmtMonth(ym) {
+  const [y,m]=ym.split('-');
+  const names=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  return names[parseInt(m)-1]+" '"+y.substring(2);
+}
+function tlFmtUSD(n) { return n?'USD '+Math.round(n).toLocaleString('es-AR'):'–'; }
+
+function tlBuildSchedule() {
+  const s = tlState;
+  const inicio = s.inicio.substring(0,7);
+  // Eventos clave
+  const pago_20pct   = inicio;
+  const aprobacion   = tlAddMonths(inicio, s.meses_aprobacion);
+  const inicio_obra  = aprobacion;
+  // Lozas: cada loza dura dias_habiles_loza días hábiles → en meses
+  const meses_loza   = s.dias_habiles_loza / s.dias_habiles_mes;
+  const fin_lozas    = tlAddMonths(inicio_obra, meses_loza * s.lozas);
+  const inicio_mamp  = fin_lozas;
+  const fin_mamp     = tlAddMonths(inicio_mamp, s.meses_mamposteria);
+  const inicio_ascensor = tlAddMonths(fin_mamp, -s.meses_ascensor_anticipado);
+  const fin_ascensor = tlAddMonths(fin_mamp, 0.5);
+  const inicio_ventanas = fin_mamp;
+  const fin_ventanas = tlAddMonths(fin_mamp, s.meses_ventanas);
+  const inicio_porc  = fin_mamp;
+  const fin_porc     = tlAddMonths(inicio_porc, s.meses_porcelanatos);
+  const inicio_pint  = fin_mamp;
+  const fin_pint     = tlAddMonths(inicio_pint, s.meses_pintura);
+  const fin_obra     = [fin_ventanas,fin_porc,fin_pint,fin_ascensor].sort().reverse()[0];
+  const inicio_honorarios = inicio;
+  const fin_honorarios = fin_obra;
+
+  return {
+    inicio, pago_20pct, aprobacion, inicio_obra,
+    meses_loza, fin_lozas,
+    inicio_mamp, fin_mamp,
+    inicio_ascensor, fin_ascensor,
+    inicio_ventanas, fin_ventanas,
+    inicio_porc, fin_porc,
+    inicio_pint, fin_pint,
+    fin_obra,
+    inicio_honorarios, fin_honorarios,
+  };
+}
+
+function tlBuildCashflow(sch) {
+  const allMonths = [];
+  let cur = sch.inicio;
+  while(cur <= tlAddMonths(sch.fin_obra, 1)) {
+    allMonths.push(cur);
+    const [y,m] = cur.split('-').map(Number);
+    const nm = m===12?1:m+1, ny=m===12?y+1:y;
+    cur = ny+'-'+(nm<10?'0'+nm:nm);
+  }
+
+  const P = pptoState;
+  const lozaUSD = (pptoCalcMDO().usd||0)+(pptoCalcElec()||0)+(calcAceroTotal()||0)+(P.hormigon.m3*P.hormigon.precio_m3||0)+(P.maderas.val||0)+(P.loza.tripodes||0);
+  const mampMesUSD = ((P.mamposteria.mdo||0)+(P.mamposteria.ladrillos||0)+(P.mamposteria.arena||0)+(P.mamposteria.cal||0)) / tlState.meses_mamposteria;
+  const archMes = P.honorarios.arquitecto_mes||0;
+  const contMes = P.honorarios.contador_mes||0;
+
+  // Construir flows por categoría
+  const flows = {};
+  const addFlow = (cat, month, usd) => {
+    if(!usd||usd<=0) return;
+    if(!flows[cat]) flows[cat]={};
+    flows[cat][month]=(flows[cat][month]||0)+usd;
+  };
+
+  // 1. Al presentar plano (pago 20% derechos)
+  addFlow('Derechos obra 20%', sch.pago_20pct, Math.round((P.permisos.derechos_total||0)*0.20));
+  addFlow('Encomiendas', sch.pago_20pct, (P.permisos.encomienda_dir||0)+(P.permisos.encomienda_inst||0));
+
+  // 2. Al aprobar (inicio obra): 80% derechos, demolición, plusvalía mínima 20%
+  addFlow('Derechos obra 80%', sch.aprobacion, Math.round((P.permisos.derechos_total||0)*0.80));
+  addFlow('Demolición', sch.aprobacion, P.demolicion.costo||0);
+  addFlow('Derechos demolición', sch.aprobacion, P.permisos.derechos_dem||0);
+  const pvTotal = P.permisos.plusvalia_total||0;
+  addFlow('Plusvalía 20% (mínimo)', sch.aprobacion, Math.round(pvTotal*0.20));
+  // 80% restante de plusvalía — antes de AVO 3 (aproximado como fin de obra)
+  addFlow('Plusvalía 80% restante', sch.fin_obra, Math.round(pvTotal*0.80));
+
+  // 3. Honorarios mensuales (todo el proyecto)
+  allMonths.forEach(m => {
+    if(m >= sch.inicio_honorarios && m <= sch.fin_honorarios) {
+      addFlow('Honorarios arq.', m, archMes);
+      addFlow('Honorarios cont.', m, contMes);
+    }
+  });
+
+  // 4. Lozas — distribuidas en meses
+  const mLoza = sch.meses_loza;
+  for(let i=0; i<tlState.lozas; i++) {
+    const mIni = tlAddMonths(sch.inicio_obra, i*mLoza);
+    addFlow('Losas', mIni, lozaUSD);
+  }
+
+  // 5. Mampostería — distribuida mensualmente
+  allMonths.forEach(m => {
+    if(m >= sch.inicio_mamp && m < sch.fin_mamp) addFlow('Mampostería', m, mampMesUSD);
+  });
+
+  // 6. Ascensor
+  addFlow('Ascensor', sch.inicio_ascensor, P.ascensor.costo||0);
+
+  // 7. Puertas (fin mampostería)
+  addFlow('Puertas', sch.fin_mamp, (P.puertas.seguridad||0)+(P.puertas.interiores||0)+(P.puertas.vidrios||0));
+
+  // 8. Porcelanatos
+  const porcMes = ((P.porcelanatos.mdo||0)+(P.porcelanatos.material||0)) / tlState.meses_porcelanatos;
+  allMonths.forEach(m => {
+    if(m >= sch.inicio_porc && m < sch.fin_porc) addFlow('Porcelanatos', m, porcMes);
+  });
+
+  // 9. Pintura
+  addFlow('Pintura', sch.inicio_pint, (P.pintura.mdo||0)+(P.pintura.material||0));
+
+  // 10. Escribano (inicio + fin)
+  const escribIni = (P.escribano.estatuto||0)+(P.escribano.escritura_lote||0)+(P.escribano.reglamento||0);
+  const escribFin = P.escribano.escritura_dpt||0;
+  addFlow('Escribano', sch.inicio, escribIni);
+  addFlow('Escribano', sch.fin_obra, escribFin);
+
+  return { flows, allMonths };
+}
+
+function tlRenderGantt(sch) {
+  const totalMonths = tlMonthsBetween(sch.inicio, tlAddMonths(sch.fin_obra,1))+1;
+  const BARS = [
+    {label:'Trámites y permisos', start:sch.inicio, end:sch.aprobacion, color:'#6fa8dc'},
+    {label:'Estructura (lozas)', start:sch.inicio_obra, end:sch.fin_lozas, color:'#1a2744'},
+    {label:'Mampostería', start:sch.inicio_mamp, end:sch.fin_mamp, color:'#e06c75'},
+    {label:'Ascensor', start:sch.inicio_ascensor, end:sch.fin_ascensor, color:'#c678dd'},
+    {label:'Ventanas / carpintería', start:sch.inicio_ventanas, end:sch.fin_ventanas, color:'#56b6c2'},
+    {label:'Porcelanatos', start:sch.inicio_porc, end:sch.fin_porc, color:'#d19a66'},
+    {label:'Pintura exterior', start:sch.inicio_pint, end:sch.fin_pint, color:'#98c379'},
+    {label:'Honorarios prof.', start:sch.inicio_honorarios, end:sch.fin_honorarios, color:'#61afef'},
+  ];
+
+  const months = [];
+  let cur = sch.inicio;
+  for(let i=0;i<totalMonths;i++) {
+    months.push(cur);
+    const [y,m]=cur.split('-').map(Number);
+    const nm=m===12?1:m+1, ny=m===12?y+1:y;
+    cur=ny+'-'+(nm<10?'0':'')+nm;
+  }
+
+  const mhdrs = months.map(m=>`<div class="gantt-month">${tlFmtMonth(m)}</div>`).join('');
+  const rows = BARS.map(b=>{
+    const off = Math.max(0,tlMonthsBetween(sch.inicio,b.start));
+    const len = Math.max(0.3,tlMonthsBetween(b.start,b.end));
+    const pct = v => (v/totalMonths*100).toFixed(2)+'%';
+    return `<div class="gantt-row">
+      <div class="gantt-label">${b.label}</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:${pct(off)};width:${pct(len)};background:${b.color}">${tlFmtMonth(b.start)}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `<div class="gantt-wrap">
+    <div class="gantt-months">${mhdrs}</div>
+    ${rows}
+  </div>`;
+}
+
+function tlRenderTable(flows, allMonths) {
+  const cats = Object.keys(flows);
+  if(!cats.length) return '<p style="color:#8a94a6;font-size:13px;padding:1rem">Completá los montos en Presupuesto para ver el flujo de caja.</p>';
+
+  const hdr = '<th></th>'+allMonths.map(m=>`<th>${tlFmtMonth(m)}</th>`).join('');
+  const catRows = cats.map(cat=>{
+    const cells = allMonths.map(m=>{
+      const v=flows[cat][m];
+      return v?`<td>${tlFmtUSD(v)}</td>`:'<td class="zero">–</td>';
+    }).join('');
+    return `<tr><td>${cat}</td>${cells}</tr>`;
+  }).join('');
+
+  const totals = allMonths.map(m=>cats.reduce((s,c)=>s+(flows[c][m]||0),0));
+  const totalRow = '<tr class="total-row"><td>Total mensual</td>'+totals.map(v=>`<td>${tlFmtUSD(v)}</td>`).join('')+'</tr>';
+
+  let acum=0;
+  const acumRow = '<tr class="acum-row"><td>Acumulado</td>'+totals.map(v=>{acum+=v;return`<td>${tlFmtUSD(acum)}</td>`;}).join('')+'</tr>';
+
+  return `<table class="tl-cash-table"><thead><tr>${hdr}</tr></thead><tbody>${catRows}${totalRow}${acumRow}</tbody></table>`;
+}
+
+function tlRenderSupBanner(sch) {
+  const items = [
+    {label:'Inicio trámites', val:tlFmtMonth(sch.inicio), key:'inicio', type:'date'},
+    {label:'Aprobación planos', val:tlFmtMonth(sch.aprobacion), key:null},
+    {label:'Inicio obra', val:tlFmtMonth(sch.inicio_obra), key:null},
+    {label:'Fin estructura', val:tlFmtMonth(sch.fin_lozas), key:null},
+    {label:'Fin mampostería', val:tlFmtMonth(sch.fin_mamp), key:null},
+    {label:'Fin estimado obra', val:tlFmtMonth(sch.fin_obra), key:null},
+  ];
+  return `<div class="tl-sup-grid">${items.map(i=>`
+    <div class="tl-sup-card">
+      <label>${i.label}</label>
+      <div class="tl-val">${i.val}</div>
+    </div>`).join('')}</div>`;
+}
+
+function tlRender() {
+  const sch = tlBuildSchedule();
+  const {flows,allMonths} = tlBuildCashflow(sch);
+  const banner = document.getElementById('tl-supuestos-banner');
+  const gantt  = document.getElementById('tl-gantt');
+  const table  = document.getElementById('tl-table');
+  if(banner) banner.innerHTML = tlRenderSupBanner(sch);
+  if(gantt)  gantt.innerHTML  = tlRenderGantt(sch);
+  if(table)  table.innerHTML  = tlRenderTable(flows, allMonths);
+}
+
+// ─── MODAL SUPUESTOS TIMELINE ──────────────────────────────
+function tlOpenSettings() {
+  const s = tlState;
+  const html = `
+    <h3><i class="ti ti-settings" style="font-size:16px;vertical-align:-2px;margin-right:6px"></i>Supuestos de la línea de tiempo</h3>
+    <div class="tl-section-title">Fechas y duración</div>
+    <div class="tl-field"><label>Fecha de inicio (presentación de planos)</label><input type="date" id="tl_inicio" value="${s.inicio}"><div class="hint">Lunes que viene por defecto</div></div>
+    <div class="tl-field-row">
+      <div class="tl-field"><label>Meses para aprobación de planos</label><input type="number" id="tl_aprobacion" value="${s.meses_aprobacion}" min="1" step="1"></div>
+      <div class="tl-field"><label>Cantidad de lozas</label><input type="number" id="tl_lozas" value="${s.lozas}" min="1" step="1"></div>
+    </div>
+    <div class="tl-field-row">
+      <div class="tl-field"><label>Días hábiles por loza</label><input type="number" id="tl_dias_loza" value="${s.dias_habiles_loza}" min="1" step="1"><div class="hint">Sincronizado con supuesto global</div></div>
+      <div class="tl-field"><label>Días hábiles por mes</label><input type="number" id="tl_dias_mes" value="${s.dias_habiles_mes}" min="1" step="1"></div>
+    </div>
+    <div class="tl-section-title">Etapas</div>
+    <div class="tl-field-row">
+      <div class="tl-field"><label>Duración mampostería (meses)</label><input type="number" id="tl_mamp" value="${s.meses_mamposteria}" min="1" step="0.5"></div>
+      <div class="tl-field"><label>Ascensor: meses antes de fin mamp.</label><input type="number" id="tl_asc" value="${s.meses_ascensor_anticipado}" min="0" step="0.5"><div class="hint">Ej: 1 = arranca 1 mes antes de que termine la mamp.</div></div>
+    </div>
+    <div class="tl-field-row">
+      <div class="tl-field"><label>Duración ventanas (meses)</label><input type="number" id="tl_vent" value="${s.meses_ventanas}" min="0.5" step="0.5"></div>
+      <div class="tl-field"><label>Duración porcelanatos (meses)</label><input type="number" id="tl_porc" value="${s.meses_porcelanatos}" min="0.5" step="0.5"></div>
+    </div>
+    <div class="tl-field"><label>Duración pintura exterior (meses)</label><input type="number" id="tl_pint" value="${s.meses_pintura}" min="0.5" step="0.5" style="max-width:200px"></div>
+    <div class="ppto-modal-actions">
+      <button class="ppto-btn-cancel" id="tl-cancel">Cancelar</button>
+      <button class="ppto-btn-save" id="tl-save">Guardar y actualizar</button>
+    </div>`;
+
+  const bg = document.createElement('div');
+  bg.className = 'tl-modal-bg show';
+  bg.id = 'tl-modal-bg-el';
+  bg.innerHTML = `<div class="tl-modal">${html}</div>`;
+  document.body.appendChild(bg);
+  bg.addEventListener('click', e=>{ if(e.target===bg) bg.remove(); });
+  document.getElementById('tl-cancel').addEventListener('click',()=>bg.remove());
+  document.getElementById('tl-save').addEventListener('click',()=>{
+    tlState.inicio             = document.getElementById('tl_inicio').value || tlState.inicio;
+    tlState.meses_aprobacion   = +document.getElementById('tl_aprobacion').value||6;
+    tlState.lozas              = +document.getElementById('tl_lozas').value||7;
+    tlState.dias_habiles_loza  = +document.getElementById('tl_dias_loza').value||13;
+    tlState.dias_habiles_mes   = +document.getElementById('tl_dias_mes').value||22;
+    tlState.meses_mamposteria  = +document.getElementById('tl_mamp').value||6;
+    tlState.meses_ascensor_anticipado = +document.getElementById('tl_asc').value||1;
+    tlState.meses_ventanas     = +document.getElementById('tl_vent').value||1.5;
+    tlState.meses_porcelanatos = +document.getElementById('tl_porc').value||2;
+    tlState.meses_pintura      = +document.getElementById('tl_pint').value||1;
+    // sync con supuesto global
+    supuestos.dias.val = tlState.dias_habiles_loza;
+    tlSave();
+    bg.remove();
+    tlRender();
+  });
+}
+
+// Hook en showTab
+const _origShowTab = showTab;
+
+// ══════════════════════════════════════════════════════════
+// ─── MÓDULO COTIZACIONES ──────────────────────────────────
+// ══════════════════════════════════════════════════════════
+
+// Mapa de palabras clave → campo del presupuesto
+const COTIZ_TARGET_MAP = [
+  { key:'porcelanato', label:'Porcelanatos (material)', obj:()=>pptoState.porcelanatos, field:'material' },
+  { key:'ladrillo',    label:'Ladrillos',               obj:()=>pptoState.mamposteria,  field:'ladrillos' },
+  { key:'hierro',      label:'Acero / hierro (USD/kg)', obj:()=>pptoState.acero,        field:'val' },
+  { key:'hormigon',    label:'Hormigón H30 (USD/m³)',   obj:()=>pptoState.hormigon,     field:'precio_m3' },
+  { key:'ascensor',    label:'Ascensor completo',       obj:()=>pptoState.ascensor,     field:'costo' },
+  { key:'puerta',      label:'Puertas de seguridad F-60', obj:()=>pptoState.puertas,    field:'seguridad' },
+  { key:'arena',       label:'Arena (por m³)',          obj:()=>pptoState.mamposteria,  field:'arena' },
+  { key:'pintura',     label:'Pintura (materiales)',    obj:()=>pptoState.pintura,      field:'material' },
+  { key:'madera',      label:'Maderas encofrado',       obj:()=>pptoState.maderas,      field:'val' },
+];
+
+let cotizHistory = [];
+try { cotizHistory = JSON.parse(localStorage.getItem('ob4413_cotiz') || '[]'); } catch(e){}
+
+function cotizSaveHistory() {
+  try { localStorage.setItem('ob4413_cotiz', JSON.stringify(cotizHistory.slice(0,20))); } catch(e){}
+}
+
+function cotizQuick(q) {
+  document.getElementById('cotiz-input').value = q;
+  cotizSearch();
+}
+
+function cotizDetectTarget(query) {
+  const q = query.toLowerCase();
+  for(const t of COTIZ_TARGET_MAP) {
+    if(q.includes(t.key)) return t;
+  }
+  return null;
+}
+
+async function cotizSearch() {
+  const query = document.getElementById('cotiz-input').value.trim();
+  if(!query) return;
+
+  const area = document.getElementById('cotiz-results-area');
+  area.innerHTML = `<div class="section-card"><div class="cotiz-loading"><i class="ti ti-loader-2"></i><p>Buscando precios para "<strong>${query}</strong>"...</p></div></div>`;
+
+  try {
+    const dolar = supuestos.dolar.val || 1400;
+    const target = cotizDetectTarget(query);
+
+    // Build target options HTML for the selector
+    const targetOptions = COTIZ_TARGET_MAP.map(t =>
+      `<option value="${t.field}|${t.key}" ${target && target.key===t.key?'selected':''}>${t.label}</option>`
+    ).join('');
+
+    const prompt = `Sos un asistente de cotizaciones para una obra de construcción en Argentina.
+El usuario busca: "${query}"
+
+Tu tarea:
+1. Buscá en la web los precios actuales en Argentina para este material/producto.
+2. Devolvé EXACTAMENTE 3 resultados de FUENTES DISTINTAS (distintos sitios web o proveedores).
+3. Para cada resultado incluí: nombre del producto, descripción breve, precio en ARS (pesos argentinos), URL de la fuente.
+4. Si el precio es por unidad/m²/kg/m³, especificarlo claramente.
+5. Al final calculá el precio promedio en ARS.
+
+Respondé SOLO con este JSON (sin texto extra, sin markdown):
+{
+  "query": "${query}",
+  "unidad": "m²",
+  "resultados": [
+    {
+      "fuente": "Nombre del sitio",
+      "producto": "Nombre exacto del producto",
+      "descripcion": "Descripción breve incluyendo medidas/especificaciones",
+      "precio_ars": 12500,
+      "url": "https://..."
+    }
+  ],
+  "promedio_ars": 13000,
+  "fecha": "Mayo 2026"
+}`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+
+    // Extract text from response (may have tool_use blocks first)
+    let rawText = '';
+    if(data.content) {
+      for(const block of data.content) {
+        if(block.type === 'text') rawText += block.text;
+      }
+    }
+
+    // Parse JSON from response
+    let result;
+    try {
+      const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+      result = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+    } catch(e) { result = null; }
+
+    if(!result || !result.resultados || !result.resultados.length) {
+      area.innerHTML = `<div class="section-card"><div class="cotiz-empty"><i class="ti ti-mood-sad"></i><p>No se pudieron obtener resultados. Intentá reformular la búsqueda.</p></div></div>`;
+      return;
+    }
+
+    // Save to history
+    cotizHistory.unshift({ query, result, ts: new Date().toISOString() });
+    cotizSaveHistory();
+
+    cotizRenderResults(result, targetOptions, dolar);
+    cotizRenderHistory();
+
+  } catch(err) {
+    area.innerHTML = `<div class="section-card"><div class="cotiz-empty"><i class="ti ti-wifi-off"></i><p>Error de conexión. Revisá tu acceso a internet.</p></div></div>`;
+  }
+}
+
+function cotizRenderResults(result, targetOptions, dolar) {
+  const area = document.getElementById('cotiz-results-area');
+  const avg = result.promedio_ars || 0;
+  const avgUsd = dolar > 0 ? (avg / dolar) : 0;
+  const unidad = result.unidad || '';
+
+  const cards = result.resultados.map((r, i) => {
+    const usd = dolar > 0 ? (r.precio_ars / dolar) : 0;
+    return `
+    <div class="cotiz-card">
+      <div class="cotiz-card-source">${r.fuente}</div>
+      <div class="cotiz-card-name">${r.producto}</div>
+      <div class="cotiz-card-desc">${r.descripcion}</div>
+      <div class="cotiz-card-price">$ ${Math.round(r.precio_ars).toLocaleString('es-AR')} <span style="font-size:13px;color:#8a94a6;font-weight:400">ARS/${unidad}</span></div>
+      <div class="cotiz-card-price-ars">≈ USD ${usd.toFixed(0)} / ${unidad} · dólar $${Math.round(dolar).toLocaleString('es-AR')}</div>
+      ${r.url ? `<a class="cotiz-card-link" href="${r.url}" target="_blank" rel="noopener"><i class="ti ti-external-link"></i>${r.url.replace(/^https?:\/\/(www\.)?/,'').split('/')[0]}</a>` : ''}
+      <button class="cotiz-use-btn" id="cotiz-use-${i}" onclick="cotizUsePrice(${r.precio_ars}, '${unidad}', this)">
+        <i class="ti ti-arrow-right"></i> Usar este precio en presupuesto
+      </button>
+    </div>`;
+  }).join('');
+
+  area.innerHTML = `
+    <div class="cotiz-avg-card">
+      <div>
+        <div class="cotiz-avg-label">Precio promedio · ${result.fecha || ''}</div>
+        <div class="cotiz-avg-val">$ ${Math.round(avg).toLocaleString('es-AR')} <span style="font-size:14px;color:#8a94a6;font-weight:400">ARS/${unidad}</span></div>
+        <div class="cotiz-avg-sub">≈ USD ${avgUsd.toFixed(0)} / ${unidad} · basado en ${result.resultados.length} fuentes</div>
+      </div>
+      <button class="cotiz-use-avg-btn" id="cotiz-use-avg" onclick="cotizUsePrice(${avg}, '${unidad}', this)">
+        <i class="ti ti-check"></i> Usar promedio en presupuesto
+      </button>
+    </div>
+    <div class="cotiz-target-sel">
+      <label><i class="ti ti-arrow-right" style="margin-right:4px"></i>Aplicar precio a:</label>
+      <select id="cotiz-target-select">${targetOptions}</select>
+    </div>
+    <div class="cotiz-results">${cards}</div>`;
+}
+
+function cotizUsePrice(priceArs, unidad, btn) {
+  const dolar = supuestos.dolar.val || 1400;
+  const priceUsd = dolar > 0 ? priceArs / dolar : 0;
+  const sel = document.getElementById('cotiz-target-select');
+  if(!sel) return;
+
+  const [field, key] = sel.value.split('|');
+  const target = COTIZ_TARGET_MAP.find(t => t.key === key);
+  if(!target) return;
+
+  const obj = target.obj();
+  obj[field] = parseFloat(priceUsd.toFixed(2));
+  pptoSave();
+  pptoRenderAll();
+
+  // Visual feedback
+  btn.classList.add('used');
+  btn.innerHTML = '<i class="ti ti-check"></i> ¡Aplicado al presupuesto!';
+  const avgBtn = document.getElementById('cotiz-use-avg');
+  if(avgBtn) { avgBtn.classList.add('used'); avgBtn.innerHTML = '<i class="ti ti-check"></i> ¡Aplicado!'; }
+
+  setTimeout(() => {
+    btn.classList.remove('used');
+    btn.innerHTML = '<i class="ti ti-arrow-right"></i> Usar este precio en presupuesto';
+    if(avgBtn) { avgBtn.classList.remove('used'); avgBtn.innerHTML = '<i class="ti ti-check"></i> Usar promedio en presupuesto'; }
+  }, 3000);
+}
+
+function cotizRenderHistory() {
+  const card = document.getElementById('cotiz-history-card');
+  const list = document.getElementById('cotiz-history-list');
+  if(!card || !list || !cotizHistory.length) {
+    if(card) card.style.display = 'none';
+    return;
+  }
+  card.style.display = 'block';
+  const dolar = supuestos.dolar.val || 1400;
+  list.innerHTML = cotizHistory.map((h, i) => {
+    const avg = h.result?.promedio_ars || 0;
+    const avgUsd = dolar > 0 ? (avg / dolar) : 0;
+    const fecha = h.ts ? new Date(h.ts).toLocaleDateString('es-AR') : '';
+    return `
+    <div class="cotiz-history-item" onclick="cotizLoadHistory(${i})">
+      <div>
+        <div class="cotiz-history-q">${h.query}</div>
+        <div class="cotiz-history-meta">${fecha} · ${h.result?.resultados?.length || 0} fuentes · ${h.result?.unidad || ''}</div>
+      </div>
+      <div class="cotiz-history-avg">$ ${Math.round(avg).toLocaleString('es-AR')} ARS<br><span style="font-size:11px;color:#8a94a6">≈ USD ${avgUsd.toFixed(0)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function cotizLoadHistory(i) {
+  const h = cotizHistory[i];
+  if(!h) return;
+  document.getElementById('cotiz-input').value = h.query;
+  const dolar = supuestos.dolar.val || 1400;
+  const target = cotizDetectTarget(h.query);
+  const targetOptions = COTIZ_TARGET_MAP.map(t =>
+    `<option value="${t.field}|${t.key}" ${target && target.key===t.key?'selected':''}>${t.label}</option>`
+  ).join('');
+  cotizRenderResults(h.result, targetOptions, dolar);
+}
+
+function cotizClearHistory() {
+  cotizHistory = [];
+  cotizSaveHistory();
+  cotizRenderHistory();
+}
+
+// Init history on load
+document.addEventListener('DOMContentLoaded', () => { cotizRenderHistory(); });
+
+// ─── INGRESOS / UNIDADES ───────────────────────────────────
+const UNIDADES = [
+  { id:'pb',     label:'Oficina PB', piso:'Planta Baja',     mult:1 },
+  { id:'unit_a', label:'Unidad A',   piso:'1° a 5° Piso',   mult:5 },
+  { id:'unit_b', label:'Unidad B',   piso:'1° a 5° Piso',   mult:5 },
+  { id:'unit_c', label:'Unidad C',   piso:'1° a 5° Piso',   mult:5 },
+  { id:'6a',     label:'6A',         piso:'6° Piso',         mult:1 },
+  { id:'6b',     label:'6B',         piso:'6° Piso',         mult:1 },
+  { id:'6c',     label:'6C',         piso:'6° Piso',         mult:1 },
+  { id:'7a',     label:'7A',         piso:'7° Piso',         mult:1 },
+  { id:'7b',     label:'7B',         piso:'7° Piso',         mult:1 },
+];
+
+let unidadesData = {};
+let ventaParams = { precio_cub: null, precio_desc: null, dto_pozo: null, dto_inter: null };
+
+function unidadesSave() {
+  try { localStorage.setItem('ob4413_unidades', JSON.stringify(unidadesData)); } catch(e) {}
+}
+function unidadesLoad() {
+  try {
+    const d = JSON.parse(localStorage.getItem('ob4413_unidades') || 'null');
+    if(d) unidadesData = d;
+  } catch(e) {}
+}
+function ventaParamsSave() {
+  try { localStorage.setItem('ob4413_venta_params', JSON.stringify(ventaParams)); } catch(e) {}
+}
+function ventaParamsLoad() {
+  try {
+    const d = JSON.parse(localStorage.getItem('ob4413_venta_params') || 'null');
+    if(d) ventaParams = Object.assign(ventaParams, d);
+  } catch(e) {}
+}
+function ventaParamsRender() {
+  ventaParamsLoad();
+  const set = (id, val) => { const el = document.getElementById(id); if(el && val != null) el.value = val; };
+  set('vp-precio-cub',  ventaParams.precio_cub);
+  set('vp-precio-desc', ventaParams.precio_desc);
+  set('vp-dto-pozo',    ventaParams.dto_pozo);
+  set('vp-dto-inter',   ventaParams.dto_inter);
+  ['vp-precio-cub','vp-precio-desc','vp-dto-pozo','vp-dto-inter'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener('change', () => {
+      ventaParams.precio_cub  = parseFloat(document.getElementById('vp-precio-cub')?.value)  || null;
+      ventaParams.precio_desc = parseFloat(document.getElementById('vp-precio-desc')?.value) || null;
+      ventaParams.dto_pozo    = parseFloat(document.getElementById('vp-dto-pozo')?.value)    ?? null;
+      ventaParams.dto_inter   = parseFloat(document.getElementById('vp-dto-inter')?.value)   ?? null;
+      ventaParamsSave();
+      renderUnidades();
+    });
+  });
+}
+
+function calcPrecioUnidad(cub, desc, etapa) {
+  const pc = ventaParams.precio_cub  || 0;
+  const pd = ventaParams.precio_desc || 0;
+  if(!pc && !pd) return null;
+  const base = cub * pc + desc * pd;
+  const dto = etapa === 'pozo' ? (ventaParams.dto_pozo || 0)
+            : etapa === 'inter' ? (ventaParams.dto_inter || 0)
+            : 0;
+  return base * (1 - dto / 100);
+}
+
+function renderUnidades() {
+  const tbody = document.getElementById('unidades-tbody');
+  if(!tbody) return;
+  unidadesLoad();
+  ventaParamsLoad();
+  let totalCub = 0, totalDesc = 0;
+  let totalIngresos = 0, unidadesConPrecio = 0;
+  let lastPiso = null;
+  let html = '';
+  UNIDADES.forEach(u => {
+    const d    = unidadesData[u.id] || { cub: '', desc: '', etapa: 'final' };
+    const cub  = parseFloat(d.cub)  || 0;
+    const desc = parseFloat(d.desc) || 0;
+    const tot  = cub + desc;
+    const mult = u.mult || 1;
+    const etapa = d.etapa || 'final';
+    totalCub  += cub  * mult;
+    totalDesc += desc * mult;
+
+    // Precio por unidad (sin mult, cada piso individual)
+    const precio = calcPrecioUnidad(cub, desc, etapa);
+    if(precio !== null) {
+      totalIngresos += precio * mult;
+      unidadesConPrecio += mult;
+    }
+
+    if(u.piso !== lastPiso) {
+      html += `<tr class="unidad-piso-hdr"><td colspan="6">${u.piso}</td></tr>`;
+      lastPiso = u.piso;
+    }
+
+    const multLabel = mult > 1 ? ` <span style="font-size:11px;color:#6b7280;font-weight:400">(×${mult} pisos)</span>` : '';
+    const totLabel  = tot > 0
+      ? tot.toLocaleString('es-AR', {maximumFractionDigits:2}) + ' m²'
+        + (mult > 1 ? `<br><span style="font-size:11px;color:#6b7280">= ${(tot*mult).toLocaleString('es-AR',{maximumFractionDigits:2})} m² total</span>` : '')
+      : '—';
+
+    const etapaLabels = { pozo:'Pozo', inter:'Intermedia', final:'Final' };
+    const dtoMap = { pozo: ventaParams.dto_pozo, inter: ventaParams.dto_inter, final: 0 };
+    const dto = dtoMap[etapa];
+    let precioHtml = '—';
+    if(precio !== null) {
+      const precioFmt = 'USD ' + Math.round(precio).toLocaleString('es-AR');
+      const dtoTag = dto ? `<span class="dto-tag">−${dto}% dto.</span>` : '';
+      const multTag = mult > 1 ? `<span class="dto-tag">× ${mult} = USD ${Math.round(precio*mult).toLocaleString('es-AR')}</span>` : '';
+      precioHtml = `<span class="unidad-precio">${precioFmt}${dtoTag}${multTag}</span>`;
+    }
+
+    html += `
+      <tr>
+        <td style="font-weight:500;color:#1a2744">${u.label}${multLabel}</td>
+        <td style="text-align:right"><input class="unidad-inp" data-id="${u.id}" data-campo="cub" type="number" min="0" step="0.01" placeholder="—" value="${d.cub}"></td>
+        <td style="text-align:right"><input class="unidad-inp" data-id="${u.id}" data-campo="desc" type="number" min="0" step="0.01" placeholder="—" value="${d.desc}"></td>
+        <td class="unidad-total">${totLabel}</td>
+        <td style="text-align:center">
+          <select class="etapa-sel ${etapa}" data-id="${u.id}">
+            <option value="pozo"  ${etapa==='pozo'  ?'selected':''}>Pozo</option>
+            <option value="inter" ${etapa==='inter' ?'selected':''}>Intermedia</option>
+            <option value="final" ${etapa==='final' ?'selected':''}>Final</option>
+          </select>
+        </td>
+        <td style="text-align:right">${precioHtml}</td>
+      </tr>`;
+  });
+  tbody.innerHTML = html;
+
+  // Resumen de ingresos
+  const totalM2 = totalCub + totalDesc;
+  const resumen = document.getElementById('unidades-total-m2');
+  if(resumen) resumen.textContent = totalM2 > 0
+    ? `Total: ${totalM2.toLocaleString('es-AR',{maximumFractionDigits:2})} m² (${totalCub.toLocaleString('es-AR',{maximumFractionDigits:2})} cub. + ${totalDesc.toLocaleString('es-AR',{maximumFractionDigits:2})} desc.)`
+    : '';
+
+  const vrDiv = document.getElementById('venta-resumen');
+  if(vrDiv) {
+    if(totalIngresos > 0) {
+      vrDiv.style.display = 'flex';
+      document.getElementById('vr-total').textContent    = 'USD ' + Math.round(totalIngresos).toLocaleString('es-AR');
+      document.getElementById('vr-vendidas').textContent = unidadesConPrecio;
+      document.getElementById('vr-prom').textContent     = unidadesConPrecio > 0
+        ? 'USD ' + Math.round(totalIngresos / unidadesConPrecio).toLocaleString('es-AR') : '—';
+    } else {
+      vrDiv.style.display = 'none';
+    }
+  }
+
+  // Event listeners
+  tbody.querySelectorAll('.unidad-inp').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const id = inp.dataset.id;
+      const campo = inp.dataset.campo;
+      if(!unidadesData[id]) unidadesData[id] = { cub: '', desc: '', etapa: 'final' };
+      unidadesData[id][campo] = inp.value;
+      unidadesSave();
+      renderUnidades();
+    });
+    inp.addEventListener('click', e => e.stopPropagation());
+  });
+  tbody.querySelectorAll('.etapa-sel').forEach(sel => {
+    sel.addEventListener('change', () => {
+      const id = sel.dataset.id;
+      if(!unidadesData[id]) unidadesData[id] = { cub: '', desc: '', etapa: 'final' };
+      unidadesData[id].etapa = sel.value;
+      unidadesSave();
+      renderUnidades();
+    });
+  });
+}
+
+
+
+</script>
+</body>
+</html>
